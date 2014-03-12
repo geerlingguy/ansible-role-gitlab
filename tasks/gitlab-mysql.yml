@@ -1,0 +1,10 @@
+---
+- name: Add MySQL user for GitLab.
+  mysql_user: >
+    name=git
+    host=localhost
+    priv={{ gitlab_database_name }}.*:ALL
+    password={{ gitlab_database_password }}
+
+- name: Create GitLab database.
+  mysql_db: db={{ gitlab_database_name }} state=present

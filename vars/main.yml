@@ -1,0 +1,4 @@
+---
+gitlab_url: https://gitlab/
+gitlab_database_name: gitlabhq_production
+gitlab_database_password: secret

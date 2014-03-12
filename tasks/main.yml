@@ -1,0 +1,132 @@
+---
+- name: Create git user for GitLab
+  user: >
+    name=git
+    comment=GitLab
+    home=/home/git
+
+- include: gitlab-dependencies.yml
+- include: gitlab-shell.yml
+- include: gitlab-mysql.yml
+- include: gitlab-nginx.yml
+- include: gitlab-git.yml
+
+# Install GitLab.
+- name: Check if GitLab has already been cloned.
+  stat: path=/home/git/gitlab/VERSION
+  register: gitlab_file
+
+- name: Clone gitlab to git user home.
+  git: >
+    repo=https://gitlab.com/gitlab-org/gitlab-ce.git
+    version=6-6-stable
+    dest=/home/git/gitlab
+  when: gitlab_file.stat.exists == false
+
+# Fix GitLab permissions.
+- name: Check if gitlab permissions have already been fixed.
+  stat: path=/home/git/gitlab/permissions-complete
+  register: gitlab_permissions
+
+- name: Fix permissions on gitlab directory.
+  file: path=/home/git/gitlab owner=git group=git mode=774 recurse=yes
+  when: gitlab_permissions.stat.exists == false
+
+- name: Mark that the GitLab directory has been fixed.
+  file: path=/home/git/gitlab/permissions-complete state=touch owner=git group=git
+  when: gitlab_permissions.stat.exists == false
+
+# Configure GitLab.
+- name: Copy GitLab configuration files.
+  template: src={{ item }}.j2 dest=/home/git/gitlab/config/{{ item }} owner=git group=git mode=774
+  with_items:
+    - gitlab.yml
+    - database.yml
+
+- name: Create directories for GitLab services.
+  file: >
+    path={{ item }}
+    state=directory
+    owner=git
+    group=git
+    mode=774
+  with_items:
+    - /home/git/gitlab-satellites
+    - /home/git/gitlab/tmp/pids
+    - /home/git/gitlab/tmp/sockets
+    - /home/git/gitlab/public/uploads
+
+- name: Copy other configs into place.
+  shell: >
+    cp /home/git/gitlab/config/{{ item.src }} /home/git/gitlab/config/{{ item.dest }}
+    creates=/home/git/gitlab/config/{{ item.dest }}
+  with_items:
+  - { src: unicorn.rb.example, dest: unicorn.rb }
+  - { src: initializers/rack_attack.rb.example, dest: initializers/rack_attack.rb }
+
+- name: Set permissions on config files.
+  file: path=/home/git/gitlab/config/{{ item }} owner=git group=git mode=774
+  with_items:
+  - unicorn.rb
+  - initializers/rack_attack.rb
+
+- name: Allow GitLab binaries to be executed.
+  file: path=/home/git/gitlab/bin/{{ item }} owner=git group=git mode=774
+  with_items:
+  - bundle
+  - rails
+  - rake
+  - rspec
+  - spinach
+  - spring
+
+- name: Install GitLab with it's own bundle command.
+  shell: >
+    sudo -u git -H bin/bundle install --deployment --without development test postgres aws
+    chdir=/home/git/gitlab
+  register: bundle
+  changed_when: "'Your bundle is complete' not in bundle.stdout"
+
+- name: Configure GitLab log rotation.
+  shell: >
+    cp /home/git/gitlab/lib/support/logrotate/gitlab /etc/logrotate.d/gitlab
+    creates=/etc/logrotate.d/gitlab
+
+# Initialize GitLab's database.
+- name: Check if GitLab's database is already initialized.
+  shell: >
+    mysql -u root -p{{ mysql_root_password }} -e "SELECT COUNT(DISTINCT table_name) FROM information_schema.columns WHERE table_schema='{{ gitlab_database_name }}'"
+  register: gitlab_database_tables
+  changed_when: false
+
+- name: Initialize GitLab database.
+  shell: >
+    yes 'yes' | sudo -u git -H bundle exec rake gitlab:setup RAILS_ENV=production
+    chdir=/home/git/gitlab
+  when: "'0' in gitlab_database_tables.stdout"
+
+# Install GitLab's init script.
+- name: Install GitLab init script.
+  get_url: >
+    url=https://gitlab.com/gitlab-org/gitlab-recipes/raw/master/init/sysvinit/centos/gitlab-unicorn
+    dest=/etc/init.d/gitlab
+    mode=774
+
+- name: Ensure GitLab is started and enabled at boot.
+  service: name=gitlab state=started enabled=yes
+
+# Compile GitLab assets.
+- name: Check if GitLab assets have already been compiled.
+  stat: path=/home/git/gitlab/public/assets
+  register: gitlab_assets
+
+- name: Compile GitLab assets.
+  shell: >
+    sudo -u git -H bundle exec rake assets:precompile RAILS_ENV=production
+    chdir=/home/git/gitlab
+  when: gitlab_assets.stat.exists == false
+
+# Fix git user's home directory permissions.
+- name: Update permissions for git home directory.
+  command: chmod g+rx /home/git/
+  changed_when: false
