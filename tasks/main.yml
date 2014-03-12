@@ -9,7 +9,6 @@
 - include: gitlab-shell.yml
 - include: gitlab-mysql.yml
 - include: gitlab-nginx.yml
-- include: gitlab-git.yml
 
 # Install GitLab.
 - name: Check if GitLab has already been cloned.
@@ -69,6 +68,8 @@
   with_items:
   - unicorn.rb
   - initializers/rack_attack.rb
+
+- include: gitlab-git.yml
 
 - name: Allow GitLab binaries to be executed.
   file: path=/home/git/gitlab/bin/{{ item }} owner=git group=git mode=774

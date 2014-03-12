@@ -2,7 +2,7 @@
 - name: Check if Git is configured.
   shell: >
     sudo -u git -H git config --list
-    chdir=/home/git
+    chdir=/home/git/gitlab
   register: git_config
   changed_when: false
 
