@@ -9,9 +9,7 @@ GitLab's default administrator account details are below; be sure to login immed
 
 ## Requirements
 
-Requires Git 1.8.x or later (installed via `geerlingguy.git` when the variable `git_install_from_source` set to `true`.
-
-The other main dependencies are listed in 'dependencies' below.
+Requires Git 1.8.x or later (installed via `geerlingguy.git` when the variable `git_install_from_source` is `true`). Git and other dependencies are listed below.
 
 ## Role Variables
 
