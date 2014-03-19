@@ -1,34 +1,37 @@
 ---
 - name: Check if gitlab-shell has already been cloned.
-  stat: path=/home/git/gitlab-shell/VERSION
+  stat: "path={{ gitlab_user_home }}/gitlab-shell/VERSION"
   register: gitlab_shell_file
 
 - name: Clone gitlab-shell to git user home.
   git: >
     repo=https://gitlab.com/gitlab-org/gitlab-shell.git
     version=v1.8.0
-    dest=/home/git/gitlab-shell
+    dest={{ gitlab_user_home }}/gitlab-shell
   when: gitlab_shell_file.stat.exists == false
 
 # Fix gitlab-shell permissions.
 - name: Check if gitlab-shell permissions have already been fixed.
-  stat: path=/home/git/gitlab-shell/permissions-complete
+  stat: "path={{ gitlab_user_home }}/gitlab-shell/permissions-complete"
   register: gitlab_shell_permissions
 
 - name: Fix permissions on gitlab-shell directory.
-  file: path=/home/git/gitlab-shell owner=git group=git mode=774 recurse=yes
+  file: "path={{ gitlab_user_home }}/gitlab-shell owner=git group=git mode=774 recurse=yes"
   when: gitlab_shell_permissions.stat.exists == false
 
 - name: Mark that the gitlab-shell directory has been fixed.
-  file: path=/home/git/gitlab-shell/permissions-complete state=touch owner=git group=git
+  file: "path={{ gitlab_user_home }}/gitlab-shell/permissions-complete state=touch owner=git group=git"
   when: gitlab_shell_permissions.stat.exists == false
 
 # Configure gitlab-shell.
 - name: Copy gitlab-shell configuration file.
-  template: src=gitlab-shell_config.yml.j2 dest=/home/git/gitlab-shell/config.yml owner=git group=git mode=774
+  template: >
+    src=gitlab-shell_config.yml.j2
+    dest={{ gitlab_user_home }}/gitlab-shell/config.yml
+    owner=git group=git mode=774
 
 - name: Set up gitlab-shell.
   command: >
     sudo -u git -H /usr/local/bin/ruby ./bin/install
-    chdir=/home/git/gitlab-shell
+    chdir={{ gitlab_user_home }}/gitlab-shell
   changed_when: false

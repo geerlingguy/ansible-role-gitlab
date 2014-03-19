@@ -20,6 +20,10 @@ Available variables are listed below, along with default values (see `vars/main.
 
 The hostname and URL by which GitLab will be accessed.
 
+    gitlab_user_home: /home/git
+
+The home folder path for the `git` user (created for GitLab's use).
+
     gitlab_database_name: gitlabhq_production
     gitlab_database_password: secret
 

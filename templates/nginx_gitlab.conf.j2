@@ -21,10 +21,10 @@
 upstream gitlab {
 
   ## Uncomment if you have set up puma/unicorn to listen on a unix socket (recommended).
-  server unix:/home/git/gitlab/tmp/sockets/gitlab.socket;
+  server unix:{{ gitlab_user_home }}/gitlab/tmp/sockets/gitlab.socket;
 
   ## Uncomment if puma/unicorn are configured to listen on a tcp port.
-  ## Check the port number in /home/git/gitlab/config/{puma.rb/unicorn.rb}
+  ## Check the port number in {{ gitlab_user_home }}/gitlab/config/{puma.rb/unicorn.rb}
   # server 127.0.0.1:9292;
 }
 
@@ -41,7 +41,7 @@ server {
     listen 443 ssl;
     server_name {{ hostname }};
     server_tokens off;
-    root /home/git/gitlab/public;
+    root {{ gitlab_user_home }}/gitlab/public;
 
     ssl on;
     ssl_certificate /etc/nginx/gitlab.crt;
