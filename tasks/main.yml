@@ -83,7 +83,7 @@
 
 - name: Install GitLab with it's own bundle command.
   shell: >
-    sudo -u git -H bin/bundle install --deployment --without development test postgres aws
+    sudo -u git -H bundle install --deployment --without development test postgres aws
     chdir={{ gitlab_user_home }}/gitlab
   register: bundle
   changed_when: "'Your bundle is complete' not in bundle.stdout"
