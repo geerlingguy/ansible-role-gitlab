@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  remote_user: root
+  roles:
+    - geerlingguy.git
+    - geerlingguy.mysql
+    - geerlingguy.redis
+    - geerlingguy.nginx
+    - geerlingguy.ruby
+    - ansible-role-gitlab
