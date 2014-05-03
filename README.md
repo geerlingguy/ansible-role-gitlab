@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/geerlingguy/ansible-role-gitlab.svg?branch=master)](https://travis-ci.org/geerlingguy/ansible-role-gitlab)
 
-Installs GitLab, a Ruby-based front-end to Git, on any RHEL/CentOS Linux system.
+Installs GitLab, a Ruby-based front-end to Git, on any RedHat or Debian-based linux system.
 
 GitLab's default administrator account details are below; be sure to login immediately after installation and change these credentials!
 
@@ -11,25 +11,42 @@ GitLab's default administrator account details are below; be sure to login immed
 
 ## Requirements
 
-Requires Git 1.8.x or later (installed via `geerlingguy.git` when the variable `git_install_from_source` is `true`). Git and other dependencies are listed below.
+None.
 
 ## Role Variables
 
 Available variables are listed below, along with default values (see `vars/main.yml`):
 
-    hostname: gitlab
-    gitlab_url: https://gitlab/
+    gitlab_package_url: ""
 
-The hostname and URL by which GitLab will be accessed.
+The package/version of GitLab to be downloaded. This is a platform-specific variable, and the defaults are defined in the platform-specific vars file inside `vars/`. You can find the latest version URLs on the [GitLab downloads page](https://www.gitlab.com/downloads/).
 
-    gitlab_user_home: /home/git
+    # General config.
+    gitlab_external_url: "https://gitlab/"
+    gitlab_git_data_dir: "/var/opt/gitlab/git-data"
 
-The home folder path for the `git` user (created for GitLab's use).
+General GitLab configuration. The `gitlab_git_data_url` is the location where all the Git repositories will be stored. You can use a shared drive or any path on the system.
 
-    gitlab_database_name: gitlabhq_production
-    gitlab_database_password: secret
+    # SSL Configuration.
+    gitlab_redirect_http_to_https: "true"
+    gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
+    gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
 
-The database name and password for gitlab (user defaults to `git`).
+GitLab SSL TODO...
+
+    # SSL Self-signed Certificate Configuration.
+    gitlab_create_self_signed_cert: true
+    gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=gitlab"
+
+    # LDAP Configuration.
+    gitlab_ldap_enabled: "false"
+    gitlab_ldap_host: "example.com"
+    gitlab_ldap_port: "389"
+    gitlab_ldap_uid: "sAMAccountName"
+    gitlab_ldap_method: "plain"
+    gitlab_ldap_bind_dn: "CN=Username,CN=Users,DC=example,DC=com"
+    gitlab_ldap_password: "password"
+    gitlab_ldap_base: "DC=example,DC=com"
 
 ## Dependencies
 

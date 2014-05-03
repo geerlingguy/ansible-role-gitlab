@@ -1,14 +1,9 @@
 ---
-dependencies:
-  - { role: geerlingguy.git }
-  - { role: geerlingguy.mysql }
-  - { role: geerlingguy.redis }
-  - { role: geerlingguy.nginx }
-  - { role: geerlingguy.ruby }
+dependencies: []
 
 galaxy_info:
   author: geerlingguy
-  description: GitLab Git interface
+  description: GitLab Git web interface
   company: "Midwestern Mac, LLC"
   license: "license (BSD, MIT)"
   min_ansible_version: 1.4
@@ -16,6 +11,12 @@ galaxy_info:
   - name: EL
     versions:
     - 6
+  - name: Debian
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
   categories:
     - development
     - web

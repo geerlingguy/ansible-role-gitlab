@@ -1,0 +1,25 @@
+# The URL through which GitLab will be accessed.
+external_url "{{ gitlab_external_url }}"
+
+# Whether to redirect http to https.
+nginx['redirect_http_to_https'] = {{ gitlab_redirect_http_to_https }}
+nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate }}"
+nginx['ssl_certificate_key'] = "{{ gitlab_ssl_certificate_key }}"
+
+# The directory where Git repositories will be stored.
+git_data_dir "{{ gitlab_git_data_dir }}"
+
+# These settings are documented in more detail at
+# https://gitlab.com/gitlab-org/gitlab-ce/blob/master/config/gitlab.yml.example#L118
+gitlab_rails['ldap_enabled'] = {{ gitlab_ldap_enabled }}
+gitlab_rails['ldap_host'] = '{{ gitlab_ldap_host }}'
+gitlab_rails['ldap_port'] = {{ gitlab_ldap_port }}
+gitlab_rails['ldap_uid'] = '{{ gitlab_ldap_uid }}'
+gitlab_rails['ldap_method'] = '{{ gitlab_ldap_method}}' # 'ssl' or 'plain'
+gitlab_rails['ldap_bind_dn'] = '{{ gitlab_ldap_bind_dn }}'
+gitlab_rails['ldap_password'] = '{{ gitlab_ldap_password }}'
+gitlab_rails['ldap_allow_username_or_email_login'] = true
+gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
+
+# To change other settings, see:
+# https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings

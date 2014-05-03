@@ -1,133 +1,69 @@
 ---
-- name: Create git user for GitLab
-  user: >
-    name=git
-    comment=GitLab
-    home={{ gitlab_user_home }}
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
 
-- include: gitlab-dependencies.yml
-- include: gitlab-shell.yml
-- include: gitlab-mysql.yml
-- include: gitlab-nginx.yml
+# Install GitLab and its dependencies (RedHat).
+- name: Install GitLab dependencies (RedHat).
+  yum: "pkg={{ item }} state=installed"
+  with_items:
+    - openssh-server
+    - postfix
+  when: ansible_os_family == 'RedHat'
 
-# Install GitLab.
-- name: Check if GitLab has already been cloned.
-  stat: "path={{ gitlab_user_home }}/gitlab/VERSION"
+- name: Install GitLab rpm (RedHat).
+  command: >
+    rpm --nosignature -i {{ gitlab_package_url }}
+    creates=/usr/bin/gitlab-ctl
+  when: ansible_os_family == 'RedHat'
+
+# Install GitLab and its dependencies (Debian).
+- name: Install GitLab dependencies (Debian).
+  apt: "pkg={{ item }} state=installed"
+  with_items:
+    - openssh-server
+    - postfix
+  when: ansible_os_family == 'Debian'
+
+- name: Check if GitLab is already installed.
+  stat: path=/usr/bin/gitlab-ctl
   register: gitlab_file
 
-- name: Clone gitlab to git user home.
-  git: >
-    repo=https://gitlab.com/gitlab-org/gitlab-ce.git
-    version=6-6-stable
-    dest={{ gitlab_user_home }}/gitlab
-  when: gitlab_file.stat.exists == false
-
-# Fix GitLab permissions.
-- name: Check if gitlab permissions have already been fixed.
-  stat: "path={{ gitlab_user_home }}/gitlab/permissions-complete"
-  register: gitlab_permissions
-
-- name: Fix permissions on gitlab directory.
-  file: "path={{ gitlab_user_home }}/gitlab owner=git group=git mode=774 recurse=yes"
-  when: gitlab_permissions.stat.exists == false
-
-- name: Mark that the GitLab directory has been fixed.
-  file: "path={{ gitlab_user_home }}/gitlab/permissions-complete state=touch owner=git group=git"
-  when: gitlab_permissions.stat.exists == false
-
-# Configure GitLab.
-- name: Copy GitLab configuration files.
-  template: src={{ item }}.j2 dest={{ gitlab_user_home }}/gitlab/config/{{ item }} owner=git group=git mode=774
-  with_items:
-    - gitlab.yml
-    - database.yml
-
-- name: Create directories for GitLab services.
-  file: >
-    path={{ item }}
-    state=directory
-    owner=git
-    group=git
-    mode=774
-  with_items:
-    - "{{ gitlab_user_home }}/gitlab-satellites"
-    - "{{ gitlab_user_home }}/gitlab/tmp/pids"
-    - "{{ gitlab_user_home }}/gitlab/tmp/sockets"
-    - "{{ gitlab_user_home }}/gitlab/public/uploads"
-
-- name: Copy other configs into place.
-  shell: >
-    cp {{ gitlab_user_home }}/gitlab/config/{{ item.src }} {{ gitlab_user_home }}/gitlab/config/{{ item.dest }}
-    creates={{ gitlab_user_home }}/gitlab/config/{{ item.dest }}
-  with_items:
-  - { src: unicorn.rb.example, dest: unicorn.rb }
-  - { src: initializers/rack_attack.rb.example, dest: initializers/rack_attack.rb }
-
-- name: Set permissions on config files.
-  file: "path={{ gitlab_user_home }}/gitlab/config/{{ item }} owner=git group=git mode=774"
-  with_items:
-  - unicorn.rb
-  - initializers/rack_attack.rb
-
-- include: gitlab-git.yml
-
-- name: Allow GitLab binaries to be executed.
-  file: "path={{ gitlab_user_home }}/gitlab/bin/{{ item }} owner=git group=git mode=774"
-  with_items:
-  - bundle
-  - rails
-  - rake
-  - rspec
-  - spinach
-  - spring
-
-- name: Install GitLab with it's own bundle command.
-  shell: >
-    sudo -u git -H bundle install --deployment --without development test postgres aws
-    chdir={{ gitlab_user_home }}/gitlab
-  register: bundle
-  changed_when: "'Your bundle is complete' not in bundle.stdout"
-
-- name: Configure GitLab log rotation.
-  shell: >
-    cp {{ gitlab_user_home }}/gitlab/lib/support/logrotate/gitlab /etc/logrotate.d/gitlab
-    creates=/etc/logrotate.d/gitlab
-
-# Initialize GitLab's database.
-- name: Check if GitLab's database is already initialized.
-  shell: >
-    mysql -u root -p{{ mysql_root_password }} -e "SELECT COUNT(DISTINCT table_name) FROM information_schema.columns WHERE table_schema='{{ gitlab_database_name }}'"
-  register: gitlab_database_tables
-  changed_when: false
-
-- name: Initialize GitLab database.
-  shell: >
-    yes 'yes' | sudo -u git -H bundle exec rake gitlab:setup RAILS_ENV=production
-    chdir={{ gitlab_user_home }}/gitlab
-  when: "'0' in gitlab_database_tables.stdout"
-
-# Install GitLab's init script.
-- name: Install GitLab init script.
+- name: Download GitLab .deb package (Debian).
   get_url: >
-    url=https://gitlab.com/gitlab-org/gitlab-recipes/raw/master/init/sysvinit/centos/gitlab-unicorn
-    dest=/etc/init.d/gitlab
-    mode=774
+    url={{ gitlab_package_url }}
+    dest=/tmp/gitlab.deb
+  when: (gitlab_file.stat.exists == false) and (ansible_os_family == 'Debian')
 
-- name: Ensure GitLab is started and enabled at boot.
-  service: name=gitlab state=started enabled=yes
+- name: Install GitLab .deb package (Debian).
+  command: sudo dpkg -i /tmp/gitlab.deb
+  when: (gitlab_file.stat.exists == false) and (ansible_os_family == 'Debian')
 
-# Compile GitLab assets.
-- name: Check if GitLab assets have already been compiled.
-  stat: "path={{ gitlab_user_home }}/gitlab/public/assets"
-  register: gitlab_assets
+# This will work in Ansible 1.6+.
+# - name: Install GitLab .deb package (Debian).
+#   apt: deb=/tmp/gitlab.deb
 
-- name: Compile GitLab assets.
-  shell: >
-    sudo -u git -H bundle exec rake assets:precompile RAILS_ENV=production
-    chdir={{ gitlab_user_home }}/gitlab
-  when: gitlab_assets.stat.exists == false
+# Start and configure GitLab.
+- name: Reconfigure GitLab (first run).
+  command: >
+    gitlab-ctl reconfigure
+    creates=/var/opt/gitlab/bootstrapped
 
-# Fix git user's home directory permissions.
-- name: Update permissions for git home directory.
-  command: "chmod g+rx {{ gitlab_user_home }}/"
-  changed_when: false
+- name: Create GitLab SSL configuration folder.
+  file: >
+    path=/etc/gitlab/ssl
+    state=directory
+    owner=root group=root mode=700
+  when: gitlab_create_self_signed_cert
+
+- name: Create self-signed certificate.
+  command: >
+    openssl req -new -nodes -x509 -subj "{{ gitlab_self_signed_cert_subj }}" -days 3650 -keyout {{ gitlab_ssl_certificate_key }} -out {{ gitlab_ssl_certificate }} -extensions v3_ca
+    creates={{ gitlab_ssl_certificate }}
+  when: gitlab_create_self_signed_cert
+
+- name: Copy GitLab configuration file.
+  template: >
+    src=templates/gitlab.rb.j2
+    dest=/etc/gitlab/gitlab.rb
+    owner=root group=root mode=600
+  notify: restart gitlab

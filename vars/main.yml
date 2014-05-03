@@ -1,5 +1,26 @@
 ---
-gitlab_url: https://gitlab/
-gitlab_user_home: /home/git
-gitlab_database_name: gitlabhq_production
-gitlab_database_password: secret
+# SEE: https://www.gitlab.com/downloads/
+gitlab_package_url: ""
+
+# General config.
+gitlab_external_url: "https://gitlab/"
+gitlab_git_data_dir: "/var/opt/gitlab/git-data"
+
+# SSL Configuration.
+gitlab_redirect_http_to_https: "true"
+gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
+gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
+
+# SSL Self-signed Certificate Configuration.
+gitlab_create_self_signed_cert: true
+gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=gitlab"
+
+# LDAP Configuration.
+gitlab_ldap_enabled: "false"
+gitlab_ldap_host: "example.com"
+gitlab_ldap_port: "389"
+gitlab_ldap_uid: "sAMAccountName"
+gitlab_ldap_method: "plain"
+gitlab_ldap_bind_dn: "CN=Username,CN=Users,DC=example,DC=com"
+gitlab_ldap_password: "password"
+gitlab_ldap_base: "DC=example,DC=com"
