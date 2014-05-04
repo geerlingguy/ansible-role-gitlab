@@ -30,4 +30,4 @@ script:
     || (echo 'Idempotence test: fail' && exit 1)
 
   # Make sure GitLab is running.
-  - curl https://localhost/
+  - curl --insecure https://localhost/
