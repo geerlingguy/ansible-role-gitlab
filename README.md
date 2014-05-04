@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/geerlingguy/ansible-role-gitlab.svg?branch=master)](https://travis-ci.org/geerlingguy/ansible-role-gitlab)
 
-Installs GitLab, a Ruby-based front-end to Git, on any RedHat or Debian-based linux system.
+Installs GitLab, a Ruby-based front-end to Git, on any RedHat/CentOS or Debian/Ubuntu linux system.
 
 GitLab's default administrator account details are below; be sure to login immediately after installation and change these credentials!
 
@@ -32,11 +32,13 @@ General GitLab configuration. The `gitlab_git_data_url` is the location where al
     gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
     gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
 
-GitLab SSL TODO...
+GitLab SSL configuration; tells GitLab to redirect normal http requests to https, and the path to the certificate and key (the default values will work for automatic self-signed certificate creation, if set to `true` in the variable below).
 
     # SSL Self-signed Certificate Configuration.
     gitlab_create_self_signed_cert: true
     gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=gitlab"
+
+Whether to create a self-signed certificate for serving GitLab over a secure connection. Set `gitlab_self_signed_cert_subj` according to your locality and organization.
 
     # LDAP Configuration.
     gitlab_ldap_enabled: "false"
@@ -48,13 +50,11 @@ GitLab SSL TODO...
     gitlab_ldap_password: "password"
     gitlab_ldap_base: "DC=example,DC=com"
 
+GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the configuration will tell GitLab how to connect to an LDAP server for centralized authentication.
+
 ## Dependencies
 
-  - geerlingguy.git
-  - geerlingguy.mysql
-  - geerlingguy.redis
-  - geerlingguy.nginx
-  - geerlingguy.ruby
+None.
 
 ## Example Playbook
 
@@ -66,28 +66,11 @@ GitLab SSL TODO...
 
 *Inside `vars/main.yml`*:
 
-    hostname: gitlab
-    
-    git_install_from_source: true
-    git_version: "1.8.3"
-    
-    gitlab_url: https://gitlab/
-    gitlab_database_name: gitlabhq_production
-    gitlab_database_password: secret
-    
-    mysql_root_password: root
-    mysql_enablerepo: epel
-    mysql_packages:
-      - mysql
-      - mysql-server
-      - mysql-devel
-      - MySQL-python
+    gitlab_external_url: "https://gitlab.example.com/"
 
 ## TODO
 
   - Break main.yml into smaller task includes.
-  - Allow use of PostgreSQL instead of MySQL.
-  - Allow use of Apache instead of Nginx.
 
 ## License
 
