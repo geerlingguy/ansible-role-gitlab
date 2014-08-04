@@ -2,6 +2,10 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
+- name: Check if GitLab configuration file already exists.
+  stat: path=/etc/gitlab/gitlab.rb
+  register: gitlab_config_file
+
 # Install GitLab and its dependencies (RedHat).
 - name: Install GitLab dependencies (RedHat).
   yum: "pkg={{ item }} state=installed"
@@ -47,7 +51,7 @@
   command: >
     gitlab-ctl reconfigure
     creates=/var/opt/gitlab/bootstrapped
-  when: ansible_os_family == 'RedHat'
+  when: (ansible_os_family == 'RedHat') and (gitlab_config_file.stat.exists == false)
 
 # Debian-based OSes seem to fail when starting the first time. It'll fix itself
 # with a second restart, so ignore a failure.
@@ -56,7 +60,7 @@
     gitlab-ctl reconfigure
     creates=/var/opt/gitlab/bootstrapped
   failed_when: false
-  when: ansible_os_family == 'Debian'
+  when: (ansible_os_family == 'Debian') and (gitlab_config_file.stat.exists == false)
 
 - name: Create GitLab SSL configuration folder.
   file: >
