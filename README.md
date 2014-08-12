@@ -6,7 +6,7 @@ Installs GitLab, a Ruby-based front-end to Git, on any RedHat/CentOS or Debian/U
 
 GitLab's default administrator account details are below; be sure to login immediately after installation and change these credentials!
 
-    admin@local.host
+    root
     5iveL!fe
 
 ## Requirements
