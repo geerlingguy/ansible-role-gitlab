@@ -21,5 +21,12 @@ gitlab_rails['ldap_password'] = '{{ gitlab_ldap_password }}'
 gitlab_rails['ldap_allow_username_or_email_login'] = true
 gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
 
+# Signup configuration
+gitlab_rails['gitlab_signup_enabled'] = {{ gitlab_signup_enabled }}
+gitlab_rails['omniauth_enabled'] = {{ gitlab_omniauth_enabled }}
+gitlab_rails['allow_single_sign_on'] = {{ gitlab_allow_single_sign_on }}
+gitlab_rails['block_auto_created_users'] = {{ gitlab_block_auto_created_users }}
+gitlab_rails['omniauth_providers'] = {{ gitlab_omniauth_providers }}
+
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings
