@@ -34,7 +34,7 @@ gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
   gitlab_rails['db_password'] = '{{ database_password }}'
   gitlab_rails['db_host']     = '{{ database_host }}'
   gitlab_rails['db_port']     = '{{ database_port }}'
-{% end if %}
+{% endif %}
 
 {% if 'external_redis' == true %}
   #########################
@@ -45,7 +45,7 @@ gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
   redis['enable']            = false
   gitlab_rails['redis_host'] = '{{ redis_host }}'
   gitlab_rails['redis_port'] = {{ redis_port }}
-{% end if %}
+{% endif %}
   
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings
