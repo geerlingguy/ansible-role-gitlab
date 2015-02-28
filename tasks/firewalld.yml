@@ -1,0 +1,9 @@
+---
+- name: Open HTTPS port
+  firewalld: service=https permanent=true state=enabled
+  notify: reload firewalld
+
+- name: Open HTTP port
+  firewalld: service=http permanent=true state=enabled
+  when: gitlab_redirect_http_to_https == 'true'
+  notify: reload firewalld

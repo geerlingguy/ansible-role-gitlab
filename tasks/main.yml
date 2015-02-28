@@ -81,3 +81,8 @@
     dest=/etc/gitlab/gitlab.rb
     owner=root group=root mode=600
   notify: restart gitlab
+
+# RHEL 7+ only (for firewalld)
+- name: Process firewalld rules
+  include: firewalld.yml
+  when: (ansible_os_family == 'RedHat') and (ansible_distribution_major_version|int >= 7)
