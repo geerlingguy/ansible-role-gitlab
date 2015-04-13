@@ -21,5 +21,10 @@ gitlab_rails['ldap_password'] = '{{ gitlab_ldap_password }}'
 gitlab_rails['ldap_allow_username_or_email_login'] = true
 gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
 
+{% if gitlab_email_from %}
+# Custom 'From' email address
+gitlab_rails['gitlab_email_from'] = '{{ gitlab_email_from }}'
+
+{% endif %}
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings

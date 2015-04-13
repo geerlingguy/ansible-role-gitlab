@@ -52,6 +52,11 @@ Whether to create a self-signed certificate for serving GitLab over a secure con
 
 GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the configuration will tell GitLab how to connect to an LDAP server for centralized authentication.
 
+Use a custom From email address. Defaults to `gitlab@example.com`
+
+    # Custom From email address.
+    gitlab_from_email: "git@example.com"
+
 ## Dependencies
 
 None.

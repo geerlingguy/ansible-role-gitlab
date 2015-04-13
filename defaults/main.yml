@@ -24,3 +24,6 @@ gitlab_ldap_method: "plain"
 gitlab_ldap_bind_dn: "CN=Username,CN=Users,DC=example,DC=com"
 gitlab_ldap_password: "password"
 gitlab_ldap_base: "DC=example,DC=com"
+
+# Use a  Custom 'From' email address?
+gitlab_from_email: false
