@@ -25,5 +25,5 @@ gitlab_ldap_bind_dn: "CN=Username,CN=Users,DC=example,DC=com"
 gitlab_ldap_password: "password"
 gitlab_ldap_base: "DC=example,DC=com"
 
-# Use a  Custom 'From' email address?
-gitlab_email_from: false
+# Empty dictionary for other gitlab.rb/gitlab.yml settings
+gitlab_rails:

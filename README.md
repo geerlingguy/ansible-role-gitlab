@@ -52,10 +52,22 @@ Whether to create a self-signed certificate for serving GitLab over a secure con
 
 GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the configuration will tell GitLab how to connect to an LDAP server for centralized authentication.
 
-Use a custom From email address. Defaults to `gitlab@example.com`
+Optional settings: use a custom **From** email address (default: `gitlab@example.com`) and keep backups for 7 days (`604800` seconds):
 
-    # Custom From email address.
-    gitlab_email_from: "git@example.com"
+    gitlab_rails:
+      gitlab_email_from: "git@example.com"
+      backup_keep_time: 604800
+
+The dictionary `gitlab_rails` adds its keys and their values to `gitlab.rb` in the form, sorted by key:
+
+    gitlab_rails['key'] = "value"
+
+The example dictionary above would result in the following being added to `gitlab.rb`:
+
+    gitlab_rails['gitlab_email_from'] = "git@example.com"
+    gitlab_rails['backup_keep_time'] = "604800"
+
+See: [gitlab.yml.md](https://gitlab.com/gitlab-org/omnibus-gitlab/blob/629def0a7a26e7c2326566f0758d4a27857b52a3/doc/settings/gitlab.yml.md) for more information.
 
 ## Dependencies
 
@@ -67,11 +79,12 @@ None.
       vars_files:
         - vars/main.yml
       roles:
-        - { role: geerlingguy.gitlab }
+        - role: geerlingguy.gitlab
+          gitlab_external_url: "https://gitlab.example.com/"
+          gitlab_rails:
+            gitlab_email_from: "git@example.com"
+            backup_keep_time: "604800"
 
-*Inside `vars/main.yml`*:
-
-    gitlab_external_url: "https://gitlab.example.com/"
 
 ## TODO
 
