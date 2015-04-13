@@ -55,7 +55,7 @@ GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the c
 Use a custom From email address. Defaults to `gitlab@example.com`
 
     # Custom From email address.
-    gitlab_from_email: "git@example.com"
+    gitlab_email_from: "git@example.com"
 
 ## Dependencies
 

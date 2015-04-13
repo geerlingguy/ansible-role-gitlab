@@ -26,4 +26,4 @@ gitlab_ldap_password: "password"
 gitlab_ldap_base: "DC=example,DC=com"
 
 # Use a  Custom 'From' email address?
-gitlab_from_email: false
+gitlab_email_from: false
