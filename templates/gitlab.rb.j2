@@ -21,8 +21,10 @@ gitlab_rails['ldap_password'] = '{{ gitlab_ldap_password }}'
 gitlab_rails['ldap_allow_username_or_email_login'] = true
 gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
 
+{% if gitlab_rails %}
 {% for k,v in gitlab_rails | dictsort() %}
 gitlab_rails['{{k}}'] = "{{v}}"
 {% endfor %}
+{% endif %}
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings
