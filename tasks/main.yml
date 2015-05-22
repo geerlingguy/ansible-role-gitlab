@@ -15,12 +15,6 @@
     - curl
   when: ansible_os_family == 'RedHat'
 
-- name: Install GitLab rpm (RedHat).
-  command: >
-    rpm --nosignature -i {{ gitlab_package_url }}
-    creates=/usr/bin/gitlab-ctl
-  when: ansible_os_family == 'RedHat'
-
 - name: Download GitLab repository installation script (RedHat).
   get_url: >
     url={{ gitlab_repository_installation_script_url }}
