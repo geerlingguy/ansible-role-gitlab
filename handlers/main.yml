@@ -1,4 +1,3 @@
 ---
 - name: restart gitlab
   command: gitlab-ctl reconfigure
-  failed_when: false
