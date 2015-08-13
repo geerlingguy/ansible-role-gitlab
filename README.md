@@ -17,11 +17,13 @@ None.
 
 Available variables are listed below, along with default values (see `vars/main.yml`):
 
-    # General config.
     gitlab_external_url: "https://gitlab/"
+
+The URL at which the GitLab instance will be accessible. This is set as the `external_url` configuration setting in `gitlab.rb`, and if you want to run GitLab on a different port (besides 80/443), you can specify the port here (e.g. `https://gitlab:8443/` for port 8443).
+
     gitlab_git_data_dir: "/var/opt/gitlab/git-data"
 
-General GitLab configuration. The `gitlab_git_data_url` is the location where all the Git repositories will be stored. You can use a shared drive or any path on the system.
+The `gitlab_git_data_url` is the location where all the Git repositories will be stored. You can use a shared drive or any path on the system.
 
     # SSL Configuration.
     gitlab_redirect_http_to_https: "true"
