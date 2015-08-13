@@ -33,9 +33,9 @@ script:
     || (echo 'Idempotence test: fail' && exit 1)
 
   # Make sure GitLab is running.
-  - curl --insecure --head https://localhost/
+  - curl --insecure --head https://localhost/users/sign_in
   - >
-    curl --insecure -s -o /dev/null -w "%{http_code}" https://localhost/
+    curl --insecure -s -o /dev/null -w "%{http_code}" https://localhost/users/sign_in
     | grep -q '200'
     && (echo 'Status code 200 test: pass' && exit 0)
     || (echo 'Status code 200 test: fail' && exit 1)
