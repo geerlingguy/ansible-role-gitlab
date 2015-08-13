@@ -21,3 +21,16 @@ gitlab_ldap_method: "plain"
 gitlab_ldap_bind_dn: "CN=Username,CN=Users,DC=example,DC=com"
 gitlab_ldap_password: "password"
 gitlab_ldap_base: "DC=example,DC=com"
+
+# Database Configuration
+external_database: "false"
+database_user: "gitlab"
+database_password: "gitlab"
+database_host: "gitlab"
+database_port: "5432"
+database_name: "gitlabhq_production"
+
+# Redis Configuration
+external_redis: "false"
+redis_host: "redis"
+redis_port: "6379"

@@ -21,5 +21,31 @@ gitlab_rails['ldap_password'] = '{{ gitlab_ldap_password }}'
 gitlab_rails['ldap_allow_username_or_email_login'] = true
 gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
 
+{% if 'external_database' == true %}
+  ############################
+  # GitLab database settings #
+  ############################
+  ## see https://gitlab.com/gitlab-org/omnibus-gitlab/blob/629def0a7a26e7c2326566f0758d4a27857b52a3/doc/settings/database.md#database-settings
+  postgresql['enable']        = false
+  gitlab_rails['db_adapter']  = "postgresql"
+  gitlab_rails['db_encoding'] = "unicode"
+  gitlab_rails['db_database'] = '{{ database_name }}'
+  gitlab_rails['db_username'] = '{{ database_user }}'
+  gitlab_rails['db_password'] = '{{ database_password }}'
+  gitlab_rails['db_host']     = '{{ database_host }}'
+  gitlab_rails['db_port']     = '{{ database_port }}'
+{% endif %}
+
+{% if 'external_redis' == true %}
+  #########################
+  # GitLab redis settings #
+  #########################
+  ## see https://gitlab.com/gitlab-org/omnibus-gitlab/blob/629def0a7a26e7c2326566f0758d4a27857b52a3/doc/settings/redis.md#redis-settings
+  ## Connect to your own redis instance.
+  redis['enable']            = false
+  gitlab_rails['redis_host'] = '{{ redis_host }}'
+  gitlab_rails['redis_port'] = {{ redis_port }}
+{% endif %}
+  
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings
