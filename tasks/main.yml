@@ -6,9 +6,13 @@
   stat: path=/etc/gitlab/gitlab.rb
   register: gitlab_config_file
 
+- name: Check if GitLab is already installed.
+  stat: path=/usr/bin/gitlab-ctl
+  register: gitlab_file
+
 # Install GitLab and its dependencies (RedHat).
 - name: Install GitLab dependencies (RedHat).
-  yum: "pkg={{ item }} state=installed"
+  yum: "name={{ item }} state=installed"
   with_items:
     - openssh-server
     - postfix
@@ -16,36 +20,32 @@
   when: ansible_os_family == 'RedHat'
 
 - name: Download GitLab repository installation script (RedHat).
-  get_url: >
-    url={{ gitlab_repository_installation_script_url }}
-    dest=/tmp/gitlab_install_repository.sh
-  when: ansible_os_family == 'RedHat'
+  get_url:
+    url: "{{ gitlab_repository_installation_script_url }}"
+    dest: /tmp/gitlab_install_repository.sh
+  when: (gitlab_file.stat.exists == false) and (ansible_os_family == 'RedHat')
 
 - name: Install GitLab repository (RedHat)
   command: bash /tmp/gitlab_install_repository.sh
-  when: ansible_os_family == 'RedHat'
+  when: (gitlab_file.stat.exists == false) and (ansible_os_family == 'RedHat')
 
 - name: Install GitLab (RedHat)
-  yum: "pkg=gitlab-ce state=installed"
-  when: ansible_os_family == 'RedHat'
+  yum: "name=gitlab-ce state=installed"
+  when: (gitlab_file.stat.exists == false) and (ansible_os_family == 'RedHat')
 
 # Install GitLab and its dependencies (Debian).
 - name: Install GitLab dependencies (Debian).
-  apt: "pkg={{ item }} state=installed"
+  apt: "name={{ item }} state=installed"
   with_items:
     - openssh-server
     - postfix
     - curl
   when: ansible_os_family == 'Debian'
 
-- name: Check if GitLab is already installed.
-  stat: path=/usr/bin/gitlab-ctl
-  register: gitlab_file
-
 - name: Download GitLab repository installation script (Debian).
-  get_url: >
-    url={{ gitlab_repository_installation_script_url }}
-    dest=/tmp/gitlab_install_repository.sh
+  get_url:
+    url: "{{ gitlab_repository_installation_script_url }}"
+    dest: /tmp/gitlab_install_repository.sh
   when: (gitlab_file.stat.exists == false) and (ansible_os_family == 'Debian')
 
 - name: Install GitLab repository
@@ -53,34 +53,24 @@
   when: (gitlab_file.stat.exists == false) and (ansible_os_family == 'Debian')
 
 - name: Install GitLab
-  apt: "pkg=gitlab-ce state=installed"
+  apt: "name=gitlab-ce state=installed"
   when: (gitlab_file.stat.exists == false) and (ansible_os_family == 'Debian')
 
-# This will work in Ansible 1.6+.
-# - name: Install GitLab .deb package (Debian).
-#   apt: deb=/tmp/gitlab.deb
-
-# Start and configure GitLab.
-- name: Reconfigure GitLab (first run - CentOS).
-  command: >
-    gitlab-ctl reconfigure
-    creates=/var/opt/gitlab/bootstrapped
-  when: (ansible_os_family == 'RedHat') and (gitlab_config_file.stat.exists == false)
-
-# Debian-based OSes seem to fail when starting the first time. It'll fix itself
-# with a second restart, so ignore a failure.
-- name: Reconfigure GitLab (first run - Debian).
+# Start and configure GitLab. Sometimes the first run fails, but after that,
+# restarts fix problems, so ignore failures on this run.
+- name: Reconfigure GitLab (first run).
   command: >
     gitlab-ctl reconfigure
     creates=/var/opt/gitlab/bootstrapped
   failed_when: false
-  when: (ansible_os_family == 'Debian') and (gitlab_config_file.stat.exists == false)
 
 - name: Create GitLab SSL configuration folder.
-  file: >
-    path=/etc/gitlab/ssl
-    state=directory
-    owner=root group=root mode=700
+  file:
+    path: /etc/gitlab/ssl
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
   when: gitlab_create_self_signed_cert
 
 - name: Create self-signed certificate.
@@ -90,8 +80,10 @@
   when: gitlab_create_self_signed_cert
 
 - name: Copy GitLab configuration file.
-  template: >
-    src=gitlab.rb.j2
-    dest=/etc/gitlab/gitlab.rb
-    owner=root group=root mode=600
+  template:
+    src: gitlab.rb.j2
+    dest: /etc/gitlab/gitlab.rb
+    owner: root
+    group: root
+    mode: 0600
   notify: restart gitlab

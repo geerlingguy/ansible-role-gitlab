@@ -1,7 +1,4 @@
 ---
-# SEE: https://www.gitlab.com/downloads/
-gitlab_package_url: ""
-
 # General config.
 gitlab_external_url: "https://gitlab/"
 gitlab_git_data_dir: "/var/opt/gitlab/git-data"

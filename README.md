@@ -17,10 +17,6 @@ None.
 
 Available variables are listed below, along with default values (see `vars/main.yml`):
 
-    gitlab_package_url: ""
-
-The package/version of GitLab to be downloaded. This is a platform-specific variable, and the defaults are defined in the platform-specific vars file inside `vars/`. You can find the latest version URLs on the [GitLab downloads page](https://www.gitlab.com/downloads/).
-
     # General config.
     gitlab_external_url: "https://gitlab/"
     gitlab_git_data_dir: "/var/opt/gitlab/git-data"
@@ -67,10 +63,6 @@ None.
 *Inside `vars/main.yml`*:
 
     gitlab_external_url: "https://gitlab.example.com/"
-
-## TODO
-
-  - Break main.yml into smaller task includes.
 
 ## License
 
