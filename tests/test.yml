@@ -1,5 +1,9 @@
 ---
 - hosts: localhost
   remote_user: root
+
+  vars:
+    gitlab_restart_handler_failed_when: false
+
   roles:
     - ansible-role-gitlab
