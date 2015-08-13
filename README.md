@@ -50,6 +50,40 @@ Whether to create a self-signed certificate for serving GitLab over a secure con
 
 GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the configuration will tell GitLab how to connect to an LDAP server for centralized authentication.
 
+You can configure the possibilities for user to sign on.
+
+    # Signup configuration
+    gitlab_signup_enabled: "false"
+    gitlab_omniauth_enabled: "false"
+    gitlab_allow_single_sign_on: "false"
+    gitlab_block_auto_created_users: "true"
+    gitlab_omniauth_providers: "[]"
+
+For example, for office use you might want your coworkers to be able to sign up manually or with oauth without administrator approval like this:
+
+    gitlab_signup_enabled: "true"
+    gitlab_omniauth_enabled: "true"
+    gitlab_allow_single_sign_on: "true"
+    gitlab_block_auto_created_users: "false"
+    gitlab_omniauth_providers: '[
+      {
+        "name"       => "github",
+        "app_id"     => "7da054007e6e005b7678",
+        "app_secret" => "2394XXXXXXXXXXXXXXXXXXXX",
+        "args"       => { "scope" => "user:email" }
+      },
+      {
+        "name"   => "google_oauth2",
+        "app_id" => "574931430125-ut7d40ap2nj1g1v6j1ecbpcg0qcoo3ku.apps.googleusercontent.com",
+        "app_secret" => "goDfxXXXXXXXXXXXXXXXXXX",
+        "args" => {
+          "access_type" => "offline",
+          "approval_prompt" => ""
+        }
+      }
+    ]'
+
+
 ## Dependencies
 
 None.

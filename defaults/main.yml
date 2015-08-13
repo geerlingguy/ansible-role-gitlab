@@ -21,3 +21,10 @@ gitlab_ldap_method: "plain"
 gitlab_ldap_bind_dn: "CN=Username,CN=Users,DC=example,DC=com"
 gitlab_ldap_password: "password"
 gitlab_ldap_base: "DC=example,DC=com"
+
+# Signup configuration
+gitlab_signup_enabled: "false"
+gitlab_omniauth_enabled: "false"
+gitlab_allow_single_sign_on: "false"
+gitlab_block_auto_created_users: "true"
+gitlab_omniauth_providers: "[]"
