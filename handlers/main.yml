@@ -1,4 +1,22 @@
 ---
+- name: enable and start sshd
+  command: >
+    systemctl enable sshd
+    systemctl start sshd
+  when: ansible_os_family == 'RedHat'
+
+- name: enable and start postfix
+  command: >
+    systemctl enable postfix
+    systemctl start postfix
+  when: ansible_os_family == 'RedHat'
+
+- name: config firewall
+  command: >
+    firewall-cmd --permanent --add-service=http
+    systemctl reload firewalld
+  when: ansible_os_family == 'RedHat'
+
 - name: restart gitlab
   command: gitlab-ctl reconfigure
   failed_when: false

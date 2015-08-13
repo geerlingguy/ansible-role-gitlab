@@ -12,12 +12,21 @@
   with_items:
     - openssh-server
     - postfix
+    - curl
   when: ansible_os_family == 'RedHat'
 
-- name: Install GitLab rpm (RedHat).
-  command: >
-    rpm --nosignature -i {{ gitlab_package_url }}
-    creates=/usr/bin/gitlab-ctl
+- name: Download GitLab repository installation script (RedHat).
+  get_url: >
+    url={{ gitlab_repository_installation_script_url }}
+    dest=/tmp/gitlab_install_repository.sh
+  when: ansible_os_family == 'RedHat'
+
+- name: Install GitLab repository (RedHat)
+  command: bash /tmp/gitlab_install_repository.sh
+  when: ansible_os_family == 'RedHat'
+
+- name: Install GitLab (RedHat)
+  yum: "pkg=gitlab-ce state=installed"
   when: ansible_os_family == 'RedHat'
 
 # Install GitLab and its dependencies (Debian).
@@ -26,20 +35,25 @@
   with_items:
     - openssh-server
     - postfix
+    - curl
   when: ansible_os_family == 'Debian'
 
 - name: Check if GitLab is already installed.
   stat: path=/usr/bin/gitlab-ctl
   register: gitlab_file
 
-- name: Download GitLab .deb package (Debian).
+- name: Download GitLab repository installation script (Debian).
   get_url: >
-    url={{ gitlab_package_url }}
-    dest=/tmp/gitlab.deb
+    url={{ gitlab_repository_installation_script_url }}
+    dest=/tmp/gitlab_install_repository.sh
   when: (gitlab_file.stat.exists == false) and (ansible_os_family == 'Debian')
 
-- name: Install GitLab .deb package (Debian).
-  command: sudo dpkg -i /tmp/gitlab.deb
+- name: Install GitLab repository
+  command: bash /tmp/gitlab_install_repository.sh
+  when: (gitlab_file.stat.exists == false) and (ansible_os_family == 'Debian')
+
+- name: Install GitLab
+  apt: "pkg=gitlab-ce state=installed"
   when: (gitlab_file.stat.exists == false) and (ansible_os_family == 'Debian')
 
 # This will work in Ansible 1.6+.
