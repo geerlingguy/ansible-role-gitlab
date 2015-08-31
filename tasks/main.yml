@@ -36,6 +36,7 @@
 # Install GitLab and its dependencies (Debian).
 - name: Install GitLab dependencies (Debian).
   apt: "name={{ item }} state=installed"
+  sudo: yes
   with_items:
     - openssh-server
     - postfix
@@ -50,10 +51,12 @@
 
 - name: Install GitLab repository
   command: bash /tmp/gitlab_install_repository.sh
+  sudo: yes
   when: (gitlab_file.stat.exists == false) and (ansible_os_family == 'Debian')
 
 - name: Install GitLab
   apt: "name=gitlab-ce state=installed"
+  sudo: yes
   when: (gitlab_file.stat.exists == false) and (ansible_os_family == 'Debian')
 
 # Start and configure GitLab. Sometimes the first run fails, but after that,
@@ -62,6 +65,7 @@
   command: >
     gitlab-ctl reconfigure
     creates=/var/opt/gitlab/bootstrapped
+  sudo: yes
   failed_when: false
 
 - name: Create GitLab SSL configuration folder.
@@ -71,12 +75,14 @@
     owner: root
     group: root
     mode: 0700
+  sudo: yes
   when: gitlab_create_self_signed_cert
 
 - name: Create self-signed certificate.
   command: >
     openssl req -new -nodes -x509 -subj "{{ gitlab_self_signed_cert_subj }}" -days 3650 -keyout {{ gitlab_ssl_certificate_key }} -out {{ gitlab_ssl_certificate }} -extensions v3_ca
     creates={{ gitlab_ssl_certificate }}
+  sudo: yes
   when: gitlab_create_self_signed_cert
 
 - name: Copy GitLab configuration file.
@@ -86,4 +92,5 @@
     owner: root
     group: root
     mode: 0600
+  sudo: yes
   notify: restart gitlab
