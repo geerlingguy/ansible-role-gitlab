@@ -22,5 +22,20 @@ gitlab_ldap_bind_dn: "CN=Username,CN=Users,DC=example,DC=com"
 gitlab_ldap_password: "password"
 gitlab_ldap_base: "DC=example,DC=com"
 
+# Timezone
+gitlab_time_zone: "CET"
+
+# Gitlab mail
+gitlab_email_from: 'gitlab@gitlab.com'
+gitlab_email_display_name: 'Gitlab'
+gitlab_email_reply_to: 'gitlab@gitlab.com'
+
 # Probably best to leave this as the default, unless doing testing.
 gitlab_restart_handler_failed_when: 'gitlab_restart.rc != 0'
+
+# CI config
+gitlab_ci_external_url: "http://ci.gitlab.com"
+gitlab_ci_app_id: '12345'
+gitlab_ci_app_secret: '67890'
+gitlab_ci_email_from: 'CI'
+gitlab_ci_support_email: 'ci@gitlab.com'
