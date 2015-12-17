@@ -15,7 +15,7 @@ None.
 
 ## Role Variables
 
-Available variables are listed below, along with default values (see `vars/main.yml`):
+Available variables are listed below, along with default values (see `defaults/main.yml`):
 
     gitlab_external_url: "https://gitlab/"
 
