@@ -50,6 +50,18 @@ Whether to create a self-signed certificate for serving GitLab over a secure con
 
 GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the configuration will tell GitLab how to connect to an LDAP server for centralized authentication.
 
+    # Extra Static Configuration
+    gitlab_extra_config: ~
+
+Extra configuration to include in `gitlab.rb`. Contents of this variable will be passed statically, meaning raw configuration options should be used, like so:
+
+    # Extra Static Configuration
+    gitlab_extra_config: |
+    gitlab_rails['lfs_enabled'] = true
+    gitlab_rails['lfs_storage_path'] = "/mnt/storage/lfs-objects"
+
+This defaults to a null value - if no extra configuration is defined, it will not be included in the GitLab configuration.
+
 ## Dependencies
 
 None.

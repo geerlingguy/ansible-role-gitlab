@@ -23,3 +23,6 @@ gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
 
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings
+
+# Extra configuration
+{{ gitlab_extra_config|default(omit) }}
