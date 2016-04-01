@@ -1,6 +1,6 @@
 # Ansible Role: GitLab
 
-[![Build Status](https://travis-ci.org/geerlingguy/ansible-role-gitlab.svg?branch=master)](https://travis-ci.org/geerlingguy/ansible-role-gitlab)
+[![Build Status](https://travis-ci.org/cmacrae/ansible-role-gitlab.svg?branch=master)](https://travis-ci.org/cmacrae/ansible-role-gitlab)
 
 Installs GitLab, a Ruby-based front-end to Git, on any RedHat/CentOS or Debian/Ubuntu linux system.
 
@@ -8,6 +8,12 @@ GitLab's default administrator account details are below; be sure to login immed
 
     root
     5iveL!fe
+
+## Fork details
+This is a fork of [geerlingguy/ansible-role-gitlab](https://github.com/geerlingguy/ansible-role-gitlab).  
+This fork simply adds the ability to define extra static configuration in the `gitlab.rb` file.  
+
+I am making this role more generally available as [the pull request](https://github.com/geerlingguy/ansible-role-gitlab/pull/23) has been open a little while, but it'd be nice to have these features.
 
 ## Requirements
 
@@ -84,4 +90,4 @@ MIT / BSD
 
 ## Author Information
 
-This role was created in 2014 by [Jeff Geerling](http://jeffgeerling.com/), author of [Ansible for DevOps](http://ansiblefordevops.com/).
+The original role was created in 2014 by [Jeff Geerling](http://jeffgeerling.com/), author of [Ansible for DevOps](http://ansiblefordevops.com/).
