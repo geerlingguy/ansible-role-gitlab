@@ -36,6 +36,13 @@ GitLab SSL configuration; tells GitLab to redirect normal http requests to https
     gitlab_create_self_signed_cert: true
     gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=gitlab"
 
+GitLab listen address; tells GitLab to listen for incoming connections on the specified IP addresses.  Supports wildcards.
+
+    # Listen on all IPv4 addresses (default)
+    gitlab_nginx_listen_addresses: "['*']"
+    # Listen on all IPv4 and IPv6 addresses:
+    gitlab_nginx_listen_addresses: "['*', '[::]']"
+
 Whether to create a self-signed certificate for serving GitLab over a secure connection. Set `gitlab_self_signed_cert_subj` according to your locality and organization.
 
     # LDAP Configuration.
