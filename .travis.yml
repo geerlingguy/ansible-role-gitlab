@@ -34,7 +34,7 @@ script:
 
   # Make sure GitLab is running.
   - >
-    curl --insecure -s -o /dev/null -w "%{http_code}" https://localhost/users/sign_in
+    curl --insecure -s -o /dev/null -w "%{http_code}" https://localhost/users/password/new
     | grep -q '200'
     && (echo 'Status code 200 test: pass' && exit 0)
     || (echo 'Status code 200 test: fail' && exit 1)
