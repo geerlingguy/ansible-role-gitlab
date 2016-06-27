@@ -24,3 +24,6 @@ gitlab_ldap_base: "DC=example,DC=com"
 
 # Probably best to leave this as the default, unless doing testing.
 gitlab_restart_handler_failed_when: 'gitlab_restart.rc != 0'
+
+# Optionnal settings
+gitlab_time_zone: "UTC"

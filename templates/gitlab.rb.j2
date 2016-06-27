@@ -1,6 +1,9 @@
 # The URL through which GitLab will be accessed.
 external_url "{{ gitlab_external_url }}"
 
+# gitlab.yml configuration
+gitlab_rails['time_zone'] = "{{ gitlab_time_zone }}"
+
 # Whether to redirect http to https.
 nginx['redirect_http_to_https'] = {{ gitlab_redirect_http_to_https }}
 nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate }}"
