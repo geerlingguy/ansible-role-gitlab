@@ -21,5 +21,14 @@ gitlab_rails['ldap_password'] = '{{ gitlab_ldap_password }}'
 gitlab_rails['ldap_allow_username_or_email_login'] = true
 gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
 
+# GitLab Nginx
+## See https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/nginx.md
+{% if gitlab_nginx_listen_port is defined %}
+nginx['listen_port'] = "{{ gitlab_nginx_listen_port }}"
+{% endif %}
+{% if gitlab_nginx_listen_https is defined %}
+nginx['listen_https'] = "{{ gitlab_nginx_listen_https }}"
+{% endif %}
+
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings
