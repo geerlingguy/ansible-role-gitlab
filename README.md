@@ -62,6 +62,14 @@ Gitlab timezone.
 
 Gitlab system mail configuration. Disabled by default; set `gitlab_email_enabled` to `true` to enable, and make sure you enter valid from/reply-to values.
 
+    gitlab_nginx_listen_port: 8080
+
+If you are running GitLab behind a reverse proxy, you may want to override the listen port to something else.
+
+    gitlab_nginx_listen_https: false
+
+If you are running GitLab behind a reverse proxy, you may wish to terminate SSL at another proxy server or load balancer
+
 ## Dependencies
 
 None.
