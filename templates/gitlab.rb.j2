@@ -1,6 +1,14 @@
 # The URL through which GitLab will be accessed.
 external_url "{{ gitlab_external_url }}"
 
+# gitlab.yml configuration
+gitlab_rails['gitlab_email_enabled'] = {{ gitlab_email_enabled }}
+{% if gitlab_email_enabled == "true" %}
+gitlab_rails['gitlab_email_from'] = "{{ gitlab_email_from }}"
+gitlab_rails['gitlab_email_display_name'] = "{{ gitlab_email_display_name }}"
+gitlab_rails['gitlab_email_reply_to'] = "{{ gitlab_email_reply_to }}"
+{% endif %}
+
 # Whether to redirect http to https.
 nginx['redirect_http_to_https'] = {{ gitlab_redirect_http_to_https }}
 nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate }}"
