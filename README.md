@@ -50,6 +50,10 @@ Whether to create a self-signed certificate for serving GitLab over a secure con
 
 GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the configuration will tell GitLab how to connect to an LDAP server for centralized authentication.
 
+    gitlab_time_zone: "UTC"
+
+Gitlab timezone.
+
     # Email configuration.
     gitlab_email_enabled: false
     gitlab_email_from: 'gitlab@example.com'
