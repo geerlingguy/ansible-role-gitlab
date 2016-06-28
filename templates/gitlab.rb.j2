@@ -6,6 +6,9 @@ nginx['redirect_http_to_https'] = {{ gitlab_redirect_http_to_https }}
 nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate }}"
 nginx['ssl_certificate_key'] = "{{ gitlab_ssl_certificate_key }}"
 
+# Timezone
+gitlab_rails['time_zone'] = "{{ gitlab_time_zone }}"
+
 # The directory where Git repositories will be stored.
 git_data_dir "{{ gitlab_git_data_dir }}"
 
@@ -21,5 +24,17 @@ gitlab_rails['ldap_password'] = '{{ gitlab_ldap_password }}'
 gitlab_rails['ldap_allow_username_or_email_login'] = true
 gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
 
+# Mails
+
+gitlab_rails['gitlab_email_from'] = '{{ gitlab_email_from }}'
+gitlab_rails['gitlab_email_display_name'] = '{{ gitlab_email_display_name }}'
+gitlab_rails['gitlab_email_reply_to'] = '{{ gitlab_email_reply_to }}'
+
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings
+
+# CI config
+ci_external_url "{{ gitlab_ci_external_url }}"
+gitlab_ci['gitlab_server'] = { "url" => '{{ gitlab_external_url }}', "app_id" => '{{ gitlab_ci_app_id }}', "app_secret" => '{{ gitlab_ci_app_secret }}' }
+gitlab_ci['gitlab_ci_email_from'] = '{{ gitlab_ci_email_from }}'
+gitlab_ci['gitlab_ci_support_email'] = '{{ gitlab_ci_support_email }}'

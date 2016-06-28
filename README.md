@@ -50,6 +50,27 @@ Whether to create a self-signed certificate for serving GitLab over a secure con
 
 GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the configuration will tell GitLab how to connect to an LDAP server for centralized authentication.
 
+    gitlab_time_zone: "CET"
+
+Gitlab timezone
+
+    gitlab_email_from: 'gitlab@gitlab.com'
+    gitlab_email_display_name: 'Gitlab'
+    gitlab_email_reply_to: 'gitlab@gitlab.com'
+
+Gitlab system mail configuration.
+
+    gitlab_ci_external_url: "http://ci.gitlab.com"
+    gitlab_ci_app_id: '12345'
+    gitlab_ci_app_secret: '67890'
+
+Though you'll need to have Gitlab up and running to obtain an `app_id` and `app_secret`, this will come in handy with rolling updates via Ansible after initial install.
+
+    gitlab_ci_email_from: 'CI'
+    gitlab_ci_support_email: 'ci@gitlab.com'
+
+Gitlab CI system mail configuration.
+
 ## Dependencies
 
 None.
