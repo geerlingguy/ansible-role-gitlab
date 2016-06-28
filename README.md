@@ -54,6 +54,14 @@ GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the c
 
 Gitlab timezone.
 
+    # Email configuration.
+    gitlab_email_enabled: false
+    gitlab_email_from: 'gitlab@example.com'
+    gitlab_email_display_name: 'Gitlab'
+    gitlab_email_reply_to: 'gitlab@example.com'
+
+Gitlab system mail configuration. Disabled by default; set `gitlab_email_enabled` to `true` to enable, and make sure you enter valid from/reply-to values.
+
 ## Dependencies
 
 None.
