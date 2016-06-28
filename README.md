@@ -50,13 +50,13 @@ Whether to create a self-signed certificate for serving GitLab over a secure con
 
 GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the configuration will tell GitLab how to connect to an LDAP server for centralized authentication.
 
-    gitlab_email_enabled: true
-    gitlab_email_from: 'gitlab@gitlab.com'
+    # Email configuration.
+    gitlab_email_enabled: false
+    gitlab_email_from: 'gitlab@example.com'
     gitlab_email_display_name: 'Gitlab'
-    gitlab_email_reply_to: 'gitlab@gitlab.com'
+    gitlab_email_reply_to: 'gitlab@example.com'
 
-Gitlab system mail configuration. By default, email option is disabled, and the rest of the configuration is not set.
-
+Gitlab system mail configuration. Disabled by default; set `gitlab_email_enabled` to `true` to enable, and make sure you enter valid from/reply-to values.
 
 ## Dependencies
 

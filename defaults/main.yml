@@ -25,5 +25,8 @@ gitlab_ldap_base: "DC=example,DC=com"
 # Probably best to leave this as the default, unless doing testing.
 gitlab_restart_handler_failed_when: 'gitlab_restart.rc != 0'
 
-# Optionnal settings
+# Email configuration.
 gitlab_email_enabled: "false"
+gitlab_email_from: 'gitlab@example.com'
+gitlab_email_display_name: 'Gitlab'
+gitlab_email_reply_to: 'gitlab@example.com'
