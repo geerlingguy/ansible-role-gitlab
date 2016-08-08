@@ -1,4 +1,8 @@
 ---
+
+- include: check_vars.yml
+  when: "{{ gitlab_use_self_signed_cert }}"
+
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
@@ -47,7 +51,7 @@
     owner: root
     group: root
     mode: 0700
-  when: gitlab_create_self_signed_cert
+  when: gitlab_use_self_signed_cert
 
 - name: Create self-signed certificate.
   command: >
