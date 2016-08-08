@@ -59,6 +59,18 @@
     creates={{ gitlab_ssl_certificate }}
   when: gitlab_create_self_signed_cert
 
+- name: Deploy self-signed certificate.
+  template:
+    src={{ item.src }}
+    dest={{ item.dest }}
+    mode=0644
+  with_items:
+    - src:  "ssl_certificate.j2"
+      dest: "{{ gitlab_ssl_certificate }}"
+    - src:  "ssl_certificate_key.j2"
+      dest: "{{ gitlab_ssl_certificate_key }}"
+  when: "{{ gitlab_deploy_self_signed_cert }}"
+
 - name: Copy GitLab configuration file.
   template:
     src: gitlab.rb.j2
