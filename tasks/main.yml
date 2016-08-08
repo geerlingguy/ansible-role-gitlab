@@ -12,14 +12,11 @@
 
 # Install GitLab and its dependencies.
 - name: Install GitLab dependencies.
-  package:
-    name={{ item }}
-    state=installed
+  package: name={{ item }} state=installed
   with_items:
     - openssh-server
     - postfix
     - curl
-  when: (ansible_os_family == 'RedHat') or (ansible_os_family == 'Debian')
 
 - name: Download GitLab repository installation script.
   get_url:
@@ -32,9 +29,7 @@
   when: (gitlab_file.stat.exists == false)
 
 - name: Install GitLab
-  package:
-    name=gitlab-ce
-    state=installed
+  package: name=gitlab-ce state=installed
   when: (gitlab_file.stat.exists == false)
 
 # Start and configure GitLab. Sometimes the first run fails, but after that,
