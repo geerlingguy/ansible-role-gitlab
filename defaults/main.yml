@@ -12,6 +12,30 @@ gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
 gitlab_create_self_signed_cert: true
 gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=gitlab"
 
+# SSL Deploy Certificate Configuration.
+#   - This option and `gitlab_create_self_signed_cert` exclude each other
+#     if `ssl_certificate` and `ssl_certificate_key` are defined and `!= ''`
+#     the script automatically will deploy those certificates
+#   - Please do NOT put you certificates in this file. And do NOT push any
+#     certificate to github or any type of storage service.
+#     usage:
+#       - Override this variables inside a file and and use `vars_files:`
+#         Ansible module. Other approach is to use a file inside
+#         `group_vars/all_secrets`
+#       - ENCRIPT the file with Ansible vault:
+#         Your SSL certificates should never be uploaded in plain text. SSH
+#         connection work in plain text by default. To solve this problem
+#         Ansible provides vault. Ansible vault will encript a file with
+#         variables. The encripted variables will be decripted in the
+#         destination machine.
+#
+#             $ touch group_vars/secrets_all.yml
+#             # copy you certificates inside group_vars/secrets_all.yml
+#             $ ansible-vault encrypt group_vars/secrets_all.yml
+#
+ssl_certificate: ''
+ssl_certificate_key: ''
+
 # LDAP Configuration.
 gitlab_ldap_enabled: "false"
 gitlab_ldap_host: "example.com"
