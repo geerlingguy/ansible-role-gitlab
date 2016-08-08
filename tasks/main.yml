@@ -10,51 +10,32 @@
   stat: path=/usr/bin/gitlab-ctl
   register: gitlab_file
 
-# Install GitLab and its dependencies (RedHat).
-- name: Install GitLab dependencies (RedHat).
-  yum: "name={{ item }} state=installed"
+# Install GitLab and its dependencies.
+- name: Install GitLab dependencies.
+  package:
+    name={{ item }}
+    state=installed
   with_items:
     - openssh-server
     - postfix
     - curl
-  when: ansible_os_family == 'RedHat'
+  when: (ansible_os_family == 'RedHat') or (ansible_os_family == 'Debian')
 
-- name: Download GitLab repository installation script (RedHat).
+- name: Download GitLab repository installation script.
   get_url:
     url: "{{ gitlab_repository_installation_script_url }}"
     dest: /tmp/gitlab_install_repository.sh
-  when: (gitlab_file.stat.exists == false) and (ansible_os_family == 'RedHat')
-
-- name: Install GitLab repository (RedHat)
-  command: bash /tmp/gitlab_install_repository.sh
-  when: (gitlab_file.stat.exists == false) and (ansible_os_family == 'RedHat')
-
-- name: Install GitLab (RedHat)
-  yum: "name=gitlab-ce state=installed"
-  when: (gitlab_file.stat.exists == false) and (ansible_os_family == 'RedHat')
-
-# Install GitLab and its dependencies (Debian).
-- name: Install GitLab dependencies (Debian).
-  apt: "name={{ item }} state=installed"
-  with_items:
-    - openssh-server
-    - postfix
-    - curl
-  when: ansible_os_family == 'Debian'
-
-- name: Download GitLab repository installation script (Debian).
-  get_url:
-    url: "{{ gitlab_repository_installation_script_url }}"
-    dest: /tmp/gitlab_install_repository.sh
-  when: (gitlab_file.stat.exists == false) and (ansible_os_family == 'Debian')
+  when: (gitlab_file.stat.exists == false)
 
 - name: Install GitLab repository
   command: bash /tmp/gitlab_install_repository.sh
-  when: (gitlab_file.stat.exists == false) and (ansible_os_family == 'Debian')
+  when: (gitlab_file.stat.exists == false)
 
 - name: Install GitLab
-  apt: "name=gitlab-ce state=installed"
-  when: (gitlab_file.stat.exists == false) and (ansible_os_family == 'Debian')
+  package:
+    name=gitlab-ce
+    state=installed
+  when: (gitlab_file.stat.exists == false)
 
 # Start and configure GitLab. Sometimes the first run fails, but after that,
 # restarts fix problems, so ignore failures on this run.
