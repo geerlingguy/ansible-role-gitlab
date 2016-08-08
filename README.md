@@ -54,6 +54,10 @@ GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the c
 
 Gitlab timezone.
 
+    gitlab_backup_keep_time: "604800"
+
+How long to keep local backups (useful if you don't want backups to fill up your drive!).
+
     # Email configuration.
     gitlab_email_enabled: false
     gitlab_email_from: 'gitlab@example.com'
