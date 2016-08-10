@@ -1,14 +1,16 @@
 ---
 # General config.
-gitlab_external_url: "https://gitlab/"
+# fully qualified domain name: your.gitlab.domain.example.com
+gitlab_fqdn: gitlab
+gitlab_external_url: "https://{{ gitlab_fqdn }}/"
 gitlab_git_data_dir: "/var/opt/gitlab/git-data"
 gitlab_edition: "gitlab-ce"
 gitlab_backup_path: "/var/opt/gitlab/backups"
 
 # SSL Configuration.
 gitlab_redirect_http_to_https: "true"
-gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
-gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
+gitlab_ssl_certificate: "/etc/gitlab/ssl/{{ gitlab_fqdn }}.crt"
+gitlab_ssl_certificate_key: "/etc/gitlab/ssl/{{ gitlab_fqdn }}.key"
 
 # SSL Self-signed Certificate Configuration.
 gitlab_create_self_signed_cert: "true"
