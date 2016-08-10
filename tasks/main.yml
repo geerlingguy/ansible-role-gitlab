@@ -23,6 +23,7 @@
   get_url:
     url: "{{ gitlab_repository_installation_script_url }}"
     dest: /tmp/gitlab_install_repository.sh
+    validate_certs: "{{ gitlab_download_validate_certs }}"
   when: (gitlab_file.stat.exists == false)
 
 - name: Install GitLab repository
