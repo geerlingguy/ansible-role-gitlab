@@ -13,7 +13,7 @@ gitlab_create_self_signed_cert: true
 gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=gitlab"
 
 # LDAP Configuration.
-gitlab_ldap_enabled: "false"
+gitlab_ldap_enabled: false
 gitlab_ldap_host: "example.com"
 gitlab_ldap_port: "389"
 gitlab_ldap_uid: "sAMAccountName"
@@ -30,7 +30,7 @@ gitlab_time_zone: "UTC"
 gitlab_backup_keep_time: "604800"
 
 # Email configuration.
-gitlab_email_enabled: "false"
+gitlab_email_enabled: false
 gitlab_email_from: 'gitlab@example.com'
 gitlab_email_display_name: 'Gitlab'
 gitlab_email_reply_to: 'gitlab@example.com'
