@@ -1,0 +1,15 @@
+- set_fact: gitlab_config.nginx.ssl_certificate="{{ gitlab_self_signed_cert_file }}"
+- set_fact: gitlab_config.nginx.ssl_certificate_key="{{ gitlab_self_signed_cert_key_file }}"
+
+- name: Create GitLab SSL configuration folder.
+  file:
+    path: "{{ gitlab_self_signed_cert_file | basename }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+
+- name: Create self-signed certificate.
+  command: >
+    openssl req -new -nodes -x509 -subj "{{ gitlab_self_signed_cert_subj }}" -days 3650 -keyout {{ gitlab_self_signed_cert_key_file }} -out {{ gitlab_self_signed_cert_file }} -extensions v3_ca
+    creates={{ gitlab_self_signed_cert_file }}
