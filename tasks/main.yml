@@ -2,7 +2,7 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
-- set_fact: gitlab_config="{{ gitlab_config | combine(gitlab_default_config) }}"
+- set_fact: gitlab_config="{{ (gitlab_config | default({})) | combine(gitlab_default_config) }}"
 
 - name: Check if GitLab configuration file already exists.
   stat: path=/etc/gitlab/gitlab.rb
