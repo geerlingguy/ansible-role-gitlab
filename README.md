@@ -107,6 +107,14 @@ If you are running GitLab behind a reverse proxy, you may wish to terminate SSL 
 
 If you want to enable [2-way SSL Client Authentication](https://docs.gitlab.com/omnibus/settings/nginx.html#enable-2-way-ssl-client-authentication), set `gitlab_nginx_ssl_verify_client` and add a path to the client certificate in `gitlab_nginx_ssl_client_certificate`.
 
+    gitlab_custom_server_config: 'listen [::]:80;'
+
+The line in `gitlab_custom_server_config` is added to the builtin nginx server configurtion. In this case nginx also listens to any IPv6 address.
+
+    gitlab_real_ip_trusted_addresses: ['2001:db8::/32']
+
+Optional list of trusted proxy servers (for example when using a external proxy for SSL termination). The `X-Real-IP` header of HTTP requests from hosts in this list is trusted to be the real client IP address.
+
 ## Dependencies
 
 None.

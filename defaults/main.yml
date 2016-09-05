@@ -7,8 +7,8 @@ gitlab_backup_path: "/var/opt/gitlab/backups"
 
 # SSL Configuration.
 gitlab_redirect_http_to_https: "true"
-gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
-gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
+gitlab_https_certificate: "/etc/gitlab/ssl/gitlab.crt"
+gitlab_https_certificate_key: "/etc/gitlab/ssl/gitlab.key"
 
 # SSL Self-signed Certificate Configuration.
 gitlab_create_self_signed_cert: "true"
@@ -55,3 +55,10 @@ gitlab_email_enabled: "false"
 gitlab_email_from: "gitlab@example.com"
 gitlab_email_display_name: "Gitlab"
 gitlab_email_reply_to: "gitlab@example.com"
+
+# Nginx
+gitlab_nginx_enabled: true
+gitlab_real_ip_trusted_addresses: []
+gitlab_nginx_listen_https: no
+gitlab_nginx_listen_port: {{ 443 if gitlab_nginx_listen_https else 80 }}
+

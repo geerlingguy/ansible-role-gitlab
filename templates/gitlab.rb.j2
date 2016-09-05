@@ -11,11 +11,6 @@ gitlab_rails['gitlab_email_display_name'] = "{{ gitlab_email_display_name }}"
 gitlab_rails['gitlab_email_reply_to'] = "{{ gitlab_email_reply_to }}"
 {% endif %}
 
-# Whether to redirect http to https.
-nginx['redirect_http_to_https'] = {{ gitlab_redirect_http_to_https }}
-nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate }}"
-nginx['ssl_certificate_key'] = "{{ gitlab_ssl_certificate_key }}"
-
 # The directory where Git repositories will be stored.
 git_data_dirs({"default" => "{{ gitlab_git_data_dir }}"})
 
@@ -36,11 +31,26 @@ gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
 
 # GitLab Nginx
 ## See https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/nginx.md
+nginx['listen_https'] = {{ 'true' if gitlab_nginx_enabled == true else 'false' }}
+{% if gitlab_nginx_enabled == true %}
 {% if gitlab_nginx_listen_port is defined %}
 nginx['listen_port'] = "{{ gitlab_nginx_listen_port }}"
 {% endif %}
 {% if gitlab_nginx_listen_https is defined %}
-nginx['listen_https'] = "{{ gitlab_nginx_listen_https }}"
+nginx['listen_https'] = {{ 'true' if gitlab_nginx_listen_https == true else 'false' }}
+{% endif %}
+{% if gitlab_custom_server_config is defined %}
+nginx['custom_gitlab_server_config'] = '{{gitlab_custom_server_config}}'
+{% endif %}
+{% if gitlab_real_ip_trusted_addresses is defined %}
+nginx['real_ip_trusted_addresses'] = ['{{ gitlab_real_ip_trusted_addresses | join("', '") }}']
+{% endif %}
+# Whether to redirect http to https.
+nginx['redirect_http_to_https'] = {{ 'true' if (gitlab_redirect_http_to_https == true) else 'false' }}
+{% if gitlab_https_certificate and gitlab_https_key %}
+nginx['ssl_certificate'] = "{{ gitlab_https_certificate }}"
+nginx['ssl_certificate_key'] = "{{ gitlab_https_certificate_key }}"
+{% endif %}
 {% endif %}
 
 # Use smtp instead of sendmail/postfix
