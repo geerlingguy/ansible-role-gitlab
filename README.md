@@ -26,7 +26,7 @@ The URL at which the GitLab instance will be accessible. This is set as the `ext
 The `gitlab_git_data_url` is the location where all the Git repositories will be stored. You can use a shared drive or any path on the system.
 
     # SSL Configuration.
-    gitlab_redirect_http_to_https: "true"
+    gitlab_redirect_http_to_https: true
     gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
     gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
 
@@ -39,7 +39,7 @@ GitLab SSL configuration; tells GitLab to redirect normal http requests to https
 Whether to create a self-signed certificate for serving GitLab over a secure connection. Set `gitlab_self_signed_cert_subj` according to your locality and organization.
 
     # LDAP Configuration.
-    gitlab_ldap_enabled: "false"
+    gitlab_ldap_enabled: false
     gitlab_ldap_host: "example.com"
     gitlab_ldap_port: "389"
     gitlab_ldap_uid: "sAMAccountName"
