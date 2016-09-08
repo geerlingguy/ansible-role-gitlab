@@ -1,44 +1,24 @@
-# The URL through which GitLab will be accessed.
-external_url "{{ gitlab_external_url }}"
-
-# gitlab.yml configuration
-gitlab_rails['time_zone'] = "{{ gitlab_time_zone }}"
-gitlab_rails['backup_keep_time'] = {{ gitlab_backup_keep_time }}
-gitlab_rails['gitlab_email_enabled'] = {{ gitlab_email_enabled }}
-{% if gitlab_email_enabled == "true" %}
-gitlab_rails['gitlab_email_from'] = "{{ gitlab_email_from }}"
-gitlab_rails['gitlab_email_display_name'] = "{{ gitlab_email_display_name }}"
-gitlab_rails['gitlab_email_reply_to'] = "{{ gitlab_email_reply_to }}"
+{% for gitlab_config_category_name, gitlab_config_category in gitlab_config.iteritems() %}
+{% if ((gitlab_config_category == true) or (gitlab_config_category == false)) %}
+{{gitlab_config_category_name}} {{ 'true' if gitlab_config_category == true else 'false' }}
+{% elif gitlab_config_option is number %}
+{{gitlab_config_category_name}} {{gitlab_config_category}}
+{% elif gitlab_config_category is string %}
+{{gitlab_config_category_name}} "{{gitlab_config_category}}"
+{% else %}
+{% for gitlab_config_option_name, gitlab_config_option in gitlab_config_category.iteritems() %}
+{% if ((gitlab_config_option == true) or (gitlab_config_option == false)) %}
+{{gitlab_config_category_name}}['{{gitlab_config_option_name}}'] = {{ 'true' if gitlab_config_option_name == true else 'false'}}
+{% elif gitlab_config_option is number %}
+{{gitlab_config_category_name}}['{{gitlab_config_option_name}}'] = {{gitlab_config_option}}
+{% elif gitlab_config_option is string %}
+{{gitlab_config_category_name}}['{{gitlab_config_option_name}}'] = "{{gitlab_config_option}}"
+{% elif gitlab_config_option is iterable %}
+{{gitlab_config_category_name}}['{{gitlab_config_option_name}}'] = ['{{ gitlab_config_option | join("', '") }}']
 {% endif %}
-
-# Whether to redirect http to https.
-nginx['redirect_http_to_https'] = {{ gitlab_redirect_http_to_https }}
-nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate }}"
-nginx['ssl_certificate_key'] = "{{ gitlab_ssl_certificate_key }}"
-
-# The directory where Git repositories will be stored.
-git_data_dir "{{ gitlab_git_data_dir }}"
-
-# These settings are documented in more detail at
-# https://gitlab.com/gitlab-org/gitlab-ce/blob/master/config/gitlab.yml.example#L118
-gitlab_rails['ldap_enabled'] = {{ gitlab_ldap_enabled }}
-gitlab_rails['ldap_host'] = '{{ gitlab_ldap_host }}'
-gitlab_rails['ldap_port'] = {{ gitlab_ldap_port }}
-gitlab_rails['ldap_uid'] = '{{ gitlab_ldap_uid }}'
-gitlab_rails['ldap_method'] = '{{ gitlab_ldap_method}}' # 'ssl' or 'plain'
-gitlab_rails['ldap_bind_dn'] = '{{ gitlab_ldap_bind_dn }}'
-gitlab_rails['ldap_password'] = '{{ gitlab_ldap_password }}'
-gitlab_rails['ldap_allow_username_or_email_login'] = true
-gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
-
-# GitLab Nginx
-## See https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/nginx.md
-{% if gitlab_nginx_listen_port is defined %}
-nginx['listen_port'] = "{{ gitlab_nginx_listen_port }}"
+{% endfor %}
 {% endif %}
-{% if gitlab_nginx_listen_https is defined %}
-nginx['listen_https'] = "{{ gitlab_nginx_listen_https }}"
-{% endif %}
+{% endfor %}
 
-# To change other settings, see:
-# https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings
+# Find more configuration options: 
+# https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/files/gitlab-cookbooks/gitlab/attributes/default.rb

@@ -1,36 +1,25 @@
 ---
-# General config.
-gitlab_external_url: "https://gitlab/"
-gitlab_git_data_dir: "/var/opt/gitlab/git-data"
 
-# SSL Configuration.
-gitlab_redirect_http_to_https: "true"
-gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
-gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
-
-# SSL Self-signed Certificate Configuration.
 gitlab_create_self_signed_cert: true
 gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=gitlab"
-
-# LDAP Configuration.
-gitlab_ldap_enabled: "false"
-gitlab_ldap_host: "example.com"
-gitlab_ldap_port: "389"
-gitlab_ldap_uid: "sAMAccountName"
-gitlab_ldap_method: "plain"
-gitlab_ldap_bind_dn: "CN=Username,CN=Users,DC=example,DC=com"
-gitlab_ldap_password: "password"
-gitlab_ldap_base: "DC=example,DC=com"
+gitlab_self_signed_cert_file: "/etc/gitlab/ssl/gitlab.crt"
+gitlab_self_signed_cert_key_file: "/etc/gitlab/ssl/gitlab.key"
 
 # Probably best to leave this as the default, unless doing testing.
-gitlab_restart_handler_failed_when: 'gitlab_restart.rc != 0'
+gitlab_restart_handler_failed_when: "gitlab_restart.rc != 0"
 
-# Optional settings.
-gitlab_time_zone: "UTC"
-gitlab_backup_keep_time: "604800"
-
-# Email configuration.
-gitlab_email_enabled: "false"
-gitlab_email_from: 'gitlab@example.com'
-gitlab_email_display_name: 'Gitlab'
-gitlab_email_reply_to: 'gitlab@example.com'
+gitlab_default_config:
+  external_url: "https://gitlab/"
+  git_data_dir: "/var/opt/gitlab/git-data"
+  gitlab_rails:
+    registry_enabled: false
+    time_zone: "UTC"
+    backup_keep_time: "604800"
+    gitlab_email_enabled: false
+    ldap_enabled: false
+  nginx:
+    redirect_http_to_https: true
+    ssl_certificate: "{{ gitlab_self_signed_cert_file }}"
+    ssl_certificate_key: "{{ gitlab_self_signed_cert_key_file }}"
+    listen_port: 8080
+    listen_https: true
