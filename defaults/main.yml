@@ -1,14 +1,25 @@
 ---
 
-gitlab_default_config:
-  git_data_dir: "/var/opt/gitlab/git-data"
-  gitlab_rails:
-    registry_enabled: false
-
 gitlab_create_self_signed_cert: true
 gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=gitlab"
 gitlab_self_signed_cert_file: "/etc/gitlab/ssl/gitlab.crt"
 gitlab_self_signed_cert_key_file: "/etc/gitlab/ssl/gitlab.key"
 
 # Probably best to leave this as the default, unless doing testing.
-gitlab_restart_handler_failed_when: 'gitlab_restart.rc != 0'
+gitlab_restart_handler_failed_when: "gitlab_restart.rc != 0"
+
+gitlab_default_config:
+  external_url: "https://gitlab/"
+  git_data_dir: "/var/opt/gitlab/git-data"
+  gitlab_rails:
+    registry_enabled: false
+    time_zone: "UTC"
+    backup_keep_time: "604800"
+    gitlab_email_enabled: false
+    ldap_enabled: false
+  nginx:
+    redirect_http_to_https: true
+    ssl_certificate: "{{ gitlab_self_signed_cert_file }}"
+    ssl_certificate_key: "{{ gitlab_self_signed_cert_key_file }}"
+    listen_port: 8080
+    listen_https: true
