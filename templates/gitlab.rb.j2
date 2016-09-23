@@ -71,6 +71,13 @@ nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
 ## See https://gitlab.com/help/administration/container_registry.md
 {% if gitlab_registry_external_url is defined %}
 registry_external_url "{{ gitlab_registry_external_url }}"
+{% if gitlab_registry_ssl_certificate is defined %}
+registry_nginx['ssl_certificate'] = "{{ gitlab_registry_ssl_certificate }}"
+registry_nginx['ssl_certificate_key'] = "{{ gitlab_registry_ssl_certificate_key }}"
+{% else %}
+registry_nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate }}"
+registry_nginx['ssl_certificate_key'] = "{{ gitlab_ssl_certificate_key }}"
+{% endif %}
 {% endif %}
 
 # To change other settings, see:
