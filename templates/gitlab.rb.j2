@@ -59,5 +59,13 @@ gitlab_rails['smtp_openssl_verify_mode'] = '{{ gitlab_smtp_openssl_verify_mode }
 gitlab_rails['smtp_ca_path'] = '{{ gitlab_smtp_ca_path }}'
 gitlab_rails['smtp_ca_file'] = '{{ gitlab_smtp_ca_file }}'
 
+{% if gitlab_nginx_ssl_client_certificate is defined %}
+nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
+{% endif %}
+{% if gitlab_nginx_ssl_verify_client is defined %}
+nginx['ssl_verify_client'] = "{{ gitlab_nginx_ssl_verify_client }}"
+{% endif %}
+
+
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings
