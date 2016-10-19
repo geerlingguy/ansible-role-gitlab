@@ -33,7 +33,7 @@ The `gitlab_git_data_url` is the location where all the Git repositories will be
 GitLab SSL configuration; tells GitLab to redirect normal http requests to https, and the path to the certificate and key (the default values will work for automatic self-signed certificate creation, if set to `true` in the variable below).
 
     # SSL Self-signed Certificate Configuration.
-    gitlab_create_self_signed_cert: true
+    gitlab_create_self_signed_cert: "true"
     gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=gitlab"
 
 Whether to create a self-signed certificate for serving GitLab over a secure connection. Set `gitlab_self_signed_cert_subj` according to your locality and organization.
@@ -59,10 +59,10 @@ Gitlab timezone.
 How long to keep local backups (useful if you don't want backups to fill up your drive!).
 
     # Email configuration.
-    gitlab_email_enabled: false
-    gitlab_email_from: 'gitlab@example.com'
-    gitlab_email_display_name: 'Gitlab'
-    gitlab_email_reply_to: 'gitlab@example.com'
+    gitlab_email_enabled: "false"
+    gitlab_email_from: "gitlab@example.com"
+    gitlab_email_display_name: "Gitlab"
+    gitlab_email_reply_to: "gitlab@example.com"
 
 Gitlab system mail configuration. Disabled by default; set `gitlab_email_enabled` to `true` to enable, and make sure you enter valid from/reply-to values.
 
@@ -70,7 +70,7 @@ Gitlab system mail configuration. Disabled by default; set `gitlab_email_enabled
 
 If you are running GitLab behind a reverse proxy, you may want to override the listen port to something else.
 
-    gitlab_nginx_listen_https: false
+    gitlab_nginx_listen_https: "false"
 
 If you are running GitLab behind a reverse proxy, you may wish to terminate SSL at another proxy server or load balancer
 
