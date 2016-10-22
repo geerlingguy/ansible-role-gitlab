@@ -29,7 +29,7 @@
   when: (gitlab_file.stat.exists == false)
 
 - name: Install GitLab
-  package: name=gitlab-ce state=installed
+  package: name={{ gitlab_edition }} state=installed
   when: (gitlab_file.stat.exists == false)
 
 # Start and configure GitLab. Sometimes the first run fails, but after that,

@@ -1,2 +1,2 @@
 ---
-gitlab_repository_installation_script_url: "https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh"
+gitlab_repository_installation_script_url: "https://packages.gitlab.com/install/repositories/gitlab/{{ gitlab_edition }}/script.rpm.sh"

@@ -25,6 +25,10 @@ The URL at which the GitLab instance will be accessible. This is set as the `ext
 
 The `gitlab_git_data_url` is the location where all the Git repositories will be stored. You can use a shared drive or any path on the system.
 
+    gitlab_edition: "gitlab-ce"
+
+The edition of GitLab to install. Usually either `gitlab-ce` (Community Edition) or `gitlab-ee` (Enterprise Edition).
+
     # SSL Configuration.
     gitlab_redirect_http_to_https: "true"
     gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
