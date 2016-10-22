@@ -9,7 +9,7 @@ gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
 gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
 
 # SSL Self-signed Certificate Configuration.
-gitlab_create_self_signed_cert: true
+gitlab_create_self_signed_cert: "true"
 gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=gitlab"
 
 # LDAP Configuration.
@@ -31,6 +31,6 @@ gitlab_backup_keep_time: "604800"
 
 # Email configuration.
 gitlab_email_enabled: "false"
-gitlab_email_from: 'gitlab@example.com'
-gitlab_email_display_name: 'Gitlab'
-gitlab_email_reply_to: 'gitlab@example.com'
+gitlab_email_from: "gitlab@example.com"
+gitlab_email_display_name: "Gitlab"
+gitlab_email_reply_to: "gitlab@example.com"
