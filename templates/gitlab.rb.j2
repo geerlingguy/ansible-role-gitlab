@@ -17,7 +17,7 @@ nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate }}"
 nginx['ssl_certificate_key'] = "{{ gitlab_ssl_certificate_key }}"
 
 # The directory where Git repositories will be stored.
-git_data_dir "{{ gitlab_git_data_dir }}"
+git_data_dirs({"default" => "{{ gitlab_git_data_dir }}"})
 
 # These settings are documented in more detail at
 # https://gitlab.com/gitlab-org/gitlab-ce/blob/master/config/gitlab.yml.example#L118
