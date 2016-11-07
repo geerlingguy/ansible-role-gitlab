@@ -48,6 +48,12 @@ nginx['worker_processes'] = "{{ gitlab_nginx_worker_processes }}"
 {% if gitlab_nginx_worker_connections is defined %}
 nginx['worker_connections'] = "{{ gitlab_nginx_worker_connections }}"
 {% endif %}
+{% if gitlab_nginx_worker_processes is defined %}
+nginx['worker_processes'] = "{{ gitlab_nginx_worker_processes }}"
+{% endif %}
+{% if gitlab_nginx_worker_connections is defined %}
+nginx['worker_connections'] = "{{ gitlab_nginx_worker_connections }}"
+{% endif %}
 
 # Use smtp instead of sendmail/postfix
 # More details and example configuration at
