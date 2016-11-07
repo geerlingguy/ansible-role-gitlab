@@ -91,8 +91,8 @@ Gitlab system mail configuration. Disabled by default; set `gitlab_email_enabled
 Gitlab SMTP configuration; of `gitlab_smtp_enable` is `true`, the rest of the configuration will tell GitLab how to send mails using an smtp server.
 
     ## Tweak unicorn settings.
-    gitlab_unicorn_worker_timeout = 60
-    gitlab_unicorn_worker_processes = 2
+    gitlab_unicorn_worker_timeout: 60
+    gitlab_unicorn_worker_processes: 2
 
 Gitlab _unicorn worker_ settings.
 
