@@ -78,6 +78,12 @@ If you are running GitLab behind a reverse proxy, you may want to override the l
 
 If you are running GitLab behind a reverse proxy, you may wish to terminate SSL at another proxy server or load balancer
 
+    gitlab_install_repo_env:
+      os: ""
+      dist: ""
+
+Packagecloud does not support other than LTS Ubuntu releases. To override os/dist detection, you can set e.g. os="ubuntu" dist="xenial" to enable installation on yakkety.
+
 ## Dependencies
 
 None.

@@ -25,6 +25,7 @@
   when: (gitlab_file.stat.exists == false)
 
 - name: Install GitLab repository
+  environment: "{{ gitlab_install_repo_env }}"
   command: bash /tmp/gitlab_install_repository.sh
   when: (gitlab_file.stat.exists == false)
 
