@@ -23,7 +23,7 @@ The URL at which the GitLab instance will be accessible. This is set as the `ext
 
     gitlab_git_data_dir: "/var/opt/gitlab/git-data"
 
-The `gitlab_git_data_url` is the location where all the Git repositories will be stored. You can use a shared drive or any path on the system.
+The `gitlab_git_data_dir` is the location where all the Git repositories will be stored. You can use a shared drive or any path on the system.
 
     gitlab_edition: "gitlab-ce"
 
