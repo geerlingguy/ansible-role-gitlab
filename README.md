@@ -25,6 +25,10 @@ The URL at which the GitLab instance will be accessible. This is set as the `ext
 
 The `gitlab_git_data_dir` is the location where all the Git repositories will be stored. You can use a shared drive or any path on the system.
 
+    gitlab_backup_path: "/var/opt/gitlab/backups"
+
+The `gitlab_backup_path` is the location where Gitlab backups will be stored.
+
     gitlab_edition: "gitlab-ce"
 
 The edition of GitLab to install. Usually either `gitlab-ce` (Community Edition) or `gitlab-ee` (Enterprise Edition).
