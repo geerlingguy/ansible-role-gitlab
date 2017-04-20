@@ -78,6 +78,11 @@ If you are running GitLab behind a reverse proxy, you may want to override the l
 
 If you are running GitLab behind a reverse proxy, you may wish to terminate SSL at another proxy server or load balancer
 
+    gitlab_nginx_ssl_client_certificate: "/etc/gitlab/ssl/client.crt"
+    gitlab_nginx_ssl_verify_client: "on"
+
+Client certificate configuration: tells GitLab to use client certificate.
+
 ## Dependencies
 
 None.
