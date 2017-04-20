@@ -70,6 +70,22 @@ How long to keep local backups (useful if you don't want backups to fill up your
 
 Gitlab system mail configuration. Disabled by default; set `gitlab_email_enabled` to `true` to enable, and make sure you enter valid from/reply-to values.
 
+    # SMTP Configuration
+    gitlab_smtp_enable: "false"
+    gitlab_smtp_address: "smtp.server"
+    gitlab_smtp_port: "465"
+    gitlab_smtp_user_name: "smtp user"
+    gitlab_smtp_password: "smtp password"
+    gitlab_smtp_domain: "example.com"
+    gitlab_smtp_authentication: "login"
+    gitlab_smtp_enable_starttls_auto: "true"
+    gitlab_smtp_tls: "false"
+    gitlab_smtp_openssl_verify_mode: "none"
+    gitlab_smtp_ca_path: "/etc/ssl/certs"
+    gitlab_smtp_ca_file: "/etc/ssl/certs/ca-certificates.crt"
+
+Gitlab SMTP configuration; of `gitlab_smtp_enable` is `true`, the rest of the configuration will tell GitLab how to send mails using an smtp server.
+
     gitlab_nginx_listen_port: 8080
 
 If you are running GitLab behind a reverse proxy, you may want to override the listen port to something else.

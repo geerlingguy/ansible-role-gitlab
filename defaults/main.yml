@@ -23,6 +23,20 @@ gitlab_ldap_bind_dn: "CN=Username,CN=Users,DC=example,DC=com"
 gitlab_ldap_password: "password"
 gitlab_ldap_base: "DC=example,DC=com"
 
+# SMTP Configuration
+gitlab_smtp_enable: "false"
+gitlab_smtp_address: "smtp.server"
+gitlab_smtp_port: "465"
+gitlab_smtp_user_name: "smtp user"
+gitlab_smtp_password: "smtp password"
+gitlab_smtp_domain: "example.com"
+gitlab_smtp_authentication: "login"
+gitlab_smtp_enable_starttls_auto: "true"
+gitlab_smtp_tls: "false"
+gitlab_smtp_openssl_verify_mode: "none"
+gitlab_smtp_ca_path: "/etc/ssl/certs"
+gitlab_smtp_ca_file: "/etc/ssl/certs/ca-certificates.crt"
+
 # Probably best to leave this as the default, unless doing testing.
 gitlab_restart_handler_failed_when: 'gitlab_restart.rc != 0'
 
