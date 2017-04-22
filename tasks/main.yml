@@ -51,6 +51,10 @@
     mode: 0700
   when: gitlab_create_self_signed_cert
 
+- name: Ensure openssl is installed.
+  yum: name=openssl state=present
+  when: gitlab_create_self_signed_cert
+
 - name: Create self-signed certificate.
   command: >
     openssl req -new -nodes -x509 -subj "{{ gitlab_self_signed_cert_subj }}" -days 3650 -keyout {{ gitlab_ssl_certificate_key }} -out {{ gitlab_ssl_certificate }} -extensions v3_ca
