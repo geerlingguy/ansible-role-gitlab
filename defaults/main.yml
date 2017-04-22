@@ -4,13 +4,14 @@ gitlab_external_url: "https://gitlab/"
 gitlab_git_data_dir: "/var/opt/gitlab/git-data"
 gitlab_edition: "gitlab-ce"
 gitlab_backup_path: "/var/opt/gitlab/backups"
+gitlab_custom_server_config:
 
-# SSL Configuration.
+# Encryption Configuration.
 gitlab_redirect_http_to_https: "true"
-gitlab_https_certificate: "/etc/gitlab/ssl/gitlab.crt"
-gitlab_https_certificate_key: "/etc/gitlab/ssl/gitlab.key"
+gitlab_https_cert: "/etc/gitlab/ssl/gitlab.crt"
+gitlab_https_key: "/etc/gitlab/ssl/gitlab.key"
 
-# SSL Self-signed Certificate Configuration.
+# Self-signed Certificate Configuration.
 gitlab_create_self_signed_cert: "true"
 gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=gitlab"
 
@@ -38,6 +39,12 @@ gitlab_smtp_openssl_verify_mode: "none"
 gitlab_smtp_ca_path: "/etc/ssl/certs"
 gitlab_smtp_ca_file: "/etc/ssl/certs/ca-certificates.crt"
 
+# Nginx
+gitlab_nginx_enabled: true
+gitlab_nginx_real_ip_trusted_addresses:
+gitlab_nginx_listen_https: no
+gitlab_nginx_listen_port: '{{ 443 if gitlab_nginx_listen_https else 80 }}'
+
 # 2-way SSL Client Authentication support.
 gitlab_nginx_ssl_verify_client: ""
 gitlab_nginx_ssl_client_certificate: ""
@@ -55,10 +62,3 @@ gitlab_email_enabled: "false"
 gitlab_email_from: "gitlab@example.com"
 gitlab_email_display_name: "Gitlab"
 gitlab_email_reply_to: "gitlab@example.com"
-
-# Nginx
-gitlab_nginx_enabled: true
-gitlab_real_ip_trusted_addresses: []
-gitlab_nginx_listen_https: no
-gitlab_nginx_listen_port: {{ 443 if gitlab_nginx_listen_https else 80 }}
-

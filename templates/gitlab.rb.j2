@@ -33,23 +33,19 @@ gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
 ## See https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/nginx.md
 nginx['listen_https'] = {{ 'true' if gitlab_nginx_enabled == true else 'false' }}
 {% if gitlab_nginx_enabled == true %}
-{% if gitlab_nginx_listen_port is defined %}
 nginx['listen_port'] = "{{ gitlab_nginx_listen_port }}"
-{% endif %}
-{% if gitlab_nginx_listen_https is defined %}
 nginx['listen_https'] = {{ 'true' if gitlab_nginx_listen_https == true else 'false' }}
+{% if gitlab_custom_server_config %}
+nginx['custom_gitlab_server_config'] = '{{ gitlab_custom_server_config }}'
 {% endif %}
-{% if gitlab_custom_server_config is defined %}
-nginx['custom_gitlab_server_config'] = '{{gitlab_custom_server_config}}'
-{% endif %}
-{% if gitlab_real_ip_trusted_addresses is defined %}
-nginx['real_ip_trusted_addresses'] = ['{{ gitlab_real_ip_trusted_addresses | join("', '") }}']
+{% if gitlab_nginx_real_ip_trusted_addresses %}
+nginx['real_ip_trusted_addresses'] = ['{{ gitlab_nginx_real_ip_trusted_addresses | join("', '") }}']
 {% endif %}
 # Whether to redirect http to https.
 nginx['redirect_http_to_https'] = {{ 'true' if (gitlab_redirect_http_to_https == true) else 'false' }}
-{% if gitlab_https_certificate and gitlab_https_key %}
-nginx['ssl_certificate'] = "{{ gitlab_https_certificate }}"
-nginx['ssl_certificate_key'] = "{{ gitlab_https_certificate_key }}"
+{% if gitlab_https_cert and gitlab_https_key %}
+nginx['ssl_certificate'] = "{{ gitlab_https_cert }}"
+nginx['ssl_certificate_key'] = "{{ gitlab_https_key }}"
 {% endif %}
 {% endif %}
 

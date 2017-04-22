@@ -53,8 +53,8 @@
 
 - name: Create self-signed certificate.
   command: >
-    openssl req -new -nodes -x509 -subj "{{ gitlab_self_signed_cert_subj }}" -days 3650 -keyout {{ gitlab_https_key }} -out {{ gitlab_https_certificate }} -extensions v3_ca
-    creates={{ gitlab_ssl_certificate }}
+    openssl req -new -nodes -x509 -subj "{{ gitlab_self_signed_cert_subj }}" -days 3650 -keyout {{ gitlab_https_key }} -out {{ gitlab_https_cert }} -extensions v3_ca
+    creates={{ gitlab_https_cert }}
   when: gitlab_create_self_signed_cert
 
 - name: Copy GitLab configuration file.

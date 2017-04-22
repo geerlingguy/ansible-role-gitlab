@@ -35,8 +35,8 @@ The edition of GitLab to install. Usually either `gitlab-ce` (Community Edition)
 
     # SSL Configuration.
     gitlab_redirect_http_to_https: "true"
-    gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
-    gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
+    gitlab_https_cert: "/etc/gitlab/ssl/gitlab.crt"
+    gitlab_https_key: "/etc/gitlab/ssl/gitlab.key"
 
 GitLab SSL configuration; tells GitLab to redirect normal http requests to https, and the path to the certificate and key (the default values will work for automatic self-signed certificate creation, if set to `true` in the variable below).
 
@@ -111,9 +111,17 @@ If you want to enable [2-way SSL Client Authentication](https://docs.gitlab.com/
 
 The line in `gitlab_custom_server_config` is added to the builtin nginx server configurtion. In this case nginx also listens to any IPv6 address.
 
-    gitlab_real_ip_trusted_addresses: ['2001:db8::/32']
+    gitlab_nginx_real_ip_trusted_addresses: ['2001:db8::/32']
 
 Optional list of trusted proxy servers (for example when using a external proxy for SSL termination). The `X-Real-IP` header of HTTP requests from hosts in this list is trusted to be the real client IP address.
+
+    gitlab_nginx_listen_https : no
+
+Enables SSL/TLS encryption on nginx. (Default: no)
+
+    gitlab_nginx_listen_port: {{ 443 if gitlab_nginx_listen_https else 80 }}
+
+The listening port of the webserver. Default port is `443`, when encryption is enabled, or `80`.
 
 ## Dependencies
 
