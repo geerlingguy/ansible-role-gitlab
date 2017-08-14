@@ -42,6 +42,11 @@ nginx['listen_port'] = "{{ gitlab_nginx_listen_port }}"
 {% if gitlab_nginx_listen_https is defined %}
 nginx['listen_https'] = {{ gitlab_nginx_listen_https }}
 {% endif %}
+{% if gitlab_nginx_listen_https == "false" %}
+nginx['proxy_set_headers'] = {
+  "X-Forwarded-Proto" => "https",
+  "X-Forwarded-Ssl" => "on"
+}
 
 # Use smtp instead of sendmail/postfix
 # More details and example configuration at
