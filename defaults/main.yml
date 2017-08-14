@@ -38,6 +38,9 @@ gitlab_smtp_openssl_verify_mode: "none"
 gitlab_smtp_ca_path: "/etc/ssl/certs"
 gitlab_smtp_ca_file: "/etc/ssl/certs/ca-certificates.crt"
 
+# Unicorn settings
+gitlab_unicorn_port: ""
+
 # 2-way SSL Client Authentication support.
 gitlab_nginx_ssl_verify_client: ""
 gitlab_nginx_ssl_client_certificate: ""

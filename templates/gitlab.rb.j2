@@ -47,7 +47,7 @@ nginx['proxy_set_headers'] = {
   "X-Forwarded-Proto" => "https",
   "X-Forwarded-Ssl" => "on"
 }
-{% if gitlab_unicorn_port is defined %}
+{% if gitlab_unicorn_port %}
 unicorn['port'] = "{{ gitlab_unicorn_port }}"
 {% endif %}
 # Use smtp instead of sendmail/postfix
