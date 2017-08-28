@@ -25,6 +25,7 @@ gitlab_rails['backup_path'] = "{{ gitlab_backup_path }}"
 # These settings are documented in more detail at
 # https://gitlab.com/gitlab-org/gitlab-ce/blob/master/config/gitlab.yml.example#L118
 gitlab_rails['ldap_enabled'] = {{ gitlab_ldap_enabled }}
+{% if gitlab_ldap_enabled == "true" %}
 gitlab_rails['ldap_host'] = '{{ gitlab_ldap_host }}'
 gitlab_rails['ldap_port'] = {{ gitlab_ldap_port }}
 gitlab_rails['ldap_uid'] = '{{ gitlab_ldap_uid }}'
@@ -33,6 +34,7 @@ gitlab_rails['ldap_bind_dn'] = '{{ gitlab_ldap_bind_dn }}'
 gitlab_rails['ldap_password'] = '{{ gitlab_ldap_password }}'
 gitlab_rails['ldap_allow_username_or_email_login'] = true
 gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
+{% endif %}
 
 # GitLab Nginx
 ## See https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/nginx.md
@@ -47,6 +49,7 @@ nginx['listen_https'] = "{{ gitlab_nginx_listen_https }}"
 # More details and example configuration at
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md
 gitlab_rails['smtp_enable'] = {{ gitlab_smtp_enable }}
+{% if gitlab_smtp_enable == "true" %}
 gitlab_rails['smtp_address'] = '{{ gitlab_smtp_address }}'
 gitlab_rails['smtp_port'] = {{ gitlab_smtp_port }}
 gitlab_rails['smtp_user_name'] = '{{ gitlab_smtp_user_name }}'
@@ -58,6 +61,7 @@ gitlab_rails['smtp_tls'] = {{ gitlab_smtp_tls }}
 gitlab_rails['smtp_openssl_verify_mode'] = '{{ gitlab_smtp_openssl_verify_mode }}'
 gitlab_rails['smtp_ca_path'] = '{{ gitlab_smtp_ca_path }}'
 gitlab_rails['smtp_ca_file'] = '{{ gitlab_smtp_ca_file }}'
+{% endif %}
 
 # 2-way SSL Client Authentication.
 {% if gitlab_nginx_ssl_verify_client %}
