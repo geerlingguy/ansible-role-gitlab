@@ -23,6 +23,33 @@ gitlab_ldap_method: "plain"
 gitlab_ldap_bind_dn: "CN=Username,CN=Users,DC=example,DC=com"
 gitlab_ldap_password: "password"
 gitlab_ldap_base: "DC=example,DC=com"
+# alternative configuration syntax
+# if you enable gitlab_ldap_servers, all other options except ldap_enabled will be ignored
+#gitlab_ldap_servers: |
+#  main:
+#    label: 'LDAP'
+#    host: '<your_dc_hostname>'
+#    port: 636
+#    uid: 'sAMAccountName'
+#    # user_filter: ''
+#    base: '<your_base_dn>'
+#    bind_dn: '<your_bind_dn>'
+#    password: '<your_bind_password>'
+#    encryption: 'simple_tls'
+#    verify_certificates: true
+#    # ca_file: ''
+#    ssl_version: 'TLSv1_3'
+#    timeout: 10
+#    active_directory: true
+#    allow_username_or_email_login: false
+#    block_auto_created_users: false
+#    attributes:
+#      username: ['uid', 'userid', 'sAMAccountName']
+#      email: ['mail', 'email', 'userPrincipalName']
+#      name: 'cn'
+#      first_name: 'givenName'
+#      last_name: 'sn'
+
 
 # SMTP Configuration
 gitlab_smtp_enable: "false"
