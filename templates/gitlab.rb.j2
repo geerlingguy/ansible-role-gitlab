@@ -11,6 +11,10 @@ gitlab_rails['gitlab_email_display_name'] = "{{ gitlab_email_display_name }}"
 gitlab_rails['gitlab_email_reply_to'] = "{{ gitlab_email_reply_to }}"
 {% endif %}
 
+{% if gitlab_ssh_port is defined and gitlab_ssh_port != 22 %}
+gitlab_rails['gitlab_shell_ssh_port'] = {{ gitlab_ssh_port }}
+{% endif %}
+
 # Whether to redirect http to https.
 nginx['redirect_http_to_https'] = {{ gitlab_redirect_http_to_https }}
 nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate }}"
