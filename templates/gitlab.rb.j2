@@ -67,5 +67,21 @@ nginx['ssl_verify_client'] = "{{ gitlab_nginx_ssl_verify_client }}"
 nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
 {% endif %}
 
+{% if gitlab_svlogd_size    is defined or
+      gitlab_svlogd_num     is defined or
+      gitlab_svlogd_timeout is defined or
+      gitlab_svlogd_filter  is defined or
+      gitlab_svlogd_udp     is defined or
+      gitlab_svlogd_prefix  is defined %}
+# GitLab Logging
+# docs: https://docs.gitlab.com/omnibus/settings/logs.html
+logging['svlogd_size'] = "{{ gitlab_svlogd_size | default('200 * 1024 * 1024') }}"
+logging['svlogd_num'] = "{{ gitlab_svlogd_num | default(30) }}"
+logging['svlogd_timeout'] = "{{ gitlab_svlogd_timeout | default('24 * 60 * 60') }}"
+logging['svlogd_filter'] = "{{ gitlab_svlogd_filter | default('gzip') }}"
+logging['svlogd_udp'] = "{{ gitlab_svlogd_udp | default('') }}"
+logging['svlogd_prefix'] = "{{ gitlab_svlogd_prefix | default('') }}"
+{% endif %}
+
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings

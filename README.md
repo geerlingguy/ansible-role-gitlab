@@ -107,6 +107,15 @@ If you are running GitLab behind a reverse proxy, you may wish to terminate SSL 
 
 If you want to enable [2-way SSL Client Authentication](https://docs.gitlab.com/omnibus/settings/nginx.html#enable-2-way-ssl-client-authentication), set `gitlab_nginx_ssl_verify_client` and add a path to the client certificate in `gitlab_nginx_ssl_client_certificate`.
 
+    gitlab_svlogd_size: 200 * 1024 * 1024
+    gitlab_svlogd_num: 30
+    gitlab_svlogd_timeout: 24 * 60 * 60
+    gitlab_svlogd_filter: "gzip"
+    gitlab_svlogd_udp: ""
+    gitlab_svlogd_prefix: ""
+
+You can modify the [runit Logs](https://docs.gitlab.com/omnibus/settings/logs.html#runit-logs) with these svlogd settings.
+
 ## Dependencies
 
 None.
