@@ -66,10 +66,12 @@ nginx['ssl_verify_client'] = "{{ gitlab_nginx_ssl_verify_client }}"
 {% if gitlab_nginx_ssl_client_certificate %}
 nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
 {% endif %}
-{% if gitlab_prometheus_enable is defined %}
+{% if gitlab_prometheus_enable is defined or gitlab_prometheus_listen_address is defined %}
 
 # Prometheus
 # Docs: https://docs.gitlab.com/ce/administration/monitoring/prometheus/
+{% endif %}
+{% if gitlab_prometheus_enable is defined %}
 prometheus['enable'] = "{{ gitlab_prometheus_enable | default('true') }}"
 prometheus['monitor_kubernetes'] = "{{ gitlab_prometheus_monitor_kubernetes | default('true') }}"
 prometheus['username'] = "{{ gitlab_prometheus_username | default('gitlab-prometheus') }}"
@@ -81,6 +83,10 @@ prometheus['log_directory'] = "{{ gitlab_prometheus_log_directory | default('/v
 prometheus['scrape_interval'] = "{{ gitlab_prometheus_scrape_interval | default(15) }}"
 prometheus['scrape_timeout'] = "{{ gitlab_prometheus_scrape_timeout | default(15) }}"
 prometheus['chunk_encoding_version'] = "{{ gitlab_prometheus_chunk_encoding_version | default(2) }}"
+{% endif %}
+{% if gitlab_prometheus_listen_address is defined %}
+#! Advanced settings. Should be changed only if absolutely needed.
+prometheus['listen_address'] = "{{ gitlab_prometheus_listen_address | default('localhost:9090') }}"
 {% endif %}
 {% if gitlab_monitor_enable is defined %}
 

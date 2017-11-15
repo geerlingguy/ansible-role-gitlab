@@ -131,7 +131,11 @@ To completely disable [Gitlab Prometheus](https://docs.gitlab.com/ce/administrat
     gitlab_prometheus_scrape_timeout: 15
     gitlab_prometheus_chunk_encoding_version : 2
 
-If you want to set some [https://docs.gitlab.com/ce/administration/monitoring/prometheus/](Prometheus settings).
+If you want to set some [Prometheus settings](https://docs.gitlab.com/ce/administration/monitoring/prometheus/) configuration; if `gitlab_prometheus_enable` is set the rest of the configuration could be set.
+
+    gitlab_prometheus_listen_address: 'localhost:9090'
+
+If you want to set the [port Prometheus listen](https://docs.gitlab.com/ce/administration/monitoring/prometheus/#changing-the-port-prometheus-listens-on). Could be useful to change with an IP if you use a platform for analytics and monitoring.
 
 ## Dependencies
 
