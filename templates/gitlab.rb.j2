@@ -67,5 +67,18 @@ nginx['ssl_verify_client'] = "{{ gitlab_nginx_ssl_verify_client }}"
 nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
 {% endif %}
 
+{% if gitlab_logrotate_enable is defined %}
+# Gitlab Logrotate
+# Docs: https://docs.gitlab.com/omnibus/settings/logs.html#logrotate
+logrotate['enable'] = "{{ gitlab_logrotate_enable | default('true') }}"
+logging['logrotate_frequency'] = "{{ gitlab_logrotate_frequency | default('daily') }}"
+logging['logrotate_size'] = "{{ gitlab_logrotate_size | default('') }}"
+logging['logrotate_rotate'] = "{{ gitlab_logrotate_rotate | default(30) }}"
+logging['logrotate_compress'] = "{{ gitlab_logrotate_compress | default('compress') }}"
+logging['logrotate_method'] = "{{ gitlab_logrotate_method | default('copytruncate') }}"
+logging['logrotate_postrotate'] = "{{ gitlab_logrotate_postrotate | default('') }}"
+logging['logrotate_dateformat'] = "{{ gitlab_logrotate_dateformat | default('') }}"
+{% endif %}
+
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings
