@@ -82,6 +82,21 @@ prometheus['scrape_interval'] = "{{ gitlab_prometheus_scrape_interval | default(
 prometheus['scrape_timeout'] = "{{ gitlab_prometheus_scrape_timeout | default(15) }}"
 prometheus['chunk_encoding_version'] = "{{ gitlab_prometheus_chunk_encoding_version | default(2) }}"
 {% endif %}
+{% if gitlab_monitor_enable is defined %}
+
+# Prometheus Gitlab monitor
+# Docs: https://docs.gitlab.com/ce/administration/monitoring/prometheus/gitlab_monitor_exporter.html
+gitlab_monitor['enable'] = "{{ gitlab_monitor_enable | default('true') }}"
+gitlab_monitor['log_directory'] = "{{ gitlab_monitor_log_directory | default('/var/log/gitlab/gitlab-monitor') }}"
+gitlab_monitor['home'] = "{{ gitlab_monitor_home | default('/var/opt/gitlab/gitlab-monitor') }}"
+##! Advanced settings. Should be changed only if absolutely needed.
+gitlab_monitor['listen_address'] = "{{ gitlab_monitor_listen_address | default('localhost') }}"
+gitlab_monitor['listen_port'] = "{{ gitlab_monitor_listen_port | default('9168') }}"
+{% endif %}
+{% if gitlab_prometheus_monitoring_enable is defined %}
+# To completely disable prometheus, and all of it's exporters, set to false
+prometheus_monitoring['enable'] = true
+{% endif %}
 
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings
