@@ -66,6 +66,22 @@ nginx['ssl_verify_client'] = "{{ gitlab_nginx_ssl_verify_client }}"
 {% if gitlab_nginx_ssl_client_certificate %}
 nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
 {% endif %}
+{% if gitlab_prometheus_enable is defined %}
+
+# Prometheus
+# Docs: https://docs.gitlab.com/ce/administration/monitoring/prometheus/
+prometheus['enable'] = "{{ gitlab_prometheus_enable | default('true') }}"
+prometheus['monitor_kubernetes'] = "{{ gitlab_prometheus_monitor_kubernetes | default('true') }}"
+prometheus['username'] = "{{ gitlab_prometheus_username | default('gitlab-prometheus') }}"
+prometheus['uid'] = "{{ gitlab_prometheus_uid | default('') }}"
+prometheus['gid'] = "{{ gitlab_prometheus_gid | default('') }}"
+prometheus['shell'] = "{{ gitlab_prometheus_shell | default('/bin/sh') }}"
+prometheus['home'] = "{{ gitlab_prometheus_home | default('/var/opt/gitlab/prometheus') }}"
+prometheus['log_directory'] = "{{ gitlab_prometheus_log_directory | default('/var/log/gitlab/prometheus') }}"
+prometheus['scrape_interval'] = "{{ gitlab_prometheus_scrape_interval | default(15) }}"
+prometheus['scrape_timeout'] = "{{ gitlab_prometheus_scrape_timeout | default(15) }}"
+prometheus['chunk_encoding_version'] = "{{ gitlab_prometheus_chunk_encoding_version | default(2) }}"
+{% endif %}
 
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings

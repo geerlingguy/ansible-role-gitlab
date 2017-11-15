@@ -107,6 +107,20 @@ If you are running GitLab behind a reverse proxy, you may wish to terminate SSL 
 
 If you want to enable [2-way SSL Client Authentication](https://docs.gitlab.com/omnibus/settings/nginx.html#enable-2-way-ssl-client-authentication), set `gitlab_nginx_ssl_verify_client` and add a path to the client certificate in `gitlab_nginx_ssl_client_certificate`.
 
+    gitlab_prometheus_enable: 'true'
+    gitlab_prometheus_monitor_kubernetes: 'true'
+    gitlab_prometheus_username: 'gitlab-prometheus'
+    gitlab_prometheus_uid: ''
+    gitlab_prometheus_gid: ''
+    gitlab_prometheus_shell: '/bin/sh'
+    gitlab_prometheus_home: '/var/opt/gitlab/prometheus'
+    gitlab_prometheus_log_directory:  '/var/log/gitlab/prometheus'
+    gitlab_prometheus_scrape_interval: 15
+    gitlab_prometheus_scrape_timeout: 15
+    gitlab_prometheus_chunk_encoding_version : 2
+
+If you want to set some [https://docs.gitlab.com/ce/administration/monitoring/prometheus/](Prometheusi settings).
+
 ## Dependencies
 
 None.
