@@ -39,7 +39,7 @@
 
 - name: Install GitLab
   package:
-    name: {{ gitlab_package_name | default(gitlab_edition) }}
+    name: "{{ gitlab_package_name | default(gitlab_edition) }}"
     state: installed
   when: (gitlab_file.stat.exists == false)
 
