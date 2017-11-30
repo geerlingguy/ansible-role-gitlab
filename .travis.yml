@@ -18,15 +18,12 @@ script:
   # Run tests.
   - ${PWD}/tests/test.sh
 
-  # Test if exim is working.
-  # - 'docker exec --tty ${container_id} env TERM=xterm exim -bV'
-
-  # # Make sure GitLab is running.
-  # - >
-  #   curl --insecure -s -o /dev/null -w "%{http_code}" https://localhost/users/password/new
-  #   | grep -q '200'
-  #   && (echo 'Status code 200 test: pass' && exit 0)
-  #   || (echo 'Status code 200 test: fail' && exit 1)
+  # Make sure GitLab is running.
+  - >
+    docker exec ${container_id} curl --insecure -s --head https://localhost/users/password/new
+    | grep -q '200 OK'
+    && (echo 'Status code 200 test: pass' && exit 0)
+    || (echo 'Status code 200 test: fail' && exit 1)
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
