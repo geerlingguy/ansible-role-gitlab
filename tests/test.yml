@@ -1,9 +1,19 @@
 ---
-- hosts: localhost
-  remote_user: root
+- hosts: all
 
   vars:
     gitlab_restart_handler_failed_when: false
 
+  pre_tasks:
+    - name: Update apt cache.
+      apt: update_cache=yes cache_valid_time=600
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+
+    - name: Remove the .dockerenv file so GitLab Omnibus doesn't get confused.
+      file:
+        path: /.dockerenv
+        state: absent
+
   roles:
-    - ansible-role-gitlab
+    - role_under_test
