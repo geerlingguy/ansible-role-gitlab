@@ -4,6 +4,7 @@ services: docker
 env:
   - distro: centos7
   - distro: ubuntu1604
+  - distro: ubuntu1404
   - distro: debian9
 
 script:
@@ -21,7 +22,7 @@ script:
   # Make sure GitLab is running.
   - >
     docker exec ${container_id} curl --insecure -s --head https://localhost/users/password/new
-    | grep -q '200 OK'
+    | sed -n '1p' | grep -q '200'
     && (echo 'Status code 200 test: pass' && exit 0)
     || (echo 'Status code 200 test: fail' && exit 1)
 
