@@ -18,6 +18,7 @@
     - postfix
     - curl
     - openssl
+    - tzdata
 
 - name: Download GitLab repository installation script.
   get_url:
