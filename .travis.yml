@@ -3,9 +3,18 @@ services: docker
 
 env:
   - distro: centos7
+    playbook: test.yml
   - distro: ubuntu1604
+    playbook: test.yml
   - distro: ubuntu1404
+    playbook: test.yml
   - distro: debian9
+    playbook: test.yml
+
+  - distro: centos7
+    playbook: test-version.yml
+  - distro: ubuntu1604
+    playbook: test-version.yml
 
 script:
   # Configure test script so we can run extra tests after playbook is run.

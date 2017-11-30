@@ -31,9 +31,9 @@
   command: bash /tmp/gitlab_install_repository.sh
   when: (gitlab_file.stat.exists == false)
 
-- name: Define the Gitlab package name
+- name: Define the Gitlab package name.
   set_fact:
-    gitlab_package_name: "{{ gitlab_edition }}={{ gitlab_version }}"
+    gitlab_package_name: "{{ gitlab_edition }}{{ gitlab_package_version_separator }}{{ gitlab_version }}"
   when:
     - gitlab_version is defined
 
