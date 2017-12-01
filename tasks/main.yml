@@ -36,6 +36,7 @@
     gitlab_package_name: "{{ gitlab_edition }}{{ gitlab_package_version_separator }}{{ gitlab_version }}"
   when:
     - gitlab_version is defined
+    - gitlab_version
 
 - name: Install GitLab
   package:
