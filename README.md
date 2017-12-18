@@ -29,6 +29,10 @@ The `gitlab_git_data_dir` is the location where all the Git repositories will be
 
 The `gitlab_backup_path` is the location where Gitlab backups will be stored.
 
+    gitlab_cron_backup_enabled: true
+
+The `gitlab_cron_backup_enabled` set a cronjob to run Gitlab backup at 2:00 AM.
+
     gitlab_edition: "gitlab-ce"
 
 The edition of GitLab to install. Usually either `gitlab-ce` (Community Edition) or `gitlab-ee` (Enterprise Edition).
@@ -42,7 +46,7 @@ If you'd like to install a specific version, set the version here (e.g. `10.0.6-
     gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
     gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
 
-GitLab SSL configuration; tells GitLab to redirect normal http requests to https, and the path to the certificate and key (the default values will work for automatic self-signed certificate creation, if set to `true` in the variable below).
+GitLab SSL configuration; tells GitLab to redirect normal http requests to https, and the path to the certificate and key (the default values will work for automatic self-signed certificate creation, if set to `"true"` in the variable below).
 
     # SSL Self-signed Certificate Configuration.
     gitlab_create_self_signed_cert: "true"
@@ -60,7 +64,7 @@ Whether to create a self-signed certificate for serving GitLab over a secure con
     gitlab_ldap_password: "password"
     gitlab_ldap_base: "DC=example,DC=com"
 
-GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the configuration will tell GitLab how to connect to an LDAP server for centralized authentication.
+GitLab LDAP configuration; if `gitlab_ldap_enabled` is `"true"`, the rest of the configuration will tell GitLab how to connect to an LDAP server for centralized authentication.
 
     gitlab_time_zone: "UTC"
 
@@ -80,7 +84,7 @@ Controls whether to validate certificates when downloading the GitLab installati
     gitlab_email_display_name: "Gitlab"
     gitlab_email_reply_to: "gitlab@example.com"
 
-Gitlab system mail configuration. Disabled by default; set `gitlab_email_enabled` to `true` to enable, and make sure you enter valid from/reply-to values.
+Gitlab system mail configuration. Disabled by default; set `gitlab_email_enabled` to `"true"` to enable, and make sure you enter valid from/reply-to values.
 
     # SMTP Configuration
     gitlab_smtp_enable: "false"
@@ -96,7 +100,7 @@ Gitlab system mail configuration. Disabled by default; set `gitlab_email_enabled
     gitlab_smtp_ca_path: "/etc/ssl/certs"
     gitlab_smtp_ca_file: "/etc/ssl/certs/ca-certificates.crt"
 
-Gitlab SMTP configuration; of `gitlab_smtp_enable` is `true`, the rest of the configuration will tell GitLab how to send mails using an smtp server.
+Gitlab SMTP configuration; of `gitlab_smtp_enable` is `"true"`, the rest of the configuration will tell GitLab how to send mails using an smtp server.
 
     gitlab_nginx_listen_port: 8080
 
@@ -106,10 +110,33 @@ If you are running GitLab behind a reverse proxy, you may want to override the l
 
 If you are running GitLab behind a reverse proxy, you may wish to terminate SSL at another proxy server or load balancer
 
+    gitlab_trusted_proxy: "192.168.0.1"
+    gitlab_nginx_real_ip: "192.168.0.1"
+
+If you are running GitLab behind a reverse proxy, you may want to log the real source ip address.
+
     gitlab_nginx_ssl_verify_client: ""
     gitlab_nginx_ssl_client_certificate: ""
 
 If you want to enable [2-way SSL Client Authentication](https://docs.gitlab.com/omnibus/settings/nginx.html#enable-2-way-ssl-client-authentication), set `gitlab_nginx_ssl_verify_client` and add a path to the client certificate in `gitlab_nginx_ssl_client_certificate`.
+
+    gitlab_omniauth_enabled: "false"
+    gitlab_omniauth_block_auto_created_users: "false"
+    gitlab_omniauth_providers:
+          - { name: github, app_id: github_id, app_secret: github_secret, args: '"scope" => "user:email"' }
+
+Gitlab Omniauth configuration; Disabled by default; set `gitlab_omniauth_enabled` to `"true"` to enable, and make sure you enter valid omniauth configuration options.
+
+    gitlab_mattermost_enabled: "false"
+    gitlab_mattermost_configs:
+      - mattermost_external_url 'http://mattermost.example.com'
+      - mattermost['email_send_email_notifications'] = false
+      - mattermost['email_smtp_server'] = 'localhost'
+      - mattermost['email_smtp_port'] = '25'
+      - mattermost['email_feedback_name'] = 'GitLab Mattermost'
+      - mattermost['email_feedback_email'] = 'email@example.com'
+
+Gitlab Mattermost configuration; Disabled by default; set `gitlab_mattermost_enabled` to `"true"` to enable, and make sure you enter valid mattemost configuration options (Docs: https://docs.gitlab.com/omnibus/gitlab-mattermost).
 
 ## Dependencies
 

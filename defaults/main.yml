@@ -1,10 +1,12 @@
 ---
 # General config.
-gitlab_external_url: "https://gitlab/"
+gitlab_external_url: "https://gitlab.example.com"
 gitlab_git_data_dir: "/var/opt/gitlab/git-data"
 gitlab_edition: "gitlab-ce"
 gitlab_version: ''
 gitlab_backup_path: "/var/opt/gitlab/backups"
+gitlab_cron_backup_enabled: true
+gitlab_shell_ssh_port: 22
 
 # SSL Configuration.
 gitlab_redirect_http_to_https: "true"
@@ -24,6 +26,25 @@ gitlab_ldap_method: "plain"
 gitlab_ldap_bind_dn: "CN=Username,CN=Users,DC=example,DC=com"
 gitlab_ldap_password: "password"
 gitlab_ldap_base: "DC=example,DC=com"
+
+# OmniAuth Configuration
+gitlab_omniauth_enabled: "false"
+gitlab_omniauth_block_auto_created_users: "false"
+gitlab_omniauth_providers:
+      - { name: github, app_id: github_id, app_secret: github_secret, args: '"scope" => "user:email"' }
+
+################################################################################
+## GitLab Mattermost
+##! Docs: https://docs.gitlab.com/omnibus/gitlab-mattermost
+################################################################################
+gitlab_mattermost_enabled: "false"
+gitlab_mattermost_configs:
+  - mattermost_external_url 'http://mattermost.example.com'
+  - mattermost['email_send_email_notifications'] = false
+  - mattermost['email_smtp_server'] = 'localhost'
+  - mattermost['email_smtp_port'] = '25'
+  - mattermost['email_feedback_name'] = 'GitLab Mattermost'
+  - mattermost['email_feedback_email'] = 'email@example.com'
 
 # SMTP Configuration
 gitlab_smtp_enable: "false"

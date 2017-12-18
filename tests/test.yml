@@ -3,6 +3,7 @@
 
   vars:
     gitlab_restart_handler_failed_when: false
+    gitlab_cron_backup_enabled: false
 
   pre_tasks:
     - name: Update apt cache.

@@ -9,6 +9,10 @@
 #   - container_id: the --name to set for the container (default = timestamp)
 #   - test_idempotence: whether to test playbook's idempotence (default = true)
 #
+# If you place a requirements.yml file in tests/requirements.yml, the
+# requirements listed inside that file will be installed via Ansible Galaxy
+# prior to running tests.
+#
 # License: MIT
 
 # Exit on any individual command failure.
@@ -37,6 +41,10 @@ if [ $distro = 'centos7' ]; then
 elif [ $distro = 'centos6' ]; then
   init="/sbin/init"
   opts="--privileged"
+# Ubuntu 18.04
+elif [ $distro = 'ubuntu1804' ]; then
+  init="/lib/systemd/systemd"
+  opts="--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
 # Ubuntu 16.04
 elif [ $distro = 'ubuntu1604' ]; then
   init="/lib/systemd/systemd"
@@ -49,7 +57,7 @@ elif [ $distro = 'ubuntu1404' ]; then
 elif [ $distro = 'ubuntu1204' ]; then
   init="/sbin/init"
   opts="--privileged"
-# Debian 8
+# Debian 9
 elif [ $distro = 'debian9' ]; then
   init="/lib/systemd/systemd"
   opts="--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
@@ -59,6 +67,10 @@ elif [ $distro = 'debian8' ]; then
   opts="--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
 # Fedora 24
 elif [ $distro = 'fedora24' ]; then
+  init="/usr/lib/systemd/systemd"
+  opts="--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+# Fedora 27
+elif [ $distro = 'fedora27' ]; then
   init="/usr/lib/systemd/systemd"
   opts="--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
 fi

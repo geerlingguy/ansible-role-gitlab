@@ -3,6 +3,7 @@
 
   vars:
     gitlab_restart_handler_failed_when: false
+    gitlab_cron_backup_enabled: false
 
   pre_tasks:
     - name: Update apt cache.
@@ -17,12 +18,12 @@
 
     - name: Set the test GitLab version number for Debian.
       set_fact:
-        gitlab_version: '10.2.2-ce.0'
+        gitlab_version: '10.5.4-ce.0'
       when: ansible_os_family == 'Debian'
 
     - name: Set the test GitLab version number for RedHat.
       set_fact:
-        gitlab_version: '10.2.2-ce.0.el7'
+        gitlab_version: '10.5.4-ce.0.el7'
       when: ansible_os_family == 'RedHat'
 
   roles:
