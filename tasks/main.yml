@@ -14,11 +14,7 @@
 - name: Install GitLab dependencies.
   package: name={{ item }} state=present
   with_items:
-    - openssh-server
-    - postfix
-    - curl
-    - openssl
-    - tzdata
+    - "{{ gitlab_packages_dependencies }}"
 
 - name: Download GitLab repository installation script.
   get_url:

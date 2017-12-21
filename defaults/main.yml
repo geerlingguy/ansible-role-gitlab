@@ -6,6 +6,12 @@ gitlab_edition: "gitlab-ce"
 gitlab_version: ''
 gitlab_backup_path: "/var/opt/gitlab/backups"
 gitlab_config_template: "gitlab.rb.j2"
+gitlab_packages_dependencies:
+  - openssh-server
+  - postfix
+  - curl
+  - openssl
+  - tzdata
 
 # SSL Configuration.
 gitlab_redirect_http_to_https: "true"
