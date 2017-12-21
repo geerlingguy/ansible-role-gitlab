@@ -77,7 +77,9 @@ logging['logrotate_rotate'] = "{{ gitlab_logrotate_rotate | default(30) }}"
 logging['logrotate_compress'] = "{{ gitlab_logrotate_compress | default('compress') }}"
 logging['logrotate_method'] = "{{ gitlab_logrotate_method | default('copytruncate') }}"
 logging['logrotate_postrotate'] = "{{ gitlab_logrotate_postrotate | default('') }}"
-logging['logrotate_dateformat'] = "{{ gitlab_logrotate_dateformat | default('') }}"
+{% if gitlab_logrotate_dateformat is defined %}
+logging['logrotate_dateformat'] = "{{ gitlab_logrotate_dateformat }}"
+{% endif %}
 {% endif %}
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings
