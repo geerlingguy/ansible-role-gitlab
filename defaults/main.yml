@@ -5,6 +5,7 @@ gitlab_git_data_dir: "/var/opt/gitlab/git-data"
 gitlab_edition: "gitlab-ce"
 gitlab_version: ''
 gitlab_backup_path: "/var/opt/gitlab/backups"
+gitlab_ssh_port: 22
 
 # SSL Configuration.
 gitlab_redirect_http_to_https: "true"
@@ -24,6 +25,33 @@ gitlab_ldap_method: "plain"
 gitlab_ldap_bind_dn: "CN=Username,CN=Users,DC=example,DC=com"
 gitlab_ldap_password: "password"
 gitlab_ldap_base: "DC=example,DC=com"
+# alternative configuration syntax
+# if you enable gitlab_ldap_servers, all other options except ldap_enabled will be ignored
+#gitlab_ldap_servers: |
+#  main:
+#    label: 'LDAP'
+#    host: '<your_dc_hostname>'
+#    port: 636
+#    uid: 'sAMAccountName'
+#    # user_filter: ''
+#    base: '<your_base_dn>'
+#    bind_dn: '<your_bind_dn>'
+#    password: '<your_bind_password>'
+#    encryption: 'simple_tls'
+#    verify_certificates: true
+#    # ca_file: ''
+#    ssl_version: 'TLSv1_3'
+#    timeout: 10
+#    active_directory: true
+#    allow_username_or_email_login: false
+#    block_auto_created_users: false
+#    attributes:
+#      username: ['uid', 'userid', 'sAMAccountName']
+#      email: ['mail', 'email', 'userPrincipalName']
+#      name: 'cn'
+#      first_name: 'givenName'
+#      last_name: 'sn'
+
 
 # SMTP Configuration
 gitlab_smtp_enable: "false"
@@ -38,6 +66,18 @@ gitlab_smtp_tls: "false"
 gitlab_smtp_openssl_verify_mode: "none"
 gitlab_smtp_ca_path: "/etc/ssl/certs"
 gitlab_smtp_ca_file: "/etc/ssl/certs/ca-certificates.crt"
+
+# Incoming E-Mail (Gmail example)
+gitlab_incoming_email_enabled: False
+gitlab_incoming_email_address: "gitlab-incoming+%{key}@gmail.com"
+gitlab_incoming_email_email: "gitlab-incoming@gmail.com"
+gitlab_incoming_email_password: "[REDACTED]"
+gitlab_incoming_email_host: "imap.gmail.com"
+gitlab_incoming_email_port: 993
+gitlab_incoming_email_ssl: True
+gitlab_incoming_email_start_tls: False
+gitlab_incoming_email_mailbox_name: "inbox"
+gitlab_incoming_email_idle_timeout: 60
 
 # 2-way SSL Client Authentication support.
 gitlab_nginx_ssl_verify_client: ""
