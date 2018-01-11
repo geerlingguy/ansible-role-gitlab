@@ -18,6 +18,7 @@
     - postfix
     - curl
     - openssl
+    - tzdata
 
 - name: Download GitLab repository installation script.
   get_url:
@@ -30,8 +31,15 @@
   command: bash /tmp/gitlab_install_repository.sh
   when: (gitlab_file.stat.exists == false)
 
+- name: Define the Gitlab package name.
+  set_fact:
+    gitlab_package_name: "{{ gitlab_edition }}{{ gitlab_package_version_separator }}{{ gitlab_version }}"
+  when: gitlab_version != ''
+
 - name: Install GitLab
-  package: name={{ gitlab_edition }} state=installed
+  package:
+    name: "{{ gitlab_package_name | default(gitlab_edition) }}"
+    state: installed
   when: (gitlab_file.stat.exists == false)
 
 # Start and configure GitLab. Sometimes the first run fails, but after that,

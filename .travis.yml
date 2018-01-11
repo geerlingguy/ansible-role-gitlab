@@ -1,40 +1,39 @@
 ---
-language: python
-python: "2.7"
+services: docker
 
 env:
-  - SITE=test.yml
+  - distro: centos7
+    playbook: test.yml
+  - distro: ubuntu1604
+    playbook: test.yml
+  - distro: ubuntu1404
+    playbook: test.yml
+  - distro: debian9
+    playbook: test.yml
 
-before_install:
-  - sudo apt-get update -qq
-
-install:
-  # Install Ansible.
-  - pip install ansible
-
-  # Add ansible.cfg to pick up roles path.
-  - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
+  - distro: centos7
+    playbook: test-version.yml
+  - distro: ubuntu1604
+    playbook: test-version.yml
 
 script:
-  # Check the role/playbook's syntax.
-  - "ansible-playbook -i tests/inventory tests/$SITE --syntax-check"
+  # Configure test script so we can run extra tests after playbook is run.
+  - export container_id=$(date +%s)
+  - export cleanup=false
 
-  # Run the role/playbook with ansible-playbook.
-  - "ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo"
+  # Download test shim.
+  - wget -O ${PWD}/tests/test.sh https://gist.githubusercontent.com/geerlingguy/73ef1e5ee45d8694570f334be385e181/raw/
+  - chmod +x ${PWD}/tests/test.sh
 
-  # Travis CI's environment requires one _extra_ run for true idempotence :-/.
-  - "ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo"
-
-  # Run the role/playbook again, checking to make sure it's idempotent.
-  - >
-    ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo
-    | grep -q 'changed=0.*failed=0'
-    && (echo 'Idempotence test: pass' && exit 0)
-    || (echo 'Idempotence test: fail' && exit 1)
+  # Run tests.
+  - ${PWD}/tests/test.sh
 
   # Make sure GitLab is running.
   - >
-    curl --insecure -s -o /dev/null -w "%{http_code}" https://localhost/users/password/new
-    | grep -q '200'
+    docker exec ${container_id} curl --insecure -s --head https://localhost/users/password/new
+    | sed -n '1p' | grep -q '200'
     && (echo 'Status code 200 test: pass' && exit 0)
     || (echo 'Status code 200 test: fail' && exit 1)
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
