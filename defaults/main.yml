@@ -66,6 +66,18 @@ gitlab_smtp_openssl_verify_mode: "none"
 gitlab_smtp_ca_path: "/etc/ssl/certs"
 gitlab_smtp_ca_file: "/etc/ssl/certs/ca-certificates.crt"
 
+# Incoming E-Mail (Gmail example)
+gitlab_incoming_email_enabled: False
+gitlab_incoming_email_address: "gitlab-incoming+%{key}@gmail.com"
+gitlab_incoming_email_email: "gitlab-incoming@gmail.com"
+gitlab_incoming_email_password: "[REDACTED]"
+gitlab_incoming_email_host: "imap.gmail.com"
+gitlab_incoming_email_port: 993
+gitlab_incoming_email_ssl: True
+gitlab_incoming_email_start_tls: False
+gitlab_incoming_email_mailbox_name: "inbox"
+gitlab_incoming_email_idle_timeout: 60
+
 # 2-way SSL Client Authentication support.
 gitlab_nginx_ssl_verify_client: ""
 gitlab_nginx_ssl_client_certificate: ""
