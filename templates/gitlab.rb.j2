@@ -69,3 +69,7 @@ nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
 
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings
+
+{% for key,value in gitlab_other_parameters.items() %}
+{{ key }} = {{ value|safe }}
+{% endfor %}

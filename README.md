@@ -111,6 +111,21 @@ If you are running GitLab behind a reverse proxy, you may wish to terminate SSL 
 
 If you want to enable [2-way SSL Client Authentication](https://docs.gitlab.com/omnibus/settings/nginx.html#enable-2-way-ssl-client-authentication), set `gitlab_nginx_ssl_verify_client` and add a path to the client certificate in `gitlab_nginx_ssl_client_certificate`.
 
+As this module does not contain all parameters of the `gitlab.rb` configuration file, you may want to add more parameters than those provided in this module.
+You can use `gitlab_other_parameters` to add any parameter missing in this module.
+
+    gitlab_other_parameters:
+      "gitlab_rails['omniauth_enabled']": "true"
+      "gitlab_rails['omniauth_external_providers']": "['google_oauth2']"
+      "gitlab_rails['omniauth_providers']": "[
+          {
+            'name' => 'google_oauth2',
+            'app_id' => '{{ google_auth_app_id }}',
+            'app_secret' => '{{ google_auth_app_secret }}',
+            'args' => { 'access_type' => 'offline', 'approval_prompt' => '' }
+          }
+        ]"
+
 ## Dependencies
 
 None.
