@@ -17,7 +17,7 @@ nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate }}"
 nginx['ssl_certificate_key'] = "{{ gitlab_ssl_certificate_key }}"
 
 # The directory where Git repositories will be stored.
-git_data_dirs({"default" => "{{ gitlab_git_data_dir }}"})
+git_data_dirs({"default" => {"path" => "{{ gitlab_git_data_dir }}"} })
 
 # The directory where Gitlab backups will be stored
 gitlab_rails['backup_path'] = "{{ gitlab_backup_path }}"
