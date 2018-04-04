@@ -111,6 +111,16 @@ If you are running GitLab behind a reverse proxy, you may wish to terminate SSL 
 
 If you want to enable [2-way SSL Client Authentication](https://docs.gitlab.com/omnibus/settings/nginx.html#enable-2-way-ssl-client-authentication), set `gitlab_nginx_ssl_verify_client` and add a path to the client certificate in `gitlab_nginx_ssl_client_certificate`.
 
+## Not happy with the packaged gitlab.rb.j2 template ? Make your own !
+
+The gitlab.rb.j2 template packaged with this role is meant to be very generic. Allowing to set every possible gitlab.rb options in there
+from the role would be overlly complicated for maintenance.
+
+If the default template does not suit your needs, you can replace it with yours. What you need to do:
+* create a `templates` directory at the same level as your playbook
+* create a `templates\mygitlab.rb.j2` file (just choose a different name from the default template)
+* in your playbook set the var `gitlab_gitlabrb_template: mygitlab.rb.j2`
+
 ## Dependencies
 
 None.
