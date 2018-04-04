@@ -12,7 +12,7 @@
 
 # Install GitLab and its dependencies.
 - name: Install GitLab dependencies.
-  package: name={{ item }} state=installed
+  package: name={{ item }} state=present
   with_items:
     - openssh-server
     - postfix
