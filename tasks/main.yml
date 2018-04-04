@@ -67,7 +67,7 @@
 
 - name: Copy GitLab configuration file.
   template:
-    src: "{{ gitlab_gitlabrb_template }}"
+    src: "{{ gitlab_config_template }}"
     dest: /etc/gitlab/gitlab.rb
     owner: root
     group: root
