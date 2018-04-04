@@ -39,7 +39,7 @@
 - name: Install GitLab
   package:
     name: "{{ gitlab_package_name | default(gitlab_edition) }}"
-    state: installed
+    state: present
   when: (gitlab_file.stat.exists == false)
 
 # Start and configure GitLab. Sometimes the first run fails, but after that,
