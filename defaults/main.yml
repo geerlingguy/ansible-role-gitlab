@@ -25,6 +25,7 @@ gitlab_ldap_method: "plain"
 gitlab_ldap_bind_dn: "CN=Username,CN=Users,DC=example,DC=com"
 gitlab_ldap_password: "password"
 gitlab_ldap_base: "DC=example,DC=com"
+gitlab_ldap_user_filter: "(memberOf=CN=Gitlab,CN=Groups,DC=example,DC=com)"
 
 # SMTP Configuration
 gitlab_smtp_enable: "false"
