@@ -67,6 +67,7 @@ Whether to create a self-signed certificate for serving GitLab over a secure con
     gitlab_ldap_bind_dn: "CN=Username,CN=Users,DC=example,DC=com"
     gitlab_ldap_password: "password"
     gitlab_ldap_base: "DC=example,DC=com"
+    gitlab_ldap_user_filter: "ou=gitlab" (optional)
 
 GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the configuration will tell GitLab how to connect to an LDAP server for centralized authentication.
 
