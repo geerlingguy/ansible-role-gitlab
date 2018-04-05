@@ -7,6 +7,14 @@ gitlab_version: ''
 gitlab_backup_path: "/var/opt/gitlab/backups"
 gitlab_config_template: "gitlab.rb.j2"
 
+#Cloud backup.
+gitlab_cloud_backup_provider: ''
+gitlab_aws_instance_profile: 'true'
+gitlab_aws_instance_region: ''
+gitlab_aws_s3_bucket: ''
+gitlab_aws_access_key_id: ''
+gitlab_aws_secret_access_key: ''
+
 # SSL Configuration.
 gitlab_redirect_http_to_https: "true"
 gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"

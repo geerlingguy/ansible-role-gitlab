@@ -21,6 +21,25 @@ git_data_dirs({"default" => {"path" => "{{ gitlab_git_data_dir }}"} })
 
 # The directory where Gitlab backups will be stored
 gitlab_rails['backup_path'] = "{{ gitlab_backup_path }}"
+{% if gitlab_cloud_backup_provider == "aws" %}
+{% if gitlab_aws_instance_profile == "true" %}
+gitlab_rails['backup_upload_connection'] = {
+'provider' => 'AWS',
+'region' => '{{ gitlab_aws_instance_region }}',
+'use_iam_profile' => true
+}
+{% else %}
+gitlab_rails['backup_upload_connection'] = {
+'provider' => 'AWS',
+'region' => '{{ gitlab_aws_instance_region }}',
+'aws_access_key_id' =>  '{{ gitlab_aws_access_key_id }}',
+'aws_secret_access_key' => '{{ gitlab_aws_secret_access_key }}'
+}
+{% endif %}
+gitlab_rails['backup_upload_remote_directory'] = '{{ gitlab_aws_s3_bucket }}'
+{% endif %}
+
+
 
 # These settings are documented in more detail at
 # https://gitlab.com/gitlab-org/gitlab-ce/blob/master/config/gitlab.yml.example#L118
