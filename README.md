@@ -119,6 +119,18 @@ If you are running GitLab behind a reverse proxy, you may wish to terminate SSL 
 
 If you want to enable [2-way SSL Client Authentication](https://docs.gitlab.com/omnibus/settings/nginx.html#enable-2-way-ssl-client-authentication), set `gitlab_nginx_ssl_verify_client` and add a path to the client certificate in `gitlab_nginx_ssl_client_certificate`.
 
+    gitlab_logrotate_enable: "true"
+    gitlab_logrotate_frequency: "daily"
+    gitlab_logrotate_size: ""
+    gitlab_logrotate_rotate: 30
+    gitlab_logrotate_compress: "compress"
+    gitlab_logrotate_method: "copytruncate"
+    gitlab_logrotate_postrotate: ""
+    gitlab_logrotate_dateformat: ""
+
+You can disable the built-in logrotate service if you want (enable by default).
+If you want to set some [Gitlab logrotate settings](https://docs.gitlab.com/omnibus/settings/logs.html#logrotate), you need to specify `gitlab_logrotate_enable: true`.
+
 ## Dependencies
 
 None.
