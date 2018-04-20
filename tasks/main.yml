@@ -75,4 +75,5 @@
       with_first_found:
        - files:
          - "{{ gitlab_config_template_path }}"
+         - gitlab.rb.j2
   notify: restart gitlab
