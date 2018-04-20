@@ -67,9 +67,12 @@
 
 - name: Copy GitLab configuration file.
   template:
-    src: "{{ gitlab_config_template }}"
-    dest: /etc/gitlab/gitlab.rb
-    owner: root
-    group: root
-    mode: 0600
+      src: "{{ item }}"
+      dest: /etc/gitlab/gitlab.rb
+      owner: root
+      group: root
+      mode: 0600
+      with_first_found:
+       - files:
+         - "{{ gitlab_config_template_path }}"
   notify: restart gitlab
