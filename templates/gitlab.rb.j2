@@ -67,5 +67,8 @@ nginx['ssl_verify_client'] = "{{ gitlab_nginx_ssl_verify_client }}"
 nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
 {% endif %}
 
+# Inserting custom NGINX settings into the GitLab server block
+nginx['custom_gitlab_server_config'] ="{{ gitlab_custom_server_config | replace('\n', '\\n') }}"
+
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings
