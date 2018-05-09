@@ -119,6 +119,16 @@ If you are running GitLab behind a reverse proxy, you may wish to terminate SSL 
 
 If you want to enable [2-way SSL Client Authentication](https://docs.gitlab.com/omnibus/settings/nginx.html#enable-2-way-ssl-client-authentication), set `gitlab_nginx_ssl_verify_client` and add a path to the client certificate in `gitlab_nginx_ssl_client_certificate`.
 
+If you want to add [omniauth providers](https://docs.gitlab.com/ee/integration/bitbucket.html#bitbucket-omniauth-provider)
+
+    gitlab_omniauth_providers: |
+      {
+        "name" => "bitbucket",
+        "app_id" => "BITBUCKET_APP_KEY",
+        "app_secret" => "BITBUCKET_APP_SECRET",
+        "url" => "https://bitbucket.org/"
+      }
+
 ## Dependencies
 
 None.
