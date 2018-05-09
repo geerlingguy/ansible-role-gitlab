@@ -67,8 +67,8 @@ nginx['ssl_verify_client'] = "{{ gitlab_nginx_ssl_verify_client }}"
 nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
 {% endif %}
 
-# Gitlab Registry
-## See https://gitlab.com/help/administration/container_registry.md
+# Gitlab Registry (See https://gitlab.com/help/administration/container_registry.md)
+
 {% if gitlab_registry_external_url is defined %}
 registry_external_url "{{ gitlab_registry_external_url }}"
 {% if gitlab_registry_ssl_certificate is defined %}

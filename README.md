@@ -119,6 +119,15 @@ If you are running GitLab behind a reverse proxy, you may wish to terminate SSL 
 
 If you want to enable [2-way SSL Client Authentication](https://docs.gitlab.com/omnibus/settings/nginx.html#enable-2-way-ssl-client-authentication), set `gitlab_nginx_ssl_verify_client` and add a path to the client certificate in `gitlab_nginx_ssl_client_certificate`.
 
+
+[Gitlab Registry](https://gitlab.com/help/administration/container_registry.md) configuration.
+
+    gitlab_registry_external_url: "https://{{gitlab_registry_domain}}:{{gitlab_registry_port}}"
+
+    # Optional:
+    gitlab_registry_ssl_certificate: "..."
+    gitlab_registry_ssl_certificate_key: "..."
+
 ## Dependencies
 
 None.
