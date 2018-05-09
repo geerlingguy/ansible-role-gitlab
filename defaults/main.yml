@@ -52,6 +52,9 @@ gitlab_time_zone: "UTC"
 gitlab_backup_keep_time: "604800"
 gitlab_download_validate_certs: yes
 
+# Custom server config that injected to gitlab-http server section
+gitlab_custom_server_config: ""
+
 # Email configuration.
 gitlab_email_enabled: "false"
 gitlab_email_from: "gitlab@example.com"
