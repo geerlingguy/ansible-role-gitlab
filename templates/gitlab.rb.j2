@@ -33,6 +33,7 @@ gitlab_rails['ldap_bind_dn'] = '{{ gitlab_ldap_bind_dn }}'
 gitlab_rails['ldap_password'] = '{{ gitlab_ldap_password }}'
 gitlab_rails['ldap_allow_username_or_email_login'] = true
 gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
+gitlab_rails['user_filter'] = '{{ gitlab_user_filter }}'
 
 # GitLab Nginx
 ## See https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/nginx.md
@@ -66,6 +67,10 @@ nginx['ssl_verify_client'] = "{{ gitlab_nginx_ssl_verify_client }}"
 {% if gitlab_nginx_ssl_client_certificate %}
 nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
 {% endif %}
+
+gitlab_rails['gitlab_default_theme'] = '{{ gitlab_theme }}'
+
+
 
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings

@@ -25,6 +25,7 @@ gitlab_ldap_method: "plain"
 gitlab_ldap_bind_dn: "CN=Username,CN=Users,DC=example,DC=com"
 gitlab_ldap_password: "password"
 gitlab_ldap_base: "DC=example,DC=com"
+gitlab_user_filter: '(employeeType=developer)'
 
 # SMTP Configuration
 gitlab_smtp_enable: "false"
@@ -57,3 +58,6 @@ gitlab_email_enabled: "false"
 gitlab_email_from: "gitlab@example.com"
 gitlab_email_display_name: "Gitlab"
 gitlab_email_reply_to: "gitlab@example.com"
+
+# Theme
+gitlab_theme: 1
