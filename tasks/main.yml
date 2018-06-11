@@ -12,9 +12,8 @@
 
 # Install GitLab and its dependencies.
 - name: Install GitLab dependencies.
-  package: name={{ item }} state=present
-  with_items:
-    - "{{ gitlab_packages_dependencies }}"
+  package: name={{ item }} state=installed
+  with_items: "{{ gitlab_packages_dependencies }}"
 
 - name: Download GitLab repository installation script.
   get_url:
