@@ -42,6 +42,18 @@ nginx['listen_port'] = "{{ gitlab_nginx_listen_port }}"
 {% if gitlab_nginx_listen_https is defined %}
 nginx['listen_https'] = {{ gitlab_nginx_listen_https }}
 {% endif %}
+{% if gitlab_nginx_worker_processes is defined %}
+nginx['worker_processes'] = "{{ gitlab_nginx_worker_processes }}"
+{% endif %}
+{% if gitlab_nginx_worker_connections is defined %}
+nginx['worker_connections'] = "{{ gitlab_nginx_worker_connections }}"
+{% endif %}
+{% if gitlab_nginx_worker_processes is defined %}
+nginx['worker_processes'] = "{{ gitlab_nginx_worker_processes }}"
+{% endif %}
+{% if gitlab_nginx_worker_connections is defined %}
+nginx['worker_connections'] = "{{ gitlab_nginx_worker_connections }}"
+{% endif %}
 
 # Use smtp instead of sendmail/postfix
 # More details and example configuration at
