@@ -12,7 +12,7 @@ gitlab_rails['gitlab_email_reply_to'] = "{{ gitlab_email_reply_to }}"
 {% endif %}
 
 # Default Theme
-gitlab_rails['gitlab_default_theme'] = "{{ gitlab_default_theme | default('2') }}"
+gitlab_rails['gitlab_default_theme'] = "{{ gitlab_default_theme }}"
 
 # Whether to redirect http to https.
 nginx['redirect_http_to_https'] = {{ gitlab_redirect_http_to_https }}
