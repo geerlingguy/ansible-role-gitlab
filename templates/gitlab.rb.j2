@@ -72,9 +72,14 @@ nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
 
 # Extra configuration
 {% if gitlab_extra_settings is defined %}
-{%- for extra in gitlab_extra_settings -%}
-{{ extra.key }} = {{ extra.value }}
-{% endfor -%}
+{% for extra in gitlab_extra_settings %}
+{% for setting in extra %}
+{% for kv in extra[setting] %}
+{{ setting }}['{{ kv.key }}'] = '{{ kv.value }}'
+{% endfor %}
+{% endfor %}
+
+{% endfor %}
 {% endif %}
 
 # To change other settings, see:
