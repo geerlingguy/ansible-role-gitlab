@@ -37,6 +37,17 @@ gitlab_rails['ldap_password'] = '{{ gitlab_ldap_password }}'
 gitlab_rails['ldap_allow_username_or_email_login'] = true
 gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
 
+###########################
+# GitLab Unicorn settings #
+###########################
+## Tweak unicorn settings.
+{% if gitlab_unicorn_worker_timeout is defined %}
+unicorn['worker_timeout'] = "{{ gitlab_unicorn_worker_timeout }}"
+{% endif %}
+{% if gitlab_unicorn_worker_processes is defined %}
+unicorn['worker_processes'] = "{{ gitlab_unicorn_worker_processes }}"
+{% endif %}
+
 # GitLab Nginx
 ## See https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/nginx.md
 {% if gitlab_nginx_listen_port is defined %}
