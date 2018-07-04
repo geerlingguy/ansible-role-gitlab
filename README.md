@@ -126,12 +126,12 @@ GitLab includes a number of themes, and you can set the default for all users wi
     gitlab_extra_settings:
       - gitlab_rails:
           - key: "trusted_proxies"
-            value: ["foo", "bar"]
+            value: "['foo', 'bar']"
       - unicorn:
           - key: "worker_processes"
             value: 5
-          - key: "worker_timeout"
-            value: 60
+          - key: "pidfile"
+            value: "/opt/gitlab/var/unicorn/unicorn.pid"
 
 Gitlab have many other settings ([see official documentation](https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/files/gitlab-config-template/gitlab.rb.template)), and you can add them with this special variable `gitlab_extra_settings` with the concerned setting and the `key` and `value` keywords.
 

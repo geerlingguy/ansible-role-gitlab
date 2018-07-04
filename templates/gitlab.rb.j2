@@ -75,7 +75,11 @@ nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
 {% for extra in gitlab_extra_settings %}
 {% for setting in extra %}
 {% for kv in extra[setting] %}
+{% if kv.value is not string or kv.value is iterable %}
+{{ setting }}['{{ kv.key }}'] = {{ kv.value }}
+{% else %}
 {{ setting }}['{{ kv.key }}'] = '{{ kv.value }}'
+{% endif %}
 {% endfor %}
 {% endfor %}
 
