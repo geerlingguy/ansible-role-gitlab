@@ -127,6 +127,14 @@ GitLab includes a number of themes, and you can set the default for all users wi
       - gitlab_rails:
           - key: "trusted_proxies"
             value: "['foo', 'bar']"
+          - key: "env"
+            type: "plain"
+            value: |
+              {
+              "http_proxy" => "https://my_http_proxy.company.com:3128",
+              "https_proxy" => "https://my_http_proxy.company.com:3128",
+              "no_proxy" => "localhost, 127.0.0.1, company.com"
+              }
       - unicorn:
           - key: "worker_processes"
             value: 5
