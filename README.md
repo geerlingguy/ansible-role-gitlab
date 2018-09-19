@@ -43,7 +43,7 @@ The `gitlab.rb.j2` template packaged with this role is meant to be very generic 
 
   - Create a `templates` directory at the same level as your playbook.
   - Create a `templates\mygitlab.rb.j2` file (just choose a different name from the default template).
-  - Set the variable like: `gitlab_gitlabrb_template: mygitlab.rb.j2` (with the name of your custom template).
+  - Set the variable like: `gitlab_config_template: mygitlab.rb.j2` (with the name of your custom template).
 
     # SSL Configuration.
     gitlab_redirect_http_to_https: "true"
@@ -127,6 +127,10 @@ If you want to enable [2-way SSL Client Authentication](https://docs.gitlab.com/
       - tzdata
 
 If you want to add or remove some packages dependencies.
+
+    gitlab_default_theme: 2
+
+GitLab includes a number of themes, and you can set the default for all users with this variable. See [the included GitLab themes to choose a default](https://github.com/gitlabhq/gitlabhq/blob/master/config/gitlab.yml.example#L79-L85).
 
 ## Dependencies
 
