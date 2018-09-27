@@ -1,39 +1,33 @@
 ---
+language: python
 services: docker
 
 env:
-  - distro: centos7
-    playbook: test.yml
-  - distro: ubuntu1604
-    playbook: test.yml
-  - distro: ubuntu1404
-    playbook: test.yml
-  - distro: debian9
-    playbook: test.yml
+  global:
+    - ROLE_NAME: gitlab
+  matrix:
+    - MOLECULE_DISTRO: centos7
+      MOLECULE_DOCKER_COMMAND: /usr/lib/systemd/systemd
+    - MOLECULE_DISTRO: ubuntu1604
+    - MOLECULE_DISTRO: debian9
+    - MOLECULE_DISTRO: centos7
+      MOLECULE_PLAYBOOK: playbook-version.yml
+    - MOLECULE_DISTRO: ubuntu1604
+      MOLECULE_PLAYBOOK: playbook-version.yml
 
-  - distro: centos7
-    playbook: test-version.yml
-  - distro: ubuntu1604
-    playbook: test-version.yml
+install:
+  # Install test dependencies.
+  - pip install molecule docker
+
+before_script:
+  # Use actual Ansible Galaxy role name for the project directory.
+  - cd ../
+  - mv ansible-role-$ROLE_NAME geerlingguy.$ROLE_NAME
+  - cd geerlingguy.$ROLE_NAME
 
 script:
-  # Configure test script so we can run extra tests after playbook is run.
-  - export container_id=$(date +%s)
-  - export cleanup=false
-
-  # Download test shim.
-  - wget -O ${PWD}/tests/test.sh https://gist.githubusercontent.com/geerlingguy/73ef1e5ee45d8694570f334be385e181/raw/
-  - chmod +x ${PWD}/tests/test.sh
-
   # Run tests.
-  - ${PWD}/tests/test.sh
-
-  # Make sure GitLab is running.
-  - >
-    docker exec ${container_id} curl --insecure -s --head https://localhost/users/password/new
-    | sed -n '1p' | grep -q '200'
-    && (echo 'Status code 200 test: pass' && exit 0)
-    || (echo 'Status code 200 test: fail' && exit 1)
+  - molecule test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

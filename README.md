@@ -78,7 +78,7 @@ Gitlab timezone.
 
 How long to keep local backups (useful if you don't want backups to fill up your drive!).
 
-    gitlab_download_validate_certs: yes
+    gitlab_download_validate_certs: true
 
 Controls whether to validate certificates when downloading the GitLab installation repository install script.
 

@@ -50,7 +50,7 @@ gitlab_restart_handler_failed_when: 'gitlab_restart.rc != 0'
 # Optional settings.
 gitlab_time_zone: "UTC"
 gitlab_backup_keep_time: "604800"
-gitlab_download_validate_certs: yes
+gitlab_download_validate_certs: true
 gitlab_default_theme: '2'
 
 # Email configuration.
