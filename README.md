@@ -45,7 +45,7 @@ The `gitlab.rb.j2` template packaged with this role is meant to be very generic 
   - Create a `templates\mygitlab.rb.j2` file (just choose a different name from the default template).
   - Set the variable like: `gitlab_config_template: mygitlab.rb.j2` (with the name of your custom template).
 
-# SSL Configuration.
+### SSL Configuration.
 
     gitlab_redirect_http_to_https: "true"
     gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
