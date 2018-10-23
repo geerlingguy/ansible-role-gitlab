@@ -35,7 +35,7 @@ The edition of GitLab to install. Usually either `gitlab-ce` (Community Edition)
 
     gitlab_version: ''
 
-If you'd like to install a specific version, set the version here (e.g. `10.0.6-ce.0` for Debian/Ubuntu, or `10.0.6-ce.0.el7` for RedHat/CentOS).
+If you'd like to install a specific version, set the version here (e.g. `11.4.0-ce.0` for Debian/Ubuntu, or `11.4.0-ce.0.el7` for RedHat/CentOS).
 
     gitlab_config_template: "gitlab.rb.j2"
 

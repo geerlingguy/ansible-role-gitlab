@@ -27,7 +27,7 @@
     validate_certs: "{{ gitlab_download_validate_certs }}"
   when: (gitlab_file.stat.exists == false)
 
-- name: Install GitLab repository
+- name: Install GitLab repository.
   command: bash /tmp/gitlab_install_repository.sh
   when: (gitlab_file.stat.exists == false)
 
