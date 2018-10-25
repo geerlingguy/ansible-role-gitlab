@@ -34,7 +34,7 @@
 - name: Define the Gitlab package name.
   set_fact:
     gitlab_package_name: "{{ gitlab_edition }}{{ gitlab_package_version_separator }}{{ gitlab_version }}"
-  when: gitlab_version != ''
+  when: gitlab_version
 
 - name: Install GitLab
   package:
