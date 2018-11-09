@@ -29,6 +29,11 @@ The `gitlab_git_data_dir` is the location where all the Git repositories will be
 
 The `gitlab_backup_path` is the location where Gitlab backups will be stored.
 
+    gitlab_lfs_enabled: "true"
+    gitlab_lfs_storage_path: "/var/opt/gitlab/gitlab-rails/shared/lfs-objects"
+
+Whether to enable Git LFS and the storage path.
+
     gitlab_edition: "gitlab-ce"
 
 The edition of GitLab to install. Usually either `gitlab-ce` (Community Edition) or `gitlab-ee` (Enterprise Edition).
@@ -38,11 +43,6 @@ The edition of GitLab to install. Usually either `gitlab-ce` (Community Edition)
 If you'd like to install a specific version, set the version here (e.g. `11.4.0-ce.0` for Debian/Ubuntu, or `11.4.0-ce.0.el7` for RedHat/CentOS).
 
     gitlab_config_template: "gitlab.rb.j2"
-
-Whether to enable Git LFS and the storage path.
-
-    gitlab_lfs_enabled: "true"
-    gitlab_lfs_storage_path: "/var/opt/gitlab/gitlab-rails/shared/lfs-objects"
 
 The `gitlab.rb.j2` template packaged with this role is meant to be very generic and serve a variety of use cases. However, many people would like to have a much more customized version, and so you can override this role's default template with your own, adding any additional customizations you need. To do this:
 
