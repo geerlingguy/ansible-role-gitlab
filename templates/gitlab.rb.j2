@@ -25,6 +25,12 @@ git_data_dirs({"default" => {"path" => "{{ gitlab_git_data_dir }}"} })
 # The directory where Gitlab backups will be stored
 gitlab_rails['backup_path'] = "{{ gitlab_backup_path }}"
 
+# Whether to enable Git LFS
+gitlab_rails['lfs_enabled'] = "{{ gitlab_lfs_enabled }}"
+
+# The directory where Git LFS objects will be stored
+gitlab_rails['lfs_storage_path'] = "{{ gitlab_lfs_storage_path }}"
+
 # These settings are documented in more detail at
 # https://gitlab.com/gitlab-org/gitlab-ce/blob/master/config/gitlab.yml.example#L118
 gitlab_rails['ldap_enabled'] = {{ gitlab_ldap_enabled }}

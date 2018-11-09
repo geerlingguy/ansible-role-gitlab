@@ -39,6 +39,11 @@ If you'd like to install a specific version, set the version here (e.g. `11.4.0-
 
     gitlab_config_template: "gitlab.rb.j2"
 
+Whether to enable Git LFS and the storage path.
+
+    gitlab_lfs_enabled: "true"
+    gitlab_lfs_storage_path: "/var/opt/gitlab/gitlab-rails/shared/lfs-objects"
+
 The `gitlab.rb.j2` template packaged with this role is meant to be very generic and serve a variety of use cases. However, many people would like to have a much more customized version, and so you can override this role's default template with your own, adding any additional customizations you need. To do this:
 
   - Create a `templates` directory at the same level as your playbook.

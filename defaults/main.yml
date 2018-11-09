@@ -16,6 +16,10 @@ gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
 gitlab_create_self_signed_cert: "true"
 gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=gitlab"
 
+# Git LFS Configuration.
+gitlab_lfs_enabled: "true"
+gitlab_lfs_storage_path: "/var/opt/gitlab/gitlab-rails/shared/lfs-objects"
+
 # LDAP Configuration.
 gitlab_ldap_enabled: "false"
 gitlab_ldap_host: "example.com"
