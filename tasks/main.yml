@@ -15,7 +15,6 @@
   package: name={{ item }} state=present
   with_items:
     - openssh-server
-    - postfix
     - curl
     - openssl
     - tzdata
