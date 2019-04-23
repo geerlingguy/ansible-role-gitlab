@@ -40,6 +40,8 @@
   package:
     name: "{{ gitlab_package_name | default(gitlab_edition) }}"
     state: present
+  environment:
+    EXTERNAL_URL: "{{ gitlab_external_url }}"
   when: not gitlab_file.stat.exists
 
 # Start and configure GitLab. Sometimes the first run fails, but after that,
