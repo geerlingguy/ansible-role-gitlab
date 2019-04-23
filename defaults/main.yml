@@ -13,7 +13,7 @@ gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
 gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
 
 # SSL Self-signed Certificate Configuration.
-gitlab_create_self_signed_cert: "true"
+gitlab_create_self_signed_cert: "false"
 gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=gitlab"
 
 # LDAP Configuration.
