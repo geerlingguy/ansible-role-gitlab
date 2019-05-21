@@ -1,6 +1,7 @@
 ---
 # General config.
 gitlab_external_url: "https://gitlab/"
+gitlab_registry_external_url: "https://registry/"
 gitlab_git_data_dir: "/var/opt/gitlab/git-data"
 gitlab_edition: "gitlab-ce"
 gitlab_version: ''
@@ -11,10 +12,14 @@ gitlab_config_template: "gitlab.rb.j2"
 gitlab_redirect_http_to_https: "true"
 gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
 gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
+gitlab_registry_ssl_certificate: "/etc/gitlab/ssl/registry.crt"
+gitlab_registry_ssl_certificate_key: "/etc/gitlab/ssl/registry.key"
 
 # SSL Self-signed Certificate Configuration.
 gitlab_create_self_signed_cert: "true"
 gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=gitlab"
+gitlab_registry_create_self_signed_cert: "true"
+gitlab_registry_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=registry"
 
 # LDAP Configuration.
 gitlab_ldap_enabled: "false"
