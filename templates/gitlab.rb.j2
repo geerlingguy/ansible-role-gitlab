@@ -1,6 +1,13 @@
 # The URL through which GitLab will be accessed.
 external_url "{{ gitlab_external_url }}"
 
+# The URL through which GitLab Registry will be accessed.
+{% if gitlab_registry_external_url is defined %}
+registry_external_url "{{ gitlab_registry_external_url }}"
+registry_nginx['ssl_certificate'] = "{{ gitlab_registry_ssl_certificate }}"
+registry_nginx['ssl_certificate_key'] = "{{ gitlab_registry_ssl_certificate_key }}"
+{% endif %}
+
 # gitlab.yml configuration
 gitlab_rails['time_zone'] = "{{ gitlab_time_zone }}"
 gitlab_rails['backup_keep_time'] = {{ gitlab_backup_keep_time }}
