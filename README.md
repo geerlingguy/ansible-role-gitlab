@@ -61,13 +61,28 @@ Whether to create a self-signed certificate for serving GitLab over a secure con
 
     # LDAP Configuration.
     gitlab_ldap_enabled: "false"
-    gitlab_ldap_host: "example.com"
-    gitlab_ldap_port: "389"
-    gitlab_ldap_uid: "sAMAccountName"
-    gitlab_ldap_method: "plain"
-    gitlab_ldap_bind_dn: "CN=Username,CN=Users,DC=example,DC=com"
-    gitlab_ldap_password: "password"
-    gitlab_ldap_base: "DC=example,DC=com"
+    gitlab_ldap_servers:
+        main:
+            label: 'LDAP'
+            host: "example.com"
+            port: "389"
+            uid: "sAMAccountName"
+            method: "plain"
+            ca_file: ''
+            ssl_version: ''
+            ciphers: ''
+            cert: ''
+            key: ''
+            bind_dn: "CN=Username,CN=Users,DC=example,DC=com"
+            password: "password"
+            base: "DC=example,DC=lan"
+            user_filter: ''
+            attributes:
+                username: ['uid', 'userid', 'sAMAccountName']
+                email: ['mail']['mail', 'email', 'userPrincipalName']
+                name: 'cn'
+                first_name: 'givenName'
+                last_name: 'sn'
 
 GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the configuration will tell GitLab how to connect to an LDAP server for centralized authentication.
 

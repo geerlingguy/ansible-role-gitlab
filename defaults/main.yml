@@ -18,13 +18,35 @@ gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=gitlab"
 
 # LDAP Configuration.
 gitlab_ldap_enabled: "false"
+gitlab_ldap_servers:
+    main: {}
+
+gitlab_ldap_label: 'LDAP'
 gitlab_ldap_host: "example.com"
 gitlab_ldap_port: "389"
+gitlab_ldap_verify_certificates: "true"
 gitlab_ldap_uid: "sAMAccountName"
 gitlab_ldap_method: "plain"
+gitlab_ldap_ca_file: ''
+gitlab_ldap_ssl_version: ''
+gitlab_ldap_ciphers: ''
+gitlab_ldap_cert: ''
+gitlab_ldap_key: ''
 gitlab_ldap_bind_dn: "CN=Username,CN=Users,DC=example,DC=com"
 gitlab_ldap_password: "password"
 gitlab_ldap_base: "DC=example,DC=com"
+gitlab_ldap_timeout: 10
+gitlab_ldap_active_directory: ''
+gitlab_ldap_allow_username_or_email_login: "true"
+gitlab_ldap_block_auto_created_users: "false"
+gitlab_ldap_attributes:
+    username: ['uid']
+    email: ['mail']
+    name: 'displayName'
+    first_name: 'givenName'
+    last_name: 'sn'
+
+
 
 # SMTP Configuration
 gitlab_smtp_enable: "false"
