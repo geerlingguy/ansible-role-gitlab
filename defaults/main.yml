@@ -46,8 +46,6 @@ gitlab_ldap_attributes:
     first_name: 'givenName'
     last_name: 'sn'
 
-
-
 # SMTP Configuration
 gitlab_smtp_enable: "false"
 gitlab_smtp_address: "smtp.server"
