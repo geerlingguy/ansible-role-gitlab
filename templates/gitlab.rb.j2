@@ -62,6 +62,9 @@ gitlab_rails['smtp_openssl_verify_mode'] = '{{ gitlab_smtp_openssl_verify_mode }
 gitlab_rails['smtp_ca_path'] = '{{ gitlab_smtp_ca_path }}'
 gitlab_rails['smtp_ca_file'] = '{{ gitlab_smtp_ca_file }}'
 
+{% if gitlab_nginx_enable is defined %}
+nginx['enable'] = {{ gitlab_nginx_enable | lower }}
+{% endif %}
 # 2-way SSL Client Authentication.
 {% if gitlab_nginx_ssl_verify_client %}
 nginx['ssl_verify_client'] = "{{ gitlab_nginx_ssl_verify_client }}"
