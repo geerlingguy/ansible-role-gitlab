@@ -29,12 +29,12 @@
 
 - name: Install GitLab repository.
   command: bash /tmp/gitlab_install_repository.sh
-  when: not gitlab_file.stat.exists
+  when: not gitlab_file.stat.exists|bool
 
 - name: Define the Gitlab package name.
   set_fact:
     gitlab_package_name: "{{ gitlab_edition }}{{ gitlab_package_version_separator }}{{ gitlab_version }}"
-  when: gitlab_version != ''
+  when: not gitlab_version|bool
 
 - name: Install GitLab
   package:
