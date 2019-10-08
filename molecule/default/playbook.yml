@@ -12,6 +12,7 @@
         name: "{{ packages }}"
         state: present
         force_apt_get: true
+        update_cache: true
       when: ansible_os_family == 'Debian'
       vars:
         packages:
