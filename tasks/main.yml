@@ -3,7 +3,7 @@
   include_vars: "{{ ansible_os_family }}.yml"
 
 - name: Install ansible reqipment
-  apt-get:
+  apt:
     name: python-apt
     state: present
   when: ansible_os_family == 'Debian'
