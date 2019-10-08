@@ -7,18 +7,6 @@
     gitlab_restart_handler_failed_when: false
 
   pre_tasks:
-    - name: Install ansible reqipment
-      apt:
-        name: "{{ item }}"
-        state: present
-        force_apt_get: true
-        update_cache: true
-      when: ansible_os_family == 'Debian'
-      with_items:
-          - aptitude
-          - python-apt
-          - python3-apt
-
     - name: Update apt cache.
       apt: update_cache=true cache_valid_time=600
       when: ansible_os_family == 'Debian'
