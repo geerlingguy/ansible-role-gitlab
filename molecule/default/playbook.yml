@@ -17,6 +17,7 @@
         packages:
           - aptitude
           - python-apt
+          - python3-apt
 
     - name: Update apt cache.
       apt: update_cache=true cache_valid_time=600
