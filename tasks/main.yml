@@ -3,9 +3,9 @@
   include_vars: "{{ ansible_os_family }}.yml"
 
 - name: Install ansible reqipment
-  apt:
+  apt-get:
     name: python-apt
-    state: latest
+    state: installed
   when: ansible_os_family == 'Debian'
 
 - name: Check if GitLab configuration file already exists.
