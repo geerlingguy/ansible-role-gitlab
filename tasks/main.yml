@@ -5,7 +5,7 @@
 - name: Install ansible reqipment
   apt-get:
     name: python-apt
-    state: installed
+    state: present
   when: ansible_os_family == 'Debian'
 
 - name: Check if GitLab configuration file already exists.
