@@ -11,7 +11,7 @@
       apt:
         name: "{{ packages }}"
         state: present
-        force_apt_get: yes
+        force_apt_get: true
       when: ansible_os_family == 'Debian'
       vars:
         packages:
