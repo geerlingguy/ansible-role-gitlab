@@ -89,21 +89,25 @@ Controls whether to validate certificates when downloading the GitLab installati
     gitlab_email_display_name: "Gitlab"
     gitlab_email_reply_to: "gitlab@example.com"
 
-Gitlab system mail configuration. Disabled by default; set `gitlab_email_enabled` to `true` to enable, and make sure you enter valid from/reply-to values.
+Gitlab system mail configuration. Disabled by default; set `gitlab_email_enabled` to `true` to enable.
 
     # SMTP Configuration
     gitlab_smtp_enable: "false"
-    gitlab_smtp_address: "smtp.server"
-    gitlab_smtp_port: "465"
-    gitlab_smtp_user_name: "smtp user"
-    gitlab_smtp_password: "smtp password"
-    gitlab_smtp_domain: "example.com"
-    gitlab_smtp_authentication: "login"
-    gitlab_smtp_enable_starttls_auto: "true"
-    gitlab_smtp_tls: "false"
-    gitlab_smtp_openssl_verify_mode: "none"
-    gitlab_smtp_ca_path: "/etc/ssl/certs"
-    gitlab_smtp_ca_file: "/etc/ssl/certs/ca-certificates.crt"
+
+Make sure you enter valid and used from/reply-to values.
+
+    gitlab_smtp_settings:
+      smtp_address: "smtp.server"
+      smtp_port: "465"
+      smtp_user_name: "smtp user"
+      smtp_password: "smtp password"
+      smtp_domain: "example.com"
+      smtp_authentication: "login"
+      smtp_enable_starttls_auto: "true"
+      smtp_tls: "false"
+      smtp_openssl_verify_mode: "none"
+      smtp_ca_path: "/etc/ssl/certs"
+      smtp_ca_file: "/etc/ssl/certs/ca-certificates.crt"
 
 Gitlab SMTP configuration; of `gitlab_smtp_enable` is `true`, the rest of the configuration will tell GitLab how to send mails using an smtp server.
 
