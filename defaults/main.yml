@@ -27,18 +27,20 @@ gitlab_ldap_password: "password"
 gitlab_ldap_base: "DC=example,DC=com"
 
 # SMTP Configuration
+# please comment or delete unused options
 gitlab_smtp_enable: "false"
-gitlab_smtp_address: "smtp.server"
-gitlab_smtp_port: "465"
-gitlab_smtp_user_name: "smtp user"
-gitlab_smtp_password: "smtp password"
-gitlab_smtp_domain: "example.com"
-gitlab_smtp_authentication: "login"
-gitlab_smtp_enable_starttls_auto: "true"
-gitlab_smtp_tls: "false"
-gitlab_smtp_openssl_verify_mode: "none"
-gitlab_smtp_ca_path: "/etc/ssl/certs"
-gitlab_smtp_ca_file: "/etc/ssl/certs/ca-certificates.crt"
+gitlab_smtp_settings:
+    smtp_address: "smtp.server"
+    smtp_port: "465"
+    smtp_user_name: "smtp user"
+    smtp_password: "smtp password"
+    smtp_domain: "example.com"
+    smtp_authentication: "login"
+    smtp_enable_starttls_auto: "true"
+    smtp_tls: "false"
+    smtp_openssl_verify_mode: "none"
+    smtp_ca_path: "/etc/ssl/certs"
+    smtp_ca_file: "/etc/ssl/certs/ca-certificates.crt"
 
 # 2-way SSL Client Authentication support.
 gitlab_nginx_ssl_verify_client: ""
