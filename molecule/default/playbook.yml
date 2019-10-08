@@ -16,6 +16,7 @@
       vars:
         packages:
           - aptitude
+          - python-apt
 
     - name: Update apt cache.
       apt: update_cache=true cache_valid_time=600
