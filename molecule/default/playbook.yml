@@ -9,13 +9,12 @@
   pre_tasks:
     - name: Install ansible reqipment
       apt:
-        name: "{{ packages }}"
+        name: "{{ item }}"
         state: present
         force_apt_get: true
         update_cache: true
       when: ansible_os_family == 'Debian'
-      vars:
-        packages:
+      with_items:
           - aptitude
           - python-apt
           - python3-apt
