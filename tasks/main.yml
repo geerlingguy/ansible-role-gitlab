@@ -4,9 +4,14 @@
 
 - name: Install ansible reqipment
   apt:
-    name: python-apt
+    name: {{ packages }}
     state: present
+    upgrade: dist
   when: ansible_os_family == 'Debian'
+  vars:
+    packages:
+      - aptitude
+      - python-apt
 
 - name: Check if GitLab configuration file already exists.
   stat: path=/etc/gitlab/gitlab.rb
