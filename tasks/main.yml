@@ -4,7 +4,7 @@
 
 - name: Install ansible reqipment
   apt:
-    name: {{ packages }}
+    name: "{{ packages }}"
     state: present
     upgrade: dist
   when: ansible_os_family == 'Debian'
