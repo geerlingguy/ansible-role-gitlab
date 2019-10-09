@@ -129,7 +129,25 @@ If you want to enable [2-way SSL Client Authentication](https://docs.gitlab.com/
 GitLab includes a number of themes, and you can set the default for all users with this variable. See [the included GitLab themes to choose a default](https://github.com/gitlabhq/gitlabhq/blob/master/config/gitlab.yml.example#L79-L85).
 
 ### Custom options
-  You can customize gitlab config if you need specific options.
+  You can customize gitlab config if you need specific options for customize GitLab.
+  Template config in vars:
+  ```yaml
+  gitlab_rails_custom:
+      incoming_email_password: "[REDACTED]"
+      incoming_email_host: "imap.gmail.com"
+      incoming_email_port: 993
+      incoming_email_ssl: true
+      incoming_email_start_tls: false
+  ```
+
+  This options convert to:
+  ```Ruby
+  gitlab_rails['incoming_email_password'] = '[REDACTED]'
+  gitlab_rails['incoming_email_host'] = 'imap.gmail.com'
+  gitlab_rails['incoming_email_port'] = '993'
+  gitlab_rails['incoming_email_ssl'] = 'true'
+  gitlab_rails['incoming_email_start_tls'] = 'false'
+  ```
 
 ## Dependencies
 
