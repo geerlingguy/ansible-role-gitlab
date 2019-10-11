@@ -83,8 +83,16 @@ nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
 {% endif %}
 
 {% if gitlab_rails_custom|bool %}
-{% for option, value in gitlab_rails_custom.items() %}
-gitlab_rails['{{ option }}'] = '{{ value }}'
+{% for section, options in gitlab_rails_custom.items() %}
+{% if section is "global" %}
+{% for option, value in options %}
+{{ option }} '{{ value }}'
+{% endfor %}
+{% else %}
+{% for option, value in options %}
+{{ section }}['{{ option }}'] = '{{ value }}'
+{% endfor %}
+{% endif %}
 {% endfor %}
 {% endif %}
 
