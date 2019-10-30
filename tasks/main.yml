@@ -66,6 +66,12 @@
     creates={{ gitlab_ssl_certificate }}
   when: gitlab_create_self_signed_cert
 
+- name: fetch certificate to distribute to runners
+  fetch:
+    src: "{{ gitlab_ssl_certificate }}"
+    dest: "files/{{ inventory_hostname }}.crt"
+    flat: true
+
 - name: Copy GitLab configuration file.
   template:
     src: "{{ gitlab_config_template }}"
