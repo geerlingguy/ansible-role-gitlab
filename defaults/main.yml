@@ -44,6 +44,9 @@ gitlab_smtp_ca_file: "/etc/ssl/certs/ca-certificates.crt"
 gitlab_nginx_ssl_verify_client: ""
 gitlab_nginx_ssl_client_certificate: ""
 
+# Grafana
+gitlab_grafana_enable: "true"
+
 # Probably best to leave this as the default, unless doing testing.
 gitlab_restart_handler_failed_when: 'gitlab_restart.rc != 0'
 

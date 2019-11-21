@@ -124,6 +124,9 @@ If you want to enable [2-way SSL Client Authentication](https://docs.gitlab.com/
 
 GitLab includes a number of themes, and you can set the default for all users with this variable. See [the included GitLab themes to choose a default](https://github.com/gitlabhq/gitlabhq/blob/master/config/gitlab.yml.example#L79-L85).
 
+    gitlab_grafana_enable: "true"
+Gitlab includes a Grafana server to monitor its own metrics. If you have your own Grafana server, you can disable this one.
+
 ## Dependencies
 
 None.
