@@ -75,5 +75,8 @@
     mode: 0600
   notify: restart gitlab
 
+- name: Force restart handler before applying application settings
+  meta: flush_handlers
+
 - name: Disable Account signup
   import_tasks: gitlab-application-settings.yml
