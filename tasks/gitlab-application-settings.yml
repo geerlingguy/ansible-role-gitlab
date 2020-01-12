@@ -1,11 +1,29 @@
-- name: Get Application settings using rails runner
+# this moves boolean var content to string in jinja to make 
+# the wanted gitlab_application_settings in boolean usable in rails
+# inspired by:
+# http://rickalm.blogspot.com/2018/08/testing-for-data-types-in-jinja.html
+- name: Move boolean values to lowerized strings to be usable in rails
+  set_fact:
+    ___gitlab_application_settings: |
+      {% if item.value is sameas true or item.value is sameas false %}
+      {{ ___gitlab_application_settings|default({})|combine({item.key:item.value|string|lower}) }}
+      {% else %}
+      {{ ___gitlab_application_settings|default({})|combine({item.key:item.value}) }}
+      {% endif %}
+  with_dict:
+    "{{ gitlab_application_settings }}"
+
+- name: Get Application settings using the gitlab-rails runner command
   command: gitlab-rails runner 'puts ApplicationSetting.last.to_json'
   changed_when: false
-  register: gitlab_application_settings_raw
+  register: __gitlab_application_settings
 
-- set_fact:
-    gitlab_application_settings: "{{ gitlab_application_settings_raw.stdout | from_json }}"
+- name: Convert output from gitlab-rails runner command to dict
+  set_fact:
+    _gitlab_application_settings: "{{ __gitlab_application_settings.stdout | from_json }}"
 
-- name: Disable Account signup
-  command: "gitlab-rails runner 'ApplicationSetting.last.update_attributes(signup_enabled: false)'"
-  when: gitlab_signup_enabled == false and gitlab_application_settings.signup_enabled
+- name: "Apply application setting {{ item.key }}"
+  command: "gitlab-rails runner 'ApplicationSetting.last.update_attributes({{ item.key}}: {{ ___gitlab_application_settings[item.key] }})'"
+  when: _gitlab_application_settings[item.key] != gitlab_application_settings[item.key]
+  with_dict:
+    "{{ gitlab_application_settings }}"

@@ -78,5 +78,6 @@
 - name: Force restart handler before applying application settings
   meta: flush_handlers
 
-- name: Disable Account signup
+- name: Apply gitlab application settings
   import_tasks: gitlab-application-settings.yml
+  when: gitlab_apply_application_settings
