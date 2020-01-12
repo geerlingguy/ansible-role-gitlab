@@ -74,3 +74,7 @@
     group: root
     mode: 0600
   notify: restart gitlab
+
+- name: Disable Account signup
+  import_tasks: "gitlab-application-settings.yml"
+  when: gitlab_signup_enabled == false

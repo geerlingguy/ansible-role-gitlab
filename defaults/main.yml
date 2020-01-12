@@ -7,6 +7,10 @@ gitlab_version: ''
 gitlab_backup_path: "/var/opt/gitlab/backups"
 gitlab_config_template: "gitlab.rb.j2"
 
+# Security
+# inspired by https://gitlab.com/gitlab-org/omnibus-gitlab/issues/2837
+gitlab_signup_enabled: true 
+
 # SSL Configuration.
 gitlab_redirect_http_to_https: "true"
 gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
