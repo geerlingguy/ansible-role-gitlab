@@ -1,3 +1,7 @@
+- name: Get Application settings using rails runner
+  command: gitlab-rails runner 'puts ApplicationSetting.last.to_json'
+  register: gitlab_application_settings
+
 - name: Disable Account signup
   command: gitlab-rails runner 'ApplicationSetting.last.update_attributes(signup_enabled: false)'
   when: gitlab_signup_enabled == false
