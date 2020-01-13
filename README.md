@@ -69,7 +69,7 @@ Whether to create a self-signed certificate for serving GitLab over a secure con
     gitlab_ldap_password: "password"
     gitlab_ldap_base: "DC=example,DC=com"
 
-GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the configuration will tell GitLab how to connect to an LDAP server for centralized authentication.
+GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the configuration will tell GitLab how to connect to an LDAP server for centralized authentication. The supported LDAP methods are "simple_tls", "start_tls", "plain", "ssl", and "tls". For obvious reasons, plain is the default but should be used with care when authenticating to external LDAP or over untrusted regions. 
 
     gitlab_time_zone: "UTC"
 
