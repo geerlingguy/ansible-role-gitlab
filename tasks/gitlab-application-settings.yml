@@ -1,4 +1,5 @@
-# this moves boolean var content to string in jinja to make 
+---
+# this moves boolean var content to string in jinja to make
 # the wanted gitlab_application_settings in boolean usable in rails
 # inspired by:
 # http://rickalm.blogspot.com/2018/08/testing-for-data-types-in-jinja.html
@@ -23,7 +24,7 @@
     _gitlab_application_settings: "{{ __gitlab_application_settings.stdout | from_json }}"
 
 - name: "Apply application setting {{ item.key }}"
-  command: "gitlab-rails runner 'ApplicationSetting.last.update_attributes({{ item.key}}: {{ ___gitlab_application_settings[item.key] }})'"
+  command: "gitlab-rails runner 'ApplicationSetting.last.update_attributes({{ item.key }}: {{ ___gitlab_application_settings[item.key] }})'"
   when: _gitlab_application_settings[item.key] != gitlab_application_settings[item.key]
   with_dict:
     "{{ gitlab_application_settings }}"

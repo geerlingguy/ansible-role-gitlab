@@ -10,10 +10,11 @@ gitlab_config_template: "gitlab.rb.j2"
 # Application Settings
 # Add to true if you want to apply application settings
 # using the gitlab-runner command
-gitlab_apply_application_settings: false 
+gitlab_apply_application_settings: false
 
 # These reflect settings directly applied using gitlab-runner
-# keep in mind that all values (also "true"/"false") needs to be in string format because
+# keep in mind that all values (also "true"/"false")
+# needs to be in string format because
 # they are applied with ansible command
 # inspired by https://gitlab.com/gitlab-org/omnibus-gitlab/issues/2837
 gitlab_application_settings: {}
