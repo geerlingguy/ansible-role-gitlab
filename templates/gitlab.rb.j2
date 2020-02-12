@@ -26,6 +26,8 @@ letsencrypt['auto_renew_hour'] = "{{ gitlab_letsencrypt_auto_renew_hour }}"
 letsencrypt['auto_renew_minute'] = "{{ gitlab_letsencrypt_auto_renew_minute }}"
 letsencrypt['auto_renew_day_of_month'] = "{{ gitlab_letsencrypt_auto_renew_day_of_month }}"
 letsencrypt['auto_renew'] = "{{ gitlab_letsencrypt_auto_renew }}"
+{% else %}
+letsencrypt['enable'] = false
 {% endif %}
 
 # The directory where Git repositories will be stored.
