@@ -12,13 +12,20 @@
 
 # Install GitLab and its dependencies.
 - name: Install GitLab dependencies.
-  package: name={{ item }} state=present
-  with_items:
-    - openssh-server
-    - postfix
-    - curl
-    - openssl
-    - tzdata
+  package:
+    name:
+      - openssh-server
+      - postfix
+      - curl
+      - openssl
+      - tzdata
+    state: present
+
+- name: Install GitLab dependencies (Debian).
+  apt:
+    name: gnupg2
+    state: present
+  when: ansible_os_family == 'Debian'
 
 - name: Download GitLab repository installation script.
   get_url:
@@ -29,7 +36,10 @@
 
 - name: Install GitLab repository.
   command: bash /tmp/gitlab_install_repository.sh
+  register: output
   when: not gitlab_file.stat.exists
+
+- debug: var=output
 
 - name: Define the Gitlab package name.
   set_fact:
