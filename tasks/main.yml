@@ -39,8 +39,6 @@
   register: output
   when: not gitlab_file.stat.exists
 
-- debug: var=output
-
 - name: Define the Gitlab package name.
   set_fact:
     gitlab_package_name: "{{ gitlab_edition }}{{ gitlab_package_version_separator }}{{ gitlab_version }}"
