@@ -40,7 +40,7 @@
   package:
     name: "{{ gitlab_package_name | default(gitlab_edition) }}"
     state: present
-  when: not gitlab_file.stat.exists
+  when: not gitlab_file.stat.exists or gitlab_force_update is defined and gitlab_force_update
 
 # Start and configure GitLab. Sometimes the first run fails, but after that,
 # restarts fix problems, so ignore failures on this run.

@@ -70,5 +70,55 @@ nginx['ssl_verify_client'] = "{{ gitlab_nginx_ssl_verify_client }}"
 nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
 {% endif %}
 
+# Docker registry configuration
+gitlab_rails['registry_enabled'] = {{ registry_enabled }}
+{% if registry_enabled == "true" %}
+registry_external_url "{{ registry_external_url + ':' + registry_external_port }}"
+gitlab_rails['registry_host'] = "{{ registry_external_url }}"
+gitlab_rails['registry_port'] = "{{ registry_external_port }}"
+registry_nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate }}"
+registry_nginx['ssl_certificate_key'] = "{{ gitlab_ssl_certificate_key }}"
+{% endif %}
+
+# Backup upload connection
+{% if backup_upload_connection_conf is defined %}
+gitlab_rails['backup_upload_connection'] = {
+    {% for key, value in backup_upload_connection_conf.iteritems() %}
+       '{{ key }}' => '{{ value }}',
+    {% endfor %}
+}
+{% endif %}
+
+{% if omniauth_providers_conf is defined %}
+gitlab_rails['omniauth_providers'] = [
+  {
+    "name" => "{{ omniauth_providers_conf.name }}",
+    "app_id" => "{{ omniauth_providers_conf.app_id }}",
+    "app_secret" => "{{ omniauth_providers_conf.app_secret }}",
+    "args" => { "access_type" => "{{ omniauth_providers_conf.args.access_type }}", "approval_prompt" => "{{ omniauth_providers_conf.args.approval_prompt }}" }
+  }
+]
+{% endif %}
+
+{% if backup_upload_remote_directory is defined %}
+gitlab_rails['backup_upload_remote_directory'] = "{{ backup_upload_remote_directory }}"
+{% endif %}
+
+{% if gitlab_omniauth_enabled is defined and gitlab_omniauth_enabled %}
+gitlab_rails['omniauth_enabled'] = true
+gitlab_rails['omniauth_external_providers'] = {{ gitlab_omniauth_external_providers | to_json}}
+gitlab_rails['omniauth_allow_single_sign_on'] = {{gitlab_omniauth_allow_single_sign_on | to_json}}
+gitlab_rails['omniauth_sync_email_from_provider'] = '{{ gitlab_omniauth_sync_email_from_provider }}'
+gitlab_rails['omniauth_block_auto_created_users'] = {{ gitlab_omniauth_block_auto_created_users | lower}}
+gitlab_rails['omniauth_auto_link_ldap_user'] = {{ gitlab_omniauth_auto_link_ldap_user | lower }}
+gitlab_rails['omniauth_sync_profile_from_provider'] = {{ gitlab_omniauth_sync_profile_from_provider | to_json }}
+gitlab_rails['omniauth_sync_profile_attributes'] = {{ gitlab_omniauth_sync_profile_attributes | to_json }}
+gitlab_rails['omniauth_auto_link_saml_user'] = {{ gitlab_omniauth_auto_link_saml_user | lower }}
+{% if gitlab_omniauth_auto_sign_in_with_provider is defined %}
+gitlab_rails['omniauth_auto_sign_in_with_provider'] = {{ gitlab_omniauth_auto_sign_in_with_provider}}
+{% endif %}
+gitlab_rails['omniauth_providers'] = {{ gitlab_omniauth_providers.config | to_json }}
+{% endif %}
+
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings

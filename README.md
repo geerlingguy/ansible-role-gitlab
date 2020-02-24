@@ -122,6 +122,24 @@ If you want to enable [2-way SSL Client Authentication](https://docs.gitlab.com/
 
     gitlab_default_theme: 2
 
+If you are willing to enable/disable the Gitlab docker registry (By default the registry is enabled)
+
+    registry_enabled: true
+    registry_external_url: "https://gitlab/"
+    registry_external_port: 4567
+
+If you want to set up the upload backup, your vars_conf goes under 'backup_upload_connection_conf'
+
+    # Example for AWS provider (Check gitlab doc to find the right vars of your provider)
+    backup_upload_connection_conf:
+        provider: AWS
+        region: YOUR_REGION
+        aws_access_key_id: YOUR_ACCESS_KEY_HERE
+        aws_secret_access_key: YOUR_SECRET_ACCESS_KEY_HERE
+    
+    backup_upload_remote_directory: my.s3.bucket
+    
+ 
 GitLab includes a number of themes, and you can set the default for all users with this variable. See [the included GitLab themes to choose a default](https://github.com/gitlabhq/gitlabhq/blob/master/config/gitlab.yml.example#L79-L85).
 
 ## Dependencies
