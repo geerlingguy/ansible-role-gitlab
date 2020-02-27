@@ -34,7 +34,7 @@ gitlab_rails['ldap_uid'] = '{{ gitlab_ldap_uid }}'
 gitlab_rails['ldap_method'] = '{{ gitlab_ldap_method}}' # 'ssl' or 'plain'
 gitlab_rails['ldap_bind_dn'] = '{{ gitlab_ldap_bind_dn }}'
 gitlab_rails['ldap_password'] = '{{ gitlab_ldap_password }}'
-gitlab_rails['ldap_allow_username_or_email_login'] = true
+gitlab_rails['ldap_allow_username_or_email_login'] = '{{ gitlab_ldap_allow_username_or_email_login }}'
 gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
 
 # GitLab Nginx
