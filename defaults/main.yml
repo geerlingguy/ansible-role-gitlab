@@ -7,6 +7,10 @@ gitlab_version: ''
 gitlab_backup_path: "/var/opt/gitlab/backups"
 gitlab_config_template: "gitlab.rb.j2"
 
+# Let's encrypt Configuration.
+gitlab_letsencrypt_enabled: "false"
+gitlab_letsencrypt_contact_emails: ['foo@email.com']
+
 # SSL Configuration.
 gitlab_redirect_http_to_https: "true"
 gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"

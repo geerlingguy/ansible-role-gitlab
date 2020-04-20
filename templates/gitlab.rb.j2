@@ -14,6 +14,10 @@ gitlab_rails['gitlab_email_reply_to'] = "{{ gitlab_email_reply_to }}"
 # Default Theme
 gitlab_rails['gitlab_default_theme'] = "{{ gitlab_default_theme }}"
 
+# Whether to use Let's Encrypt
+letsencrypt['enable'] = {{ gitlab_letsencrypt_enabled }}
+letsencrypt['contact_emails'] = {{ gitlab_letsencrypt_contact_emails | to_json }}
+
 # Whether to redirect http to https.
 nginx['redirect_http_to_https'] = {{ gitlab_redirect_http_to_https }}
 nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate }}"
