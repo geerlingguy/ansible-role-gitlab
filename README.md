@@ -124,6 +124,11 @@ If you want to enable [2-way SSL Client Authentication](https://docs.gitlab.com/
 
 GitLab includes a number of themes, and you can set the default for all users with this variable. See [the included GitLab themes to choose a default](https://github.com/gitlabhq/gitlabhq/blob/master/config/gitlab.yml.example#L79-L85).
 
+If you want to enable the built-in Container Registry feature in Gitlab (from 8.4+) then you can used the following variables. By default as a registry url it is using the "gitlab_external_url" variable and as certificates it is using the "gitlab_ssl_certificate" and the "gitlab_ssl_certificate_key" variables to easy the registry implementation.
+
+    gitlab_container_registry_enabled: true
+    gitlab_container_registry_port: 5050
+
 ## Dependencies
 
 None.

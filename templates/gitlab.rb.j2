@@ -70,5 +70,15 @@ nginx['ssl_verify_client'] = "{{ gitlab_nginx_ssl_verify_client }}"
 nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
 {% endif %}
 
+# Enable Gitlab's builting Container registry feature.
+# This section does not support yet an external registry
+# The port should be anything other than a curently port used by gitlab.
+# used 5050 as default and using the exisiting certificates used 
+# in the gui (https)
+{% if gitlab_container_registry_enabled and gitlab_redirect_http_to_https %}
+registry_external_url "{{ gitlab_external_url }}:{{ gitlab_container_registry_port }}"
+registry_nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate }}"
+registry_nginx['ssl_certificate_key'] = "{{ gitlab_ssl_certificate_key }}"
+{% endif %}
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings

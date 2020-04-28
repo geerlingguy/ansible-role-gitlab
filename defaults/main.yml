@@ -58,3 +58,7 @@ gitlab_email_enabled: "false"
 gitlab_email_from: "gitlab@example.com"
 gitlab_email_display_name: "Gitlab"
 gitlab_email_reply_to: "gitlab@example.com"
+
+# Container registry feature configuration
+gitlab_container_registry_enabled: "false"
+gitlab_container_registry_port: "5050"
