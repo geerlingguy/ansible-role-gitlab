@@ -2,10 +2,6 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
-- name: Check if GitLab configuration file already exists.
-  stat: path=/etc/gitlab/gitlab.rb
-  register: gitlab_config_file
-
 - name: Check if GitLab is already installed.
   stat: path=/usr/bin/gitlab-ctl
   register: gitlab_file
@@ -44,20 +40,6 @@
     gitlab_package_name: "{{ gitlab_edition }}{{ gitlab_package_version_separator }}{{ gitlab_version }}"
   when: gitlab_version | default(false)
 
-- name: Install GitLab
-  package:
-    name: "{{ gitlab_package_name | default(gitlab_edition) }}"
-    state: present
-  when: not gitlab_file.stat.exists or gitlab_force_update is defined and gitlab_force_update
-
-# Start and configure GitLab. Sometimes the first run fails, but after that,
-# restarts fix problems, so ignore failures on this run.
-- name: Reconfigure GitLab (first run).
-  command: >
-    gitlab-ctl reconfigure
-    creates=/var/opt/gitlab/bootstrapped
-  failed_when: false
-
 - name: Create GitLab SSL configuration folder.
   file:
     path: /etc/gitlab/ssl
@@ -82,3 +64,9 @@
     group: root
     mode: 0600
   notify: restart gitlab
+
+- name: Install GitLab
+  package:
+    name: "{{ gitlab_package_name | default(gitlab_edition) }}"
+    state: present
+  when: not gitlab_file.stat.exists or gitlab_force_update is defined and gitlab_force_update

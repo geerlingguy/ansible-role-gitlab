@@ -1,6 +1,14 @@
 # The URL through which GitLab will be accessed.
 external_url "{{ gitlab_external_url }}"
 
+{% if gitlab_initial_root_password is defined %}
+gitlab_rails['initial_root_password'] = "{{ gitlab_initial_root_password }}"
+{% endif %}
+
+{% if gitlab_initial_shared_runners_registration_token is defined %}
+gitlab_rails['initial_shared_runners_registration_token'] = "{{ gitlab_initial_shared_runners_registration_token }}"
+{% endif %}
+
 # gitlab.yml configuration
 gitlab_rails['time_zone'] = "{{ gitlab_time_zone }}"
 gitlab_rails['backup_keep_time'] = {{ gitlab_backup_keep_time }}
@@ -71,37 +79,26 @@ nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
 {% endif %}
 
 # Docker registry configuration
-gitlab_rails['registry_enabled'] = {{ registry_enabled }}
-{% if registry_enabled == "true" %}
-registry_external_url "{{ registry_external_url + ':' + registry_external_port }}"
-gitlab_rails['registry_host'] = "{{ registry_external_url }}"
-gitlab_rails['registry_port'] = "{{ registry_external_port }}"
+gitlab_rails['registry_enabled'] = {{ gitlab_registry_enabled }}
+{% if gitlab_registry_enabled == "true" %}
+registry_external_url "{{ gitlab_registry_external_url + ':' + gitlab_registry_external_port }}"
+gitlab_rails['registry_host'] = "{{ gitlab_registry_external_url }}"
+gitlab_rails['registry_port'] = "{{ gitlab_registry_external_port }}"
 registry_nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate }}"
 registry_nginx['ssl_certificate_key'] = "{{ gitlab_ssl_certificate_key }}"
 {% endif %}
 
 # Backup upload connection
-{% if backup_upload_connection_conf is defined %}
+{% if gitlab_backup_upload_connection_conf is defined %}
 gitlab_rails['backup_upload_connection'] = {
-    {% for key, value in backup_upload_connection_conf.iteritems() %}
+    {% for key, value in gitlab_backup_upload_connection_conf.iteritems() %}
        '{{ key }}' => '{{ value }}',
     {% endfor %}
 }
 {% endif %}
 
-{% if omniauth_providers_conf is defined %}
-gitlab_rails['omniauth_providers'] = [
-  {
-    "name" => "{{ omniauth_providers_conf.name }}",
-    "app_id" => "{{ omniauth_providers_conf.app_id }}",
-    "app_secret" => "{{ omniauth_providers_conf.app_secret }}",
-    "args" => { "access_type" => "{{ omniauth_providers_conf.args.access_type }}", "approval_prompt" => "{{ omniauth_providers_conf.args.approval_prompt }}" }
-  }
-]
-{% endif %}
-
-{% if backup_upload_remote_directory is defined %}
-gitlab_rails['backup_upload_remote_directory'] = "{{ backup_upload_remote_directory }}"
+{% if gitlab_backup_upload_remote_directory is defined %}
+gitlab_rails['backup_upload_remote_directory'] = "{{ gitlab_backup_upload_remote_directory }}"
 {% endif %}
 
 {% if gitlab_omniauth_enabled is defined and gitlab_omniauth_enabled %}

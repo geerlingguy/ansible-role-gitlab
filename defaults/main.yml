@@ -60,6 +60,6 @@ gitlab_email_display_name: "Gitlab"
 gitlab_email_reply_to: "gitlab@example.com"
 
 # Docker registry
-registry_enabled: "true"
-registry_external_url: "https://gitlab/"
-registry_external_port: 4567
+gitlab_registry_enabled: "true"
+gitlab_registry_external_url: "https://gitlab/"
+gitlab_registry_external_port: 4567
