@@ -124,6 +124,26 @@ If you want to enable [2-way SSL Client Authentication](https://docs.gitlab.com/
 
 GitLab includes a number of themes, and you can set the default for all users with this variable. See [the included GitLab themes to choose a default](https://github.com/gitlabhq/gitlabhq/blob/master/config/gitlab.yml.example#L79-L85).
 
+    gitlab_extra_settings:
+      - gitlab_rails:
+          - key: "trusted_proxies"
+            value: "['foo', 'bar']"
+          - key: "env"
+            type: "plain"
+            value: |
+              {
+              "http_proxy" => "https://my_http_proxy.company.com:3128",
+              "https_proxy" => "https://my_http_proxy.company.com:3128",
+              "no_proxy" => "localhost, 127.0.0.1, company.com"
+              }
+      - unicorn:
+          - key: "worker_processes"
+            value: 5
+          - key: "pidfile"
+            value: "/opt/gitlab/var/unicorn/unicorn.pid"
+
+Gitlab have many other settings ([see official documentation](https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/files/gitlab-config-template/gitlab.rb.template)), and you can add them with this special variable `gitlab_extra_settings` with the concerned setting and the `key` and `value` keywords.
+
 ## Dependencies
 
 None.
