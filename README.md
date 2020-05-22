@@ -17,9 +17,10 @@ None.
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
-    gitlab_external_url: "https://gitlab/"
+    gitlab_domain: gitlab
+    gitlab_external_url: "https://{{ gitlab_domain }}/"
 
-The URL at which the GitLab instance will be accessible. This is set as the `external_url` configuration setting in `gitlab.rb`, and if you want to run GitLab on a different port (besides 80/443), you can specify the port here (e.g. `https://gitlab:8443/` for port 8443).
+The domain and URL at which the GitLab instance will be accessible. This is set as the `external_url` configuration setting in `gitlab.rb`, and if you want to run GitLab on a different port (besides 80/443), you can specify the port here (e.g. `https://gitlab:8443/` for port 8443).
 
     gitlab_git_data_dir: "/var/opt/gitlab/git-data"
 
@@ -48,14 +49,14 @@ The `gitlab.rb.j2` template packaged with this role is meant to be very generic 
 ### SSL Configuration.
 
     gitlab_redirect_http_to_https: "true"
-    gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
-    gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
+    gitlab_ssl_certificate: "/etc/gitlab/ssl/{{ gitlab_domain }}.crt"
+    gitlab_ssl_certificate_key: "/etc/gitlab/ssl/{{ gitlab_domain }}.key"
 
 GitLab SSL configuration; tells GitLab to redirect normal http requests to https, and the path to the certificate and key (the default values will work for automatic self-signed certificate creation, if set to `true` in the variable below).
 
     # SSL Self-signed Certificate Configuration.
     gitlab_create_self_signed_cert: "true"
-    gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=gitlab"
+    gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN={{ gitlab_domain }}"
 
 Whether to create a self-signed certificate for serving GitLab over a secure connection. Set `gitlab_self_signed_cert_subj` according to your locality and organization.
 
