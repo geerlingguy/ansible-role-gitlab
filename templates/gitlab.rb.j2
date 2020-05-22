@@ -117,5 +117,9 @@ gitlab_rails['omniauth_auto_sign_in_with_provider'] = {{ gitlab_omniauth_auto_si
 gitlab_rails['omniauth_providers'] = {{ gitlab_omniauth_providers | to_json }}
 {% endif %}
 
+{% if gitlab_raw_config is defined %}
+{{ gitlab_raw_config }}
+{% endif %}
+
 # To change other settings, see:
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#changing-gitlab-yml-settings
