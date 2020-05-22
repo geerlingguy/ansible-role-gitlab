@@ -2,4 +2,4 @@
 - name: restart gitlab
   command: gitlab-ctl reconfigure
   register: gitlab_restart
-  failed_when: gitlab_restart_handler_failed_when
+  failed_when: gitlab_restart_handler_failed_when | bool
