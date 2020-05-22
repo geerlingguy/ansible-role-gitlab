@@ -72,6 +72,15 @@ Whether to create a self-signed certificate for serving GitLab over a secure con
 
 GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the configuration will tell GitLab how to connect to an LDAP server for centralized authentication.
 
+    gitlab_dependencies:
+      - openssh-server
+      - postfix
+      - curl
+      - openssl
+      - tzdata
+
+Dependencies required by GitLab for certain functionality, like timezone support or email. You may change this list in your own playbook if, for example, you would like to install `exim` instead of `postfix`.
+
     gitlab_time_zone: "UTC"
 
 Gitlab timezone.
