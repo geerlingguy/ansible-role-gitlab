@@ -67,3 +67,9 @@ gitlab_email_enabled: "false"
 gitlab_email_from: "gitlab@example.com"
 gitlab_email_display_name: "Gitlab"
 gitlab_email_reply_to: "gitlab@example.com"
+
+# Registry configuration.
+gitlab_registry_enable: "false"
+gitlab_registry_external_url: "https://gitlab.example.com:4567"
+gitlab_registry_nginx_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
+gitlab_registry_nginx_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
