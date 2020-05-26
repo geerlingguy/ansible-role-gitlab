@@ -2,6 +2,7 @@
 dependencies: []
 
 galaxy_info:
+  role_name: gitlab
   author: geerlingguy
   description: GitLab Git web interface
   company: "Midwestern Mac, LLC"
