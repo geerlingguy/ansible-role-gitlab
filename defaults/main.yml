@@ -1,6 +1,7 @@
 ---
 # General config.
-gitlab_external_url: "https://gitlab/"
+gitlab_domain: gitlab
+gitlab_external_url: "https://{{ gitlab_domain }}/"
 gitlab_git_data_dir: "/var/opt/gitlab/git-data"
 gitlab_edition: "gitlab-ce"
 gitlab_version: ''
@@ -9,12 +10,12 @@ gitlab_config_template: "gitlab.rb.j2"
 
 # SSL Configuration.
 gitlab_redirect_http_to_https: "true"
-gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
-gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
+gitlab_ssl_certificate: "/etc/gitlab/ssl/{{ gitlab_domain }}.crt"
+gitlab_ssl_certificate_key: "/etc/gitlab/ssl/{{ gitlab_domain }}.key"
 
 # SSL Self-signed Certificate Configuration.
 gitlab_create_self_signed_cert: "true"
-gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=gitlab"
+gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN={{ gitlab_domain }}"
 
 # LDAP Configuration.
 gitlab_ldap_enabled: "false"
@@ -47,6 +48,14 @@ gitlab_nginx_ssl_client_certificate: ""
 # Probably best to leave this as the default, unless doing testing.
 gitlab_restart_handler_failed_when: 'gitlab_restart.rc != 0'
 
+# Dependencies.
+gitlab_dependencies:
+  - openssh-server
+  - postfix
+  - curl
+  - openssl
+  - tzdata
+
 # Optional settings.
 gitlab_time_zone: "UTC"
 gitlab_backup_keep_time: "604800"
@@ -59,7 +68,8 @@ gitlab_email_from: "gitlab@example.com"
 gitlab_email_display_name: "Gitlab"
 gitlab_email_reply_to: "gitlab@example.com"
 
-# Docker registry
-gitlab_registry_enabled: "true"
-gitlab_registry_external_url: "https://gitlab/"
-gitlab_registry_external_port: 4567
+# Registry configuration.
+gitlab_registry_enabled: "false"
+gitlab_registry_external_url: "https://gitlab.example.com:4567"
+gitlab_registry_nginx_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
+gitlab_registry_nginx_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"

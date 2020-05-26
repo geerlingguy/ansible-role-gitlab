@@ -9,12 +9,7 @@
 # Install GitLab and its dependencies.
 - name: Install GitLab dependencies.
   package:
-    name:
-      - openssh-server
-      - postfix
-      - curl
-      - openssl
-      - tzdata
+    name: "{{ gitlab_dependencies }}"
     state: present
 
 - name: Install GitLab dependencies (Debian).
@@ -77,4 +72,6 @@
   package:
     name: "{{ gitlab_package_name | default(gitlab_edition) }}"
     state: present
-  when: not gitlab_file.stat.exists or gitlab_force_update is defined and gitlab_force_update
+  async: 300
+  poll: 5
+  when: not gitlab_file.stat.exists
