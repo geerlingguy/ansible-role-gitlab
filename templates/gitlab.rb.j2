@@ -81,9 +81,15 @@ nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
 # Docker registry configuration
 gitlab_rails['registry_enabled'] = {{ gitlab_registry_enabled }}
 {% if gitlab_registry_enabled == "true" %}
-registry_external_url "{{ gitlab_registry_external_url + ':' + gitlab_registry_external_port }}"
-gitlab_rails['registry_host'] = "{{ gitlab_registry_external_url }}"
-gitlab_rails['registry_port'] = "{{ gitlab_registry_external_port }}"
+registry_external_url "{{ gitlab_registry_external_url }}"
+
+{% if gitlab_registry_nginx_listen_port is defined %}
+registry_nginx['listen_port'] = "{{ gitlab_registry_nginx_listen_port }}"
+{% endif %}
+{% if gitlab_registry_nginx_listen_https is defined %}
+registry_nginx['listen_https'] = {{ gitlab_registry_nginx_listen_https }}
+{% endif %}
+
 registry_nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate }}"
 registry_nginx['ssl_certificate_key'] = "{{ gitlab_ssl_certificate_key }}"
 {% endif %}
