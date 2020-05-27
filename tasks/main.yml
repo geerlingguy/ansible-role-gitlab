@@ -41,7 +41,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0700
+    mode: 0775
 
 - name: Create GitLab SSL configuration folder.
   file:
