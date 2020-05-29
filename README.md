@@ -60,6 +60,17 @@ GitLab SSL configuration; tells GitLab to redirect normal http requests to https
 
 Whether to create a self-signed certificate for serving GitLab over a secure connection. Set `gitlab_self_signed_cert_subj` according to your locality and organization.
 
+### LetsEncrypt Configuration.
+
+    gitlab_letsencrypt_enable: "false"
+    gitlab_letsencrypt_contact_emails: ["gitlab@example.com"]
+    gitlab_letsencrypt_auto_renew_hour: 1
+    gitlab_letsencrypt_auto_renew_minute: 30
+    gitlab_letsencrypt_auto_renew_day_of_month: "*/7"
+    gitlab_letsencrypt_auto_renew: true
+
+GitLab LetsEncrypt configuration; tells GitLab whether to request and use a certificate from LetsEncrypt, if `gitlab_letsencrypt_enable` is set to `"true"`. Multipl contact emails can be configured under `gitlab_letsencrypt_contact_emails` as a list.
+
     # LDAP Configuration.
     gitlab_ldap_enabled: "false"
     gitlab_ldap_host: "example.com"
