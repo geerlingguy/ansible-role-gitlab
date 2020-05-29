@@ -69,7 +69,7 @@ Whether to create a self-signed certificate for serving GitLab over a secure con
     gitlab_letsencrypt_auto_renew_day_of_month: "*/7"
     gitlab_letsencrypt_auto_renew: true
 
-GitLab LetsEncrypt configuration; tells GitLab whether to request and use a certificate from LetsEncrypt, if `gitlab_letsencrypt_enable` is set to `"true"`. Multipl contact emails can be configured under `gitlab_letsencrypt_contact_emails` as a list.
+GitLab LetsEncrypt configuration; tells GitLab whether to request and use a certificate from LetsEncrypt, if `gitlab_letsencrypt_enable` is set to `"true"`. Multiple contact emails can be configured under `gitlab_letsencrypt_contact_emails` as a list.
 
     # LDAP Configuration.
     gitlab_ldap_enabled: "false"
