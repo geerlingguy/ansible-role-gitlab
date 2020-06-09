@@ -62,14 +62,14 @@
     owner: root
     group: root
     mode: 0700
-  when: gitlab_create_self_signed_cert
+  when: gitlab_create_self_signed_cert | bool
 
 - name: Create self-signed certificate.
   command: >
     openssl req -new -nodes -x509 -subj "{{ gitlab_self_signed_cert_subj }}"
     -days 3650 -keyout {{ gitlab_ssl_certificate_key }} -out {{ gitlab_ssl_certificate }} -extensions v3_ca
     creates={{ gitlab_ssl_certificate }}
-  when: gitlab_create_self_signed_cert
+  when: gitlab_create_self_signed_cert | bool
 
 - name: Copy GitLab configuration file.
   template:
