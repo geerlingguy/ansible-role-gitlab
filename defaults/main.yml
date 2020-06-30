@@ -48,14 +48,6 @@ gitlab_nginx_ssl_client_certificate: ""
 # Probably best to leave this as the default, unless doing testing.
 gitlab_restart_handler_failed_when: 'gitlab_restart.rc != 0'
 
-# Dependencies.
-gitlab_dependencies:
-  - openssh-server
-  - postfix
-  - curl
-  - openssl
-  - tzdata
-
 # Optional settings.
 gitlab_time_zone: "UTC"
 gitlab_backup_keep_time: "604800"

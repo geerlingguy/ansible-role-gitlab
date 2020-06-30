@@ -78,4 +78,8 @@
     owner: root
     group: root
     mode: 0600
-  notify: restart gitlab
+  notify:
+    - restart gitlab gitalb-runsvdir.service
+    - restart gitlab
+- name: configure fast lookup of ssh keys
+  include_tasks: sshd.yml

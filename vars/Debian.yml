@@ -1,3 +1,9 @@
 ---
 gitlab_package_version_separator: '='
 gitlab_repository_installation_script_url: "https://packages.gitlab.com/install/repositories/gitlab/{{ gitlab_edition }}/script.deb.sh"
+gitlab_dependencies:
+  - curl
+  - openssh-server
+  - tzdata
+  - openssl
+  - postfix
