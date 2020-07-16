@@ -14,12 +14,12 @@
 - name: Install GitLab dependencies.
   package:
     name: "{{ gitlab_dependencies }}"
-    state: present
+    state: latest
 
 - name: Install GitLab dependencies (Debian).
   apt:
     name: gnupg2
-    state: present
+    state: latest
   when: ansible_os_family == 'Debian'
 
 - name: Download GitLab repository installation script.
@@ -42,10 +42,9 @@
 - name: Install GitLab
   package:
     name: "{{ gitlab_package_name | default(gitlab_edition) }}"
-    state: present
-  async: 300
+    state: latest
+  async: 3000
   poll: 5
-  when: not gitlab_file.stat.exists
 
 # Start and configure GitLab. Sometimes the first run fails, but after that,
 # restarts fix problems, so ignore failures on this run.
