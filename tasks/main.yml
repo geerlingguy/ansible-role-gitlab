@@ -39,12 +39,21 @@
     gitlab_package_name: "{{ gitlab_edition }}{{ gitlab_package_version_separator }}{{ gitlab_version }}"
   when: gitlab_version | default(false)
 
-- name: Install GitLab
+- name: Install GitLab specific version
   package:
-    name: "{{ gitlab_package_name | default(gitlab_edition) }}"
+    name: "{{ gitlab_package_name }}"
+    state: present
+  async: 3000
+  poll: 5
+  when: (gitlab_version is defined) and (gitlab_version|length > 0)
+
+- name: Install GitLab latest version
+  package:
+    name: "{{ gitlab_edition }}"
     state: latest
   async: 3000
   poll: 5
+  when: (gitlab_version is not defined) or (gitlab_version|length == 0)
 
 # Start and configure GitLab. Sometimes the first run fails, but after that,
 # restarts fix problems, so ignore failures on this run.
