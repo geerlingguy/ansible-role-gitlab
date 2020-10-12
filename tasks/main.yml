@@ -47,6 +47,14 @@
   poll: 5
   when: not gitlab_file.stat.exists
 
+- name: Setting options before configuring GitLab
+  lineinfile:
+    path: /etc/gitlab/gitlab.rb
+    regexp: "^{{ item.setting }}="
+    line: "{{ item.setting }} = '{{ item.value }}'"
+  loop: "{{ gitlab_preconfig_settings }}"
+  when: gitlab_preconfig_settings
+
 # Start and configure GitLab. Sometimes the first run fails, but after that,
 # restarts fix problems, so ignore failures on this run.
 - name: Reconfigure GitLab (first run).

@@ -154,6 +154,16 @@ GitLab includes a number of themes, and you can set the default for all users wi
 
 Gitlab have many other settings ([see official documentation](https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/files/gitlab-config-template/gitlab.rb.template)), and you can add them with this special variable `gitlab_extra_settings` with the concerned setting and the `key` and `value` keywords.
 
+In case you need to set some settings before reconfiguring GitLab for the first time (e.g. setting initial Runner Token), set them in `gitlab_preconfig_settings`:
+
+    gitlab_preconfig_settings:
+        - setting: "gitlab_rails['initial_shared_runners_registration_token']"
+            value: "..."
+
+This will result in the following configuration line:
+
+    gitlab_rails['initial_shared_runners_registration_token'] = '...'
+
 ## Dependencies
 
 None.
