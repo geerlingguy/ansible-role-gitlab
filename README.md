@@ -42,11 +42,11 @@ If you'd like to install a specific version, set the version here (e.g. `11.4.0-
 
 The `gitlab.rb.j2` template packaged with this role is meant to be very generic and serve a variety of use cases. However, many people would like to have a much more customized version, and so you can override this role's default template with your own, adding any additional customizations you need. To do this:
 
-  - Create a `templates` directory at the same level as your playbook.
-  - Create a `templates\mygitlab.rb.j2` file (just choose a different name from the default template).
-  - Set the variable like: `gitlab_config_template: mygitlab.rb.j2` (with the name of your custom template).
+- Create a `templates` directory at the same level as your playbook.
+- Create a `templates\mygitlab.rb.j2` file (just choose a different name from the default template).
+- Set the variable like: `gitlab_config_template: mygitlab.rb.j2` (with the name of your custom template).
 
-### SSL Configuration.
+### SSL Configuration
 
     gitlab_redirect_http_to_https: "true"
     gitlab_ssl_certificate: "/etc/gitlab/ssl/{{ gitlab_domain }}.crt"
