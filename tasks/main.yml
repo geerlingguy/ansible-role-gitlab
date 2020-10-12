@@ -53,7 +53,7 @@
     regexp: "^{{ item.setting }}="
     line: "{{ item.setting }} = '{{ item.value }}'"
   loop: "{{ gitlab_preconfig_settings }}"
-  when: gitlab_preconfig_settings
+  when: gitlab_preconfig_settings | bool
 
 # Start and configure GitLab. Sometimes the first run fails, but after that,
 # restarts fix problems, so ignore failures on this run.
