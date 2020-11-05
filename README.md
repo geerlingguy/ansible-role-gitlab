@@ -1,6 +1,6 @@
 # Ansible Role: GitLab
 
-[![Build Status](https://travis-ci.com/geerlingguy/ansible-role-gitlab.svg?branch=master)](https://travis-ci.com/geerlingguy/ansible-role-gitlab)
+[![CI](https://github.com/geerlingguy/ansible-role-gitlab/workflows/CI/badge.svg?event=push)](https://github.com/geerlingguy/ansible-role-gitlab/actions?query=workflow%3ACI)
 
 Installs GitLab, a Ruby-based front-end to Git, on any RedHat/CentOS or Debian/Ubuntu linux system.
 
