@@ -132,7 +132,7 @@ If you want to enable [2-way SSL Client Authentication](https://docs.gitlab.com/
 
     gitlab_default_theme: 2
 
-GitLab includes a number of themes, and you can set the default for all users with this variable. See [the included GitLab themes to choose a default](https://github.com/gitlabhq/gitlabhq/blob/master/config/gitlab.yml.example#L79-L85).
+GitLab includes a number of themes, and you can set the default for all users with this variable. See [the included GitLab themes to choose a default](https://github.com/gitlabhq/gitlabhq/blob/master/config/gitlab.yml.example#L118-L129).
 
     gitlab_extra_settings:
       - gitlab_rails:
