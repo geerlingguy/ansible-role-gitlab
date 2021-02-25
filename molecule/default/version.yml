@@ -4,7 +4,7 @@
   become: true
 
   vars:
-    gitlab_restart_handler_failed_when: false
+    gitlab_restart_handler_ignore_failure: true
 
   pre_tasks:
     - name: Update apt cache.
