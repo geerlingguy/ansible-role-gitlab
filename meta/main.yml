@@ -2,6 +2,7 @@
 dependencies: []
 
 galaxy_info:
+  role_name: gitlab
   author: geerlingguy
   description: GitLab Git web interface
   company: "Midwestern Mac, LLC"
@@ -10,8 +11,8 @@ galaxy_info:
   platforms:
     - name: EL
       versions:
-        - 6
         - 7
+        - 8
     - name: Debian
       versions:
         - all
