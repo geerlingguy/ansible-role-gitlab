@@ -1,2 +1,4 @@
 skip_list:
-  - '602'
+  - 'yaml'
+  - 'role-name'
+  - 'package-latest'
