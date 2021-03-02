@@ -68,7 +68,7 @@ gitlab_rails['ldap_servers'] = YAML.load <<-EOS
   attributes: {{ values.attributes | default(gitlab_ldap_attributes) }}
 {% endfor %}
 EOS
-
+{% endif %}
 # GitLab Nginx
 ## See https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/nginx.md
 {% if gitlab_nginx_listen_port is defined %}
