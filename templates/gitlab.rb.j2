@@ -48,7 +48,6 @@ gitlab_rails['ldap_servers'] = YAML.load <<-EOS
     cert: '{{ values.cert | default(gitlab_ldap_cert) }}'
     key: '{{ values.key | default(gitlab_ldap_key) }}'
 {% endif %}
-{% endif %}
 
   timeout: {{ values.timeout | default(gitlab_ldap_timeout) }}
   active_directory: {{ values.active_directory | default(gitlab_ldap_active_directory) }}
@@ -61,7 +60,7 @@ gitlab_rails['ldap_servers'] = YAML.load <<-EOS
   attributes: {{ values.attributes | default(gitlab_ldap_attributes) }}
 {% endfor %}
 EOS
-
+{% endif %}
 # GitLab Nginx
 ## See https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/nginx.md
 {% if gitlab_nginx_listen_port is defined %}
