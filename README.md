@@ -151,8 +151,9 @@ GitLab includes a number of themes, and you can set the default for all users wi
             value: 5
           - key: "pidfile"
             value: "/opt/gitlab/var/unicorn/unicorn.pid"
+      - pages_external_url: "http://pages.example.com/"
 
-Gitlab have many other settings ([see official documentation](https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/files/gitlab-config-template/gitlab.rb.template)), and you can add them with this special variable `gitlab_extra_settings` with the concerned setting and the `key` and `value` keywords.
+Gitlab have many other settings ([see official documentation](https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/files/gitlab-config-template/gitlab.rb.template)), and you can add them with this special variable `gitlab_extra_settings` with the concerned setting and the `key` and `value` keywords. When specified without the `key` and `value` keywords, the special syntax for defining URLs in the configuration is used (see `pages_external_url` example above).
 
 ## Dependencies
 
