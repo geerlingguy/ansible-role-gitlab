@@ -80,4 +80,4 @@ gitlab_letsencrypt_contact_emails: ["gitlab@example.com"]
 gitlab_letsencrypt_auto_renew_hour: 1
 gitlab_letsencrypt_auto_renew_minute: 30
 gitlab_letsencrypt_auto_renew_day_of_month: "*/7"
-gitlab_letsencrypt_auto_renew: true
+gitlab_letsencrypt_auto_renew: "true"
