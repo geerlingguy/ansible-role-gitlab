@@ -62,7 +62,7 @@ Whether to create a self-signed certificate for serving GitLab over a secure con
 
 ### LetsEncrypt Configuration.
 
-    gitlab_letsencrypt_enable: "false"
+    gitlab_letsencrypt_enable: false
     gitlab_letsencrypt_contact_emails: ["gitlab@example.com"]
     gitlab_letsencrypt_auto_renew_hour: 1
     gitlab_letsencrypt_auto_renew_minute: 30
