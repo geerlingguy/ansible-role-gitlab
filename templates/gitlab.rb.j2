@@ -21,7 +21,7 @@ nginx['ssl_certificate_key'] = "{{ gitlab_ssl_certificate_key }}"
 
 {% if gitlab_letsencrypt_enable %}
 letsencrypt['enable'] = true
-letsencrypt['contact_emails'] = "{{ gitlab_letsencrypt_contact_emails | to_json }}"
+letsencrypt['contact_emails'] = '{{ gitlab_letsencrypt_contact_emails | to_json }}'
 letsencrypt['auto_renew_hour'] = "{{ gitlab_letsencrypt_auto_renew_hour }}"
 letsencrypt['auto_renew_minute'] = "{{ gitlab_letsencrypt_auto_renew_minute }}"
 letsencrypt['auto_renew_day_of_month'] = "{{ gitlab_letsencrypt_auto_renew_day_of_month }}"
