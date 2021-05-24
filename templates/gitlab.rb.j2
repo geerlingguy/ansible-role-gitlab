@@ -27,8 +27,8 @@ nginx['redirect_http_to_https'] = {{ gitlab_redirect_http_to_https }}
 nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate }}"
 nginx['ssl_certificate_key'] = "{{ gitlab_ssl_certificate_key }}"
 
-letsencrypt['enable'] = "{{ gitlab_letsencrypt_enable }}"
-{% if gitlab_letsencrypt_enable %}
+letsencrypt['enable'] = "{{ gitlab_letsencrypt_enabled }}"
+{% if gitlab_letsencrypt_enabled == "true" %}
 letsencrypt['contact_emails'] = "{{ gitlab_letsencrypt_contact_emails | to_json }}"
 letsencrypt['auto_renew_hour'] = "{{ gitlab_letsencrypt_auto_renew_hour }}"
 letsencrypt['auto_renew_minute'] = "{{ gitlab_letsencrypt_auto_renew_minute }}"
@@ -99,7 +99,7 @@ nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
 
 # GitLab registry.
 registry['enable'] = {{ gitlab_registry_enabled }}
-{% if gitlab_registry_enabled %}
+{% if gitlab_registry_enabled == "true" %}
 registry_external_url "{{ gitlab_registry_external_url }}"
 
 {% if gitlab_registry_nginx_listen_port is defined %}
