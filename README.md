@@ -1,6 +1,6 @@
 # Ansible Role: GitLab
 
-[![Build Status](https://travis-ci.org/geerlingguy/ansible-role-gitlab.svg?branch=master)](https://travis-ci.org/geerlingguy/ansible-role-gitlab)
+[![CI](https://github.com/geerlingguy/ansible-role-gitlab/workflows/CI/badge.svg?event=push)](https://github.com/geerlingguy/ansible-role-gitlab/actions?query=workflow%3ACI)
 
 Installs GitLab, a Ruby-based front-end to Git, on any RedHat/CentOS or Debian/Ubuntu linux system.
 
@@ -17,9 +17,10 @@ None.
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
-    gitlab_external_url: "https://gitlab/"
+    gitlab_domain: gitlab
+    gitlab_external_url: "https://{{ gitlab_domain }}/"
 
-The URL at which the GitLab instance will be accessible. This is set as the `external_url` configuration setting in `gitlab.rb`, and if you want to run GitLab on a different port (besides 80/443), you can specify the port here (e.g. `https://gitlab:8443/` for port 8443).
+The domain and URL at which the GitLab instance will be accessible. This is set as the `external_url` configuration setting in `gitlab.rb`, and if you want to run GitLab on a different port (besides 80/443), you can specify the port here (e.g. `https://gitlab:8443/` for port 8443).
 
     gitlab_git_data_dir: "/var/opt/gitlab/git-data"
 
@@ -48,16 +49,27 @@ The `gitlab.rb.j2` template packaged with this role is meant to be very generic 
 ### SSL Configuration.
 
     gitlab_redirect_http_to_https: "true"
-    gitlab_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
-    gitlab_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
+    gitlab_ssl_certificate: "/etc/gitlab/ssl/{{ gitlab_domain }}.crt"
+    gitlab_ssl_certificate_key: "/etc/gitlab/ssl/{{ gitlab_domain }}.key"
 
 GitLab SSL configuration; tells GitLab to redirect normal http requests to https, and the path to the certificate and key (the default values will work for automatic self-signed certificate creation, if set to `true` in the variable below).
 
     # SSL Self-signed Certificate Configuration.
     gitlab_create_self_signed_cert: "true"
-    gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN=gitlab"
+    gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN={{ gitlab_domain }}"
 
 Whether to create a self-signed certificate for serving GitLab over a secure connection. Set `gitlab_self_signed_cert_subj` according to your locality and organization.
+
+### LetsEncrypt Configuration.
+
+    gitlab_letsencrypt_enable: "false"
+    gitlab_letsencrypt_contact_emails: ["gitlab@example.com"]
+    gitlab_letsencrypt_auto_renew_hour: 1
+    gitlab_letsencrypt_auto_renew_minute: 30
+    gitlab_letsencrypt_auto_renew_day_of_month: "*/7"
+    gitlab_letsencrypt_auto_renew: true
+
+GitLab LetsEncrypt configuration; tells GitLab whether to request and use a certificate from LetsEncrypt, if `gitlab_letsencrypt_enable` is set to `"true"`. Multiple contact emails can be configured under `gitlab_letsencrypt_contact_emails` as a list.
 
     # LDAP Configuration.
     gitlab_ldap_enabled: "false"
@@ -70,6 +82,15 @@ Whether to create a self-signed certificate for serving GitLab over a secure con
     gitlab_ldap_base: "DC=example,DC=com"
 
 GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the configuration will tell GitLab how to connect to an LDAP server for centralized authentication.
+
+    gitlab_dependencies:
+      - openssh-server
+      - postfix
+      - curl
+      - openssl
+      - tzdata
+
+Dependencies required by GitLab for certain functionality, like timezone support or email. You may change this list in your own playbook if, for example, you would like to install `exim` instead of `postfix`.
 
     gitlab_time_zone: "UTC"
 
@@ -123,6 +144,26 @@ If you want to enable [2-way SSL Client Authentication](https://docs.gitlab.com/
     gitlab_default_theme: 2
 
 GitLab includes a number of themes, and you can set the default for all users with this variable. See [the included GitLab themes to choose a default](https://github.com/gitlabhq/gitlabhq/blob/master/config/gitlab.yml.example#L79-L85).
+
+    gitlab_extra_settings:
+      - gitlab_rails:
+          - key: "trusted_proxies"
+            value: "['foo', 'bar']"
+          - key: "env"
+            type: "plain"
+            value: |
+              {
+              "http_proxy" => "https://my_http_proxy.company.com:3128",
+              "https_proxy" => "https://my_http_proxy.company.com:3128",
+              "no_proxy" => "localhost, 127.0.0.1, company.com"
+              }
+      - unicorn:
+          - key: "worker_processes"
+            value: 5
+          - key: "pidfile"
+            value: "/opt/gitlab/var/unicorn/unicorn.pid"
+
+Gitlab have many other settings ([see official documentation](https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/files/gitlab-config-template/gitlab.rb.template)), and you can add them with this special variable `gitlab_extra_settings` with the concerned setting and the `key` and `value` keywords.
 
 ## Dependencies
 
