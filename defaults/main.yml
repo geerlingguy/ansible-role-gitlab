@@ -94,3 +94,11 @@ gitlab_registry_enable: "false"
 gitlab_registry_external_url: "https://gitlab.example.com:4567"
 gitlab_registry_nginx_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
 gitlab_registry_nginx_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
+
+# LetsEncrypt configuration.
+gitlab_letsencrypt_enable: "false"
+gitlab_letsencrypt_contact_emails: ["gitlab@example.com"]
+gitlab_letsencrypt_auto_renew_hour: 1
+gitlab_letsencrypt_auto_renew_minute: 30
+gitlab_letsencrypt_auto_renew_day_of_month: "*/7"
+gitlab_letsencrypt_auto_renew: true
