@@ -19,9 +19,9 @@ nginx['redirect_http_to_https'] = {{ gitlab_redirect_http_to_https | lower }}
 nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate }}"
 nginx['ssl_certificate_key'] = "{{ gitlab_ssl_certificate_key }}"
 
-letsencrypt['enable'] = {{ gitlab_letsencrypt_enable | lower }}
-{% if gitlab_letsencrypt_enable %}
-letsencrypt['contact_emails'] = {{ gitlab_letsencrypt_contact_emails | to_json }}
+letsencrypt['enable'] = {{ gitlab_letsencrypt_enable | bool | to_json }}
+{% if gitlab_letsencrypt_enable | bool is sameas true %}
+letsencrypt['contact_emails'] = "{{ gitlab_letsencrypt_contact_emails | to_json }}"
 letsencrypt['auto_renew_hour'] = "{{ gitlab_letsencrypt_auto_renew_hour }}"
 letsencrypt['auto_renew_minute'] = "{{ gitlab_letsencrypt_auto_renew_minute }}"
 letsencrypt['auto_renew_day_of_month'] = "{{ gitlab_letsencrypt_auto_renew_day_of_month }}"
