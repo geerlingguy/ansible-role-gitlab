@@ -4,8 +4,8 @@ external_url "{{ gitlab_external_url }}"
 # gitlab.yml configuration
 gitlab_rails['time_zone'] = "{{ gitlab_time_zone }}"
 gitlab_rails['backup_keep_time'] = {{ gitlab_backup_keep_time }}
-gitlab_rails['gitlab_email_enabled'] = {{ gitlab_email_enabled }}
-{% if gitlab_email_enabled == "true" %}
+gitlab_rails['gitlab_email_enabled'] = {{ gitlab_email_enabled | lower }}
+{% if gitlab_email_enabled %}
 gitlab_rails['gitlab_email_from'] = "{{ gitlab_email_from }}"
 gitlab_rails['gitlab_email_display_name'] = "{{ gitlab_email_display_name }}"
 gitlab_rails['gitlab_email_reply_to'] = "{{ gitlab_email_reply_to }}"
@@ -15,17 +15,17 @@ gitlab_rails['gitlab_email_reply_to'] = "{{ gitlab_email_reply_to }}"
 gitlab_rails['gitlab_default_theme'] = "{{ gitlab_default_theme }}"
 
 # Whether to redirect http to https.
-nginx['redirect_http_to_https'] = {{ gitlab_redirect_http_to_https }}
+nginx['redirect_http_to_https'] = {{ gitlab_redirect_http_to_https | lower }}
 nginx['ssl_certificate'] = "{{ gitlab_ssl_certificate }}"
 nginx['ssl_certificate_key'] = "{{ gitlab_ssl_certificate_key }}"
 
-letsencrypt['enable'] = "{{ gitlab_letsencrypt_enable }}"
+letsencrypt['enable'] = {{ gitlab_letsencrypt_enable | lower }}
 {% if gitlab_letsencrypt_enable %}
-letsencrypt['contact_emails'] = "{{ gitlab_letsencrypt_contact_emails | to_json }}"
+letsencrypt['contact_emails'] = {{ gitlab_letsencrypt_contact_emails | to_json }}
 letsencrypt['auto_renew_hour'] = "{{ gitlab_letsencrypt_auto_renew_hour }}"
 letsencrypt['auto_renew_minute'] = "{{ gitlab_letsencrypt_auto_renew_minute }}"
 letsencrypt['auto_renew_day_of_month'] = "{{ gitlab_letsencrypt_auto_renew_day_of_month }}"
-letsencrypt['auto_renew'] = "{{ gitlab_letsencrypt_auto_renew }}"
+letsencrypt['auto_renew'] = {{ gitlab_letsencrypt_auto_renew | lower }}
 {% endif %}
 
 # The directory where Git repositories will be stored.
@@ -36,8 +36,8 @@ gitlab_rails['backup_path'] = "{{ gitlab_backup_path }}"
 
 # These settings are documented in more detail at
 # https://gitlab.com/gitlab-org/gitlab-ce/blob/master/config/gitlab.yml.example#L118
-gitlab_rails['ldap_enabled'] = {{ gitlab_ldap_enabled }}
-{% if gitlab_ldap_enabled == "true" %}
+gitlab_rails['ldap_enabled'] = {{ gitlab_ldap_enabled | lower }}
+{% if gitlab_ldap_enabled %}
 gitlab_rails['ldap_host'] = '{{ gitlab_ldap_host }}'
 gitlab_rails['ldap_port'] = {{ gitlab_ldap_port }}
 gitlab_rails['ldap_uid'] = '{{ gitlab_ldap_uid }}'
@@ -54,14 +54,14 @@ gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
 nginx['listen_port'] = "{{ gitlab_nginx_listen_port }}"
 {% endif %}
 {% if gitlab_nginx_listen_https is defined %}
-nginx['listen_https'] = {{ gitlab_nginx_listen_https }}
+nginx['listen_https'] = {{ gitlab_nginx_listen_https | lower }}
 {% endif %}
 
 # Use smtp instead of sendmail/postfix
 # More details and example configuration at
 # https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md
-gitlab_rails['smtp_enable'] = {{ gitlab_smtp_enable }}
-{% if gitlab_smtp_enable == "true" %}
+gitlab_rails['smtp_enable'] = {{ gitlab_smtp_enable | lower }}
+{% if gitlab_smtp_enable %}
 gitlab_rails['smtp_address'] = '{{ gitlab_smtp_address }}'
 gitlab_rails['smtp_port'] = {{ gitlab_smtp_port }}
 {% if gitlab_smtp_user_name %}
@@ -74,8 +74,8 @@ gitlab_rails['smtp_domain'] = '{{ gitlab_smtp_domain }}'
 {% if gitlab_smtp_authentication %}
 gitlab_rails['smtp_authentication'] = '{{ gitlab_smtp_authentication }}'
 {% endif %}
-gitlab_rails['smtp_enable_starttls_auto'] = {{ gitlab_smtp_enable_starttls_auto }}
-gitlab_rails['smtp_tls'] = {{ gitlab_smtp_tls }}
+gitlab_rails['smtp_enable_starttls_auto'] = {{ gitlab_smtp_enable_starttls_auto | lower }}
+gitlab_rails['smtp_tls'] = {{ gitlab_smtp_tls | lower }}
 gitlab_rails['smtp_openssl_verify_mode'] = '{{ gitlab_smtp_openssl_verify_mode }}'
 gitlab_rails['smtp_ca_path'] = '{{ gitlab_smtp_ca_path }}'
 gitlab_rails['smtp_ca_file'] = '{{ gitlab_smtp_ca_file }}'
@@ -90,8 +90,8 @@ nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
 {% endif %}
 
 # GitLab registry.
-registry['enable'] = {{ gitlab_registry_enable }}
-{% if gitlab_registry_enable == "true" %}
+registry['enable'] = {{ gitlab_registry_enable | lower }}
+{% if gitlab_registry_enable %}
 registry_external_url "{{ gitlab_registry_external_url }}"
 registry_nginx['ssl_certificate'] = "{{ gitlab_registry_nginx_ssl_certificate }}"
 registry_nginx['ssl_certificate_key'] = "{{ gitlab_registry_nginx_ssl_certificate_key }}"
