@@ -47,6 +47,14 @@
   poll: 5
   when: not gitlab_file.stat.exists
 
+- name: Copy GitLab configuration file.
+  template:
+    src: "{{ gitlab_config_template }}"
+    dest: /etc/gitlab/gitlab.rb
+    owner: root
+    group: root
+    mode: 0600
+
 # Start and configure GitLab. Sometimes the first run fails, but after that,
 # restarts fix problems, so ignore failures on this run.
 - name: Reconfigure GitLab (first run).
@@ -70,12 +78,3 @@
     -days 3650 -keyout {{ gitlab_ssl_certificate_key }} -out {{ gitlab_ssl_certificate }} -extensions v3_ca
     creates={{ gitlab_ssl_certificate }}
   when: gitlab_create_self_signed_cert
-
-- name: Copy GitLab configuration file.
-  template:
-    src: "{{ gitlab_config_template }}"
-    dest: /etc/gitlab/gitlab.rb
-    owner: root
-    group: root
-    mode: 0600
-  notify: restart gitlab
