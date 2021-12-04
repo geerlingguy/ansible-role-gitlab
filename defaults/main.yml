@@ -48,6 +48,9 @@ gitlab_nginx_ssl_client_certificate: ""
 # Probably best to leave this as the default, unless doing testing.
 gitlab_restart_handler_failed_when: 'gitlab_restart.rc != 0'
 
+# Probably best to leave this as the default, unless you want to use your own source server.
+gitlab_repository_installation_script_url: "https://packages.gitlab.com/install/repositories/gitlab/{{ gitlab_edition }}/{{ gitlab_script }}"
+
 # Dependencies.
 gitlab_dependencies:
   - openssh-server

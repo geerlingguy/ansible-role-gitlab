@@ -165,6 +165,21 @@ GitLab includes a number of themes, and you can set the default for all users wi
 
 Gitlab have many other settings ([see official documentation](https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/files/gitlab-config-template/gitlab.rb.template)), and you can add them with this special variable `gitlab_extra_settings` with the concerned setting and the `key` and `value` keywords.
 
+## Offline usage
+
+You can use this role on a isolated infrastructure. Before to execute this role, configure on your gitlab server repositories to be able to download sources since your internal servers.
+
+Override this variable to point on a internal server:
+
+    gitlab_repository_installation_script_url: "https://packages.exemple.int/install/repositories/gitlab/{{ gitlab_edition }}/{{ gitlab_script }}"
+
+Usage of gitlab .sh script is not mandatory. You can create a simple .sh script like this one:
+
+    #!/bin/bash
+    echo "Hello World"
+
+Task "Download GitLab repository installation script" will be failed if you don't do that.
+
 ## Dependencies
 
 None.
