@@ -48,28 +48,28 @@ The `gitlab.rb.j2` template packaged with this role is meant to be very generic 
 
 ### SSL Configuration.
 
-    gitlab_redirect_http_to_https: "true"
+    gitlab_redirect_http_to_https: true
     gitlab_ssl_certificate: "/etc/gitlab/ssl/{{ gitlab_domain }}.crt"
     gitlab_ssl_certificate_key: "/etc/gitlab/ssl/{{ gitlab_domain }}.key"
 
 GitLab SSL configuration; tells GitLab to redirect normal http requests to https, and the path to the certificate and key (the default values will work for automatic self-signed certificate creation, if set to `true` in the variable below).
 
     # SSL Self-signed Certificate Configuration.
-    gitlab_create_self_signed_cert: "true"
+    gitlab_create_self_signed_cert: true
     gitlab_self_signed_cert_subj: "/C=US/ST=Missouri/L=Saint Louis/O=IT/CN={{ gitlab_domain }}"
 
 Whether to create a self-signed certificate for serving GitLab over a secure connection. Set `gitlab_self_signed_cert_subj` according to your locality and organization.
 
 ### LetsEncrypt Configuration.
 
-    gitlab_letsencrypt_enable: "false"
+    gitlab_letsencrypt_enable: false
     gitlab_letsencrypt_contact_emails: ["gitlab@example.com"]
     gitlab_letsencrypt_auto_renew_hour: 1
     gitlab_letsencrypt_auto_renew_minute: 30
     gitlab_letsencrypt_auto_renew_day_of_month: "*/7"
     gitlab_letsencrypt_auto_renew: true
 
-GitLab LetsEncrypt configuration; tells GitLab whether to request and use a certificate from LetsEncrypt, if `gitlab_letsencrypt_enable` is set to `"true"`. Multiple contact emails can be configured under `gitlab_letsencrypt_contact_emails` as a list.
+GitLab LetsEncrypt configuration; tells GitLab whether to request and use a certificate from LetsEncrypt, if `gitlab_letsencrypt_enable` is set to `true`. Multiple contact emails can be configured under `gitlab_letsencrypt_contact_emails` as a list.
 
     # LDAP Configuration.
     gitlab_ldap_enabled: "false"
@@ -120,7 +120,7 @@ How long to keep local backups (useful if you don't want backups to fill up your
 Controls whether to validate certificates when downloading the GitLab installation repository install script.
 
     # Email configuration.
-    gitlab_email_enabled: "false"
+    gitlab_email_enabled: false
     gitlab_email_from: "gitlab@example.com"
     gitlab_email_display_name: "Gitlab"
     gitlab_email_reply_to: "gitlab@example.com"
@@ -128,15 +128,15 @@ Controls whether to validate certificates when downloading the GitLab installati
 Gitlab system mail configuration. Disabled by default; set `gitlab_email_enabled` to `true` to enable, and make sure you enter valid from/reply-to values.
 
     # SMTP Configuration
-    gitlab_smtp_enable: "false"
+    gitlab_smtp_enable: false
     gitlab_smtp_address: "smtp.server"
     gitlab_smtp_port: "465"
     gitlab_smtp_user_name: "smtp user"
     gitlab_smtp_password: "smtp password"
     gitlab_smtp_domain: "example.com"
     gitlab_smtp_authentication: "login"
-    gitlab_smtp_enable_starttls_auto: "true"
-    gitlab_smtp_tls: "false"
+    gitlab_smtp_enable_starttls_auto: true
+    gitlab_smtp_tls: false
     gitlab_smtp_openssl_verify_mode: "none"
     gitlab_smtp_ca_path: "/etc/ssl/certs"
     gitlab_smtp_ca_file: "/etc/ssl/certs/ca-certificates.crt"
@@ -147,7 +147,7 @@ Gitlab SMTP configuration; of `gitlab_smtp_enable` is `true`, the rest of the co
 
 If you are running GitLab behind a reverse proxy, you may want to override the listen port to something else.
 
-    gitlab_nginx_listen_https: "false"
+    gitlab_nginx_listen_https: false
 
 If you are running GitLab behind a reverse proxy, you may wish to terminate SSL at another proxy server or load balancer
 
