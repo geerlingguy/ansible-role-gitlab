@@ -36,17 +36,38 @@ gitlab_rails['backup_path'] = "{{ gitlab_backup_path }}"
 
 # These settings are documented in more detail at
 # https://gitlab.com/gitlab-org/gitlab-ce/blob/master/config/gitlab.yml.example#L118
-gitlab_rails['ldap_enabled'] = {{ gitlab_ldap_enabled | lower }}
-{% if gitlab_ldap_enabled %}
-gitlab_rails['ldap_host'] = '{{ gitlab_ldap_host }}'
-gitlab_rails['ldap_port'] = {{ gitlab_ldap_port }}
-gitlab_rails['ldap_uid'] = '{{ gitlab_ldap_uid }}'
-gitlab_rails['ldap_method'] = '{{ gitlab_ldap_method}}' # 'ssl' or 'plain'
-gitlab_rails['ldap_bind_dn'] = '{{ gitlab_ldap_bind_dn }}'
-gitlab_rails['ldap_password'] = '{{ gitlab_ldap_password }}'
-gitlab_rails['ldap_allow_username_or_email_login'] = true
-gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
+gitlab_rails['ldap_enabled'] = {{ gitlab_ldap_enabled }}
+gitlab_rails['ldap_servers'] = YAML.load <<-EOS
+{% for name, values in gitlab_ldap_servers.items() %}
+{{ name }}:
+  label: '{{ values.label | default(gitlab_ldap_label) }}'
+  host: '{{ values.host | default(gitlab_ldap_host) }}'
+  port: {{ values.port | default(gitlab_ldap_port) }}
+  uid: '{{ values.uid | default(gitlab_ldap_uid) }}'
+  method: '{{ values.method | default(gitlab_ldap_method) }}'
+  bind_dn: '{{ values.bind_dn | default(gitlab_ldap_bind_on) }}'
+  password: '{{ values.password | default(gitlab_ldap_password) }}'
+  verify_certificates: {{ values.verify_certificates | default(gitlab_ldap_verify_certificates) }}
+{% if values.method is defined and values.method != 'plain' %}
+  tls_options:
+    ca_file: '{{ values.ca_file | default(gitlab_ldap_ca_file) }}'
+    ssl_version: '{{ values.ssl_version | default(gitlab_ldap_ssl_version) }}'
+    ciphers: '{{ values.ciphers | default(gitlab_ldap_ciphers) }}'
+    cert: '{{ values.cert | default(gitlab_ldap_cert) }}'
+    key: '{{ values.key | default(gitlab_ldap_key) }}'
 {% endif %}
+
+  timeout: {{ values.timeout | default(gitlab_ldap_timeout) }}
+  active_directory: {{ values.active_directory | default(gitlab_ldap_active_directory) }}
+  allow_username_or_email_login: {{ values.allow_username_or_email_login | default(gitlab_ldap_allow_username_or_email_login) }}
+  block_auto_created_users: {{ values.block_auto_created_users | default(gitlab_ldap_block_auto_created_users) }}
+
+  base: '{{ values.base | default(gitlab_ldap_base) }}'
+  user_filter: '{{ values.user_filter | default(gitlab_ldap_user_filter) }}'
+
+  attributes: {{ values.attributes | default(gitlab_ldap_attributes) }}
+{% endfor %}
+EOS
 
 # GitLab Nginx
 ## See https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/nginx.md
