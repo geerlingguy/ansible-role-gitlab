@@ -71,6 +71,23 @@ Whether to create a self-signed certificate for serving GitLab over a secure con
 
 GitLab LetsEncrypt configuration; tells GitLab whether to request and use a certificate from LetsEncrypt, if `gitlab_letsencrypt_enable` is set to `true`. Multiple contact emails can be configured under `gitlab_letsencrypt_contact_emails` as a list.
 
+### Container Registry
+
+
+    gitlab_registry_enable: false
+    gitlab_registry_path: "/var/opt/gitlab/gitlab-rails/shared/registry"
+    gitlab_registry_external_url: "https://gitlab.example.com:4567"
+    gitlab_registry_nginx_ssl_certificate: "/etc/gitlab/ssl/{{ gitlab_domain }}.crt"
+    gitlab_registry_nginx_ssl_certificate_key: "/etc/gitlab/ssl/{{ gitlab_domain }}.key"
+
+
+
+There are two ways you can configure the Registry’s external domain. Either:
+
+Use the existing GitLab domain. The Registry listens on a port and reuses the TLS certificate from GitLab.
+Use a completely separate domain with a new TLS certificate for that domain.
+
+
     # LDAP Configuration.
     gitlab_ldap_enabled: false
     gitlab_ldap_host: "example.com"

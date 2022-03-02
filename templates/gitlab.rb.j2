@@ -93,10 +93,13 @@ nginx['ssl_client_certificate'] = "{{ gitlab_nginx_ssl_client_certificate }}"
 # GitLab registry.
 registry['enable'] = {{ gitlab_registry_enable | lower }}
 {% if gitlab_registry_enable %}
+gitlab_rails['registry_path'] = "{{ gitlab_registry_path }}"
 registry_external_url "{{ gitlab_registry_external_url }}"
 registry_nginx['ssl_certificate'] = "{{ gitlab_registry_nginx_ssl_certificate }}"
 registry_nginx['ssl_certificate_key'] = "{{ gitlab_registry_nginx_ssl_certificate_key }}"
 {% endif %}
+
+#
 
 {% if gitlab_extra_settings is defined %}
 # Extra configuration
