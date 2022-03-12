@@ -172,6 +172,8 @@ None.
 ## Example Playbook
 
     - hosts: servers
+      environment:
+        GITLAB_ROOT_PASSWORD: 5iveL!fe
       vars_files:
         - vars/main.yml
       roles:
