@@ -38,6 +38,10 @@ The edition of GitLab to install. Usually either `gitlab-ce` (Community Edition)
 
 If you'd like to install a specific version, set the version here (e.g. `11.4.0-ce.0` for Debian/Ubuntu, or `11.4.0-ce.0.el7` for RedHat/CentOS).
 
+    gitlab_install_timeout: 600
+
+Number of seconds to wait before timing out the installation of GitLab software package.
+
     gitlab_config_template: "gitlab.rb.j2"
 
 The `gitlab.rb.j2` template packaged with this role is meant to be very generic and serve a variety of use cases. However, many people would like to have a much more customized version, and so you can override this role's default template with your own, adding any additional customizations you need. To do this:
