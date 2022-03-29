@@ -59,6 +59,7 @@ gitlab_dependencies:
 # Optional settings.
 gitlab_time_zone: "UTC"
 gitlab_backup_keep_time: "604800"
+gitlab_install_async_timeout: 500
 gitlab_download_validate_certs: true
 gitlab_default_theme: '2'
 

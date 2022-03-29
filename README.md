@@ -98,6 +98,10 @@ Gitlab timezone.
 
     gitlab_backup_keep_time: "604800"
 
+How long you want Ansible to hold ssh connection during GitLab installation task.
+
+    gitlab_install_async_timeout: 500
+
 How long to keep local backups (useful if you don't want backups to fill up your drive!).
 
     gitlab_download_validate_certs: true
