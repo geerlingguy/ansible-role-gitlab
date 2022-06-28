@@ -79,7 +79,7 @@ GitLab LetsEncrypt configuration; tells GitLab whether to request and use a cert
             host: "example.com"
             port: "389"
             uid: "sAMAccountName"
-            method: "plain"
+            encryption: "plain"
             ca_file: ''
             ssl_version: ''
             ciphers: ''
@@ -95,6 +95,18 @@ GitLab LetsEncrypt configuration; tells GitLab whether to request and use a cert
                 name: 'cn'
                 first_name: 'givenName'
                 last_name: 'sn'
+            lowercase_usernames: false
+            timeout: 10
+            active_directory: true
+            allow_username_or_email_login: true
+            block_auto_created_users: false
+            lowercase_usernames: false
+            # EE Only
+            group_base: ''
+            admin_group: ''
+            external_groups: ''
+            sync_ssh_keys: false
+
 
 GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the configuration will tell GitLab how to connect to an LDAP server for centralized authentication.
 

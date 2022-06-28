@@ -24,9 +24,9 @@ gitlab_ldap_servers:
 gitlab_ldap_label: 'LDAP'
 gitlab_ldap_host: "example.com"
 gitlab_ldap_port: "389"
-gitlab_ldap_verify_certificates: "true"
+gitlab_ldap_verify_certificates: true
 gitlab_ldap_uid: "sAMAccountName"
-gitlab_ldap_method: "plain"
+gitlab_ldap_encryption: "plain"
 gitlab_ldap_ca_file: ''
 gitlab_ldap_ssl_version: ''
 gitlab_ldap_ciphers: ''
@@ -37,15 +37,20 @@ gitlab_ldap_password: "password"
 gitlab_ldap_base: "DC=example,DC=com"
 gitlab_ldap_user_filter: ''
 gitlab_ldap_timeout: 10
-gitlab_ldap_active_directory: ''
-gitlab_ldap_allow_username_or_email_login: "true"
-gitlab_ldap_block_auto_created_users: "false"
+gitlab_ldap_active_directory: true
+gitlab_ldap_allow_username_or_email_login: true
+gitlab_ldap_block_auto_created_users: false
 gitlab_ldap_attributes:
     username: ['uid']
     email: ['mail']
     name: 'displayName'
     first_name: 'givenName'
     last_name: 'sn'
+gitlab_ldap_lowecase_usernames: false
+gitlab_ldap_group_base: ''
+gitlab_ldap_admin_group: ''
+gitlab_ldap_external_groups: []
+gitlab_ldap_sync_ssh_keys: false
 
 # SMTP Configuration
 gitlab_smtp_enable: false
