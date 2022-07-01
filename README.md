@@ -163,7 +163,20 @@ GitLab includes a number of themes, and you can set the default for all users wi
           - key: "pidfile"
             value: "/opt/gitlab/var/unicorn/unicorn.pid"
 
-Gitlab have many other settings ([see official documentation](https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/files/gitlab-config-template/gitlab.rb.template)), and you can add them with this special variable `gitlab_extra_settings` with the concerned setting and the `key` and `value` keywords.
+    gitlab_extra_settings: |
+        # contfigure object storage to use S3
+        gitlab_rails['object_store']['enabled'] = true
+        gitlab_rails['object_store']['proxy_download'] = true
+        gitlab_rails['object_store']['connection'] = {
+            'provider' => 'AWS',
+            'region' => '{{ ansible_ec2_placement_region }}',
+            'use_iam_profile' => true
+        }
+        gitlab_rails['object_store']['storage_options'] = {
+            'server_side_encryption' => 'AES256'
+        }
+
+Gitlab have many other settings ([see official documentation](https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/files/gitlab-config-template/gitlab.rb.template)), and you can add them with this special variable `gitlab_extra_settings` with the concerned setting and the `key` and `value` keywords, or alternatively provide `gitlab_extra_settings` as a string to have the entire string appended as is. 
 
 ## Dependencies
 
