@@ -162,8 +162,12 @@ GitLab includes a number of themes, and you can set the default for all users wi
             value: 5
           - key: "pidfile"
             value: "/opt/gitlab/var/unicorn/unicorn.pid"
+      - package:
+          - key: modify_kernel_parameters
+            value: 'false'
+            type: plain
 
-Gitlab have many other settings ([see official documentation](https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/files/gitlab-config-template/gitlab.rb.template)), and you can add them with this special variable `gitlab_extra_settings` with the concerned setting and the `key` and `value` keywords.
+Gitlab have many other settings ([see official documentation](https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/files/gitlab-config-template/gitlab.rb.template)), and you can add them with this special variable `gitlab_extra_settings` with the concerned setting and the `key` and `value` keywords. Use the optional `type` key set to `plain` to avoid quoting non-strings. For boolean values in the extra settings, quote them as strings and set `type: plain` to ensure they're properly set.
 
 ## Dependencies
 
