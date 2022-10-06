@@ -46,6 +46,10 @@ The `gitlab.rb.j2` template packaged with this role is meant to be very generic 
   - Create a `templates\mygitlab.rb.j2` file (just choose a different name from the default template).
   - Set the variable like: `gitlab_config_template: mygitlab.rb.j2` (with the name of your custom template).
 
+Sometimes the package repositiories for gitlab lag way behind the release of a new distribution. In such cases the solution is often to use the package repository for the previous distribution release. For Debian based distributions the distribution release can be overridden with (for example):
+
+  override_distribution_release: focal
+
 ### SSL Configuration.
 
     gitlab_redirect_http_to_https: true

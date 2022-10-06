@@ -34,6 +34,22 @@
   register: output
   when: not gitlab_file.stat.exists
 
+- name: Stat sources file
+  stat:
+    path: "/etc/apt/sources.list.d/gitlab_{{gitlab_edition}}.list"
+  register: sources_file
+
+- name: Replace distribution name in apt source when gitlab package repo lags behind
+  ansible.builtin.replace:
+    path: "/etc/apt/sources.list.d/gitlab_{{gitlab_edition}}.list"
+    regexp: "{{ ansible_distribution_release }}"
+    replace: "{{ override_distribution_release }}"
+  when:
+    - override_distribution_release is defined
+    - ansible_os_family == 'Debian'
+    - sources_file.stat.exists
+    - not gitlab_file.stat.exists
+
 - name: Define the Gitlab package name.
   set_fact:
     gitlab_package_name: "{{ gitlab_edition }}{{ gitlab_package_version_separator }}{{ gitlab_version }}"
@@ -43,6 +59,7 @@
   package:
     name: "{{ gitlab_package_name | default(gitlab_edition) }}"
     state: present
+    update_cache: true
   async: 300
   poll: 5
   when: not gitlab_file.stat.exists
