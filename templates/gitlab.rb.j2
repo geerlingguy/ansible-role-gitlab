@@ -97,6 +97,14 @@ registry_nginx['ssl_certificate'] = "{{ gitlab_registry_nginx_ssl_certificate }}
 registry_nginx['ssl_certificate_key'] = "{{ gitlab_registry_nginx_ssl_certificate_key }}"
 {% endif %}
 
+# GitLab pages.
+gitlab_pages['enable'] = {{ gitlab_pages_enable | lower }}
+{% if gitlab_pages_enable %}
+pages_external_url "{{ gitlab_pages_external_url }}"
+pages_nginx['ssl_certificate'] = "{{ gitlab_pages_nginx_ssl_certificate }}"
+pages_nginx['ssl_certificate_key'] = "{{ gitlab_pages_nginx_ssl_certificate_key }}"
+{% endif %}
+
 {% if gitlab_extra_settings is defined %}
 # Extra configuration
 {% for extra in gitlab_extra_settings %}
