@@ -24,7 +24,7 @@
 
     - name: Set the test GitLab version number for RedHat.
       set_fact:
-        gitlab_version: '11.4.0-ce.0.el7'
+        gitlab_version: '15.6.3-ce.0.el8'
       when: ansible_os_family == 'RedHat'
 
   roles:
