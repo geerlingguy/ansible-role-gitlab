@@ -41,15 +41,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - distro: centos7
+          - distro: rockylinux8
             playbook: converge.yml
-          - distro: ubuntu1804
+          - distro: ubuntu2004
             playbook: converge.yml
-          - distro: debian9
+          - distro: debian10
             playbook: converge.yml
-          - distro: centos7
+          - distro: rockylinux8
             playbook: version.yml
-          - distro: ubuntu1804
+          - distro: ubuntu2004
             playbook: version.yml
 
     steps:
