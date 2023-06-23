@@ -7,12 +7,8 @@ galaxy_info:
   description: GitLab Git web interface
   company: "Midwestern Mac, LLC"
   license: "license (BSD, MIT)"
-  min_ansible_version: 2.0
+  min_ansible_version: 2.10
   platforms:
-    - name: EL
-      versions:
-        - 7
-        - 8
     - name: Debian
       versions:
         - all
