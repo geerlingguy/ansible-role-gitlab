@@ -81,7 +81,7 @@ GitLab LetsEncrypt configuration; tells GitLab whether to request and use a cert
     gitlab_ldap_password: "password"
     gitlab_ldap_base: "DC=example,DC=com"
 
-GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the configuration will tell GitLab how to connect to an LDAP server for centralized authentication.
+GitLab LDAP configuration; if `gitlab_ldap_enabled` is `true`, the rest of the configuration will tell GitLab how to connect to an LDAP server for centralized authentication. gitlab_ldap_method is one of 'start_tls', 'simple_tls', or 'plain' (usually, you want simple_tls): see https://docs.gitlab.com/ee/administration/auth/ldap/ for full gitlab documentation.
 
     gitlab_dependencies:
       - openssh-server
