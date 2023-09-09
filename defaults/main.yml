@@ -74,6 +74,12 @@ gitlab_registry_external_url: "https://gitlab.example.com:4567"
 gitlab_registry_nginx_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
 gitlab_registry_nginx_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
 
+# Pages configuration.
+gitlab_pages_enable: false
+gitlab_pages_external_url: "https://pages.gitlab.example.com"
+gitlab_pages_nginx_ssl_certificate: "/etc/gitlab/ssl/gitlab.crt"
+gitlab_pages_nginx_ssl_certificate_key: "/etc/gitlab/ssl/gitlab.key"
+
 # LetsEncrypt configuration.
 gitlab_letsencrypt_enable: false
 gitlab_letsencrypt_contact_emails: ["gitlab@example.com"]
