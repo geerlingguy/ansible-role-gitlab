@@ -51,6 +51,10 @@ jobs:
             playbook: version.yml
           - distro: ubuntu2004
             playbook: version.yml
+          - distro: rockylinux8
+            playbook: version.yml
+          - distro: rockylinux8
+            playbook: converge.yml
 
     steps:
       - name: Check out the codebase.

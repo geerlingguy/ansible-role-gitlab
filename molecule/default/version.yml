@@ -22,10 +22,19 @@
         gitlab_version: '15.6.3-ce.0'
       when: ansible_os_family == 'Debian'
 
-    - name: Set the test GitLab version number for RedHat.
+    - name: Set the test GitLab version number for RedHat 7.
       set_fact:
-        gitlab_version: '15.6.3-ce.0.el8'
-      when: ansible_os_family == 'RedHat'
+        gitlab_version: '11.4.0-ce.0.el7'
+      when:
+        - ansible_os_family == 'RedHat'
+        - ansible_distribution_version is version('8', '<')
+
+    - name: Set the test GitLab version number for RedHat 8.
+      set_fact:
+        gitlab_version: '13.12.4-ce.0.el8'
+      when:
+        - ansible_os_family == 'RedHat'
+        - ansible_distribution_version is version('8', '>=')
 
   roles:
     - role: geerlingguy.gitlab
