@@ -38,14 +38,19 @@ gitlab_rails['backup_path'] = "{{ gitlab_backup_path }}"
 # https://gitlab.com/gitlab-org/gitlab-ce/blob/master/config/gitlab.yml.example#L118
 gitlab_rails['ldap_enabled'] = {{ gitlab_ldap_enabled | lower }}
 {% if gitlab_ldap_enabled %}
-gitlab_rails['ldap_host'] = '{{ gitlab_ldap_host }}'
-gitlab_rails['ldap_port'] = {{ gitlab_ldap_port }}
-gitlab_rails['ldap_uid'] = '{{ gitlab_ldap_uid }}'
-gitlab_rails['ldap_method'] = '{{ gitlab_ldap_method}}' # 'ssl' or 'plain'
-gitlab_rails['ldap_bind_dn'] = '{{ gitlab_ldap_bind_dn }}'
-gitlab_rails['ldap_password'] = '{{ gitlab_ldap_password }}'
-gitlab_rails['ldap_allow_username_or_email_login'] = true
-gitlab_rails['ldap_base'] = '{{ gitlab_ldap_base }}'
+gitlab_rails['ldap_servers'] = {
+  'main' => {
+    'label' => 'LDAP',
+    'host' =>  '{{ gitlab_ldap_host }}',
+    'port' => {{ gitlab_ldap_port }},
+    'uid' => '{{ gitlab_ldap_uid }}',
+    'encryption' => '{{ gitlab_ldap_method}}',
+    'bind_dn' => '{{ gitlab_ldap_bind_dn }}',
+    'password' => '{{ gitlab_ldap_password }}',
+    'allow_username_or_email_login' => true,
+    'base' => '{{ gitlab_ldap_base }}'
+  }
+}
 {% endif %}
 
 # GitLab Nginx
